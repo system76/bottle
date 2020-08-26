@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package bottle.messages.support;
+
+import "user.proto";
+
+message Ticket {
+  string comment = 1;
+  User submitter = 2;
+  User customer = 3;
+  string order_id = 4;
+  repeated string tags = 5;
+}

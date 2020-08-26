@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package bottle.messages;
+
+message User {
+  string id = 1;
+}

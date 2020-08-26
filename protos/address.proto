@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package bottle.messages;
+
+message Address {
+  string id = 1;
+  string name = 2;
+  string company = 3;
+  string address1 = 4;
+  string address2 = 5;
+  string city = 6;
+  string state = 7;
+  string postal_code = 8;
+  string country = 9;
+}

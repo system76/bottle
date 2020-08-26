@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package bottle.messages;
+
+import "address.proto";
+import "product.proto";
+import "user.proto";
+
+message Order {
+  int64 id = 1;
+
+  User user = 2;
+  Address shipping = 3;
+  Address billing = 4;
+
+  repeated Product products = 5;
+}

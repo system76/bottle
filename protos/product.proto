@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package bottle.messages;
+
+message Product {
+  string id = 1;
+  string model = 2;
+  bool rushed_assembly = 3;
+}
