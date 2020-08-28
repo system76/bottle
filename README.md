@@ -13,7 +13,7 @@ $ protoc --elixir_out=./lib/bottle/messages -I priv/protos/ priv/protos/*.proto
 ```elixir
 def deps do
   [
-    {:bottle, github: "system76/bottle"}
+    {:bottle, github: "system76/bottle", branch: "elixir"}
   ]
 end
 ```
