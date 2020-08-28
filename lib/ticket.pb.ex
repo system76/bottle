@@ -11,9 +11,9 @@ defmodule Bottle.Messages.Support.Ticket do
         }
   defstruct [:comment, :submitter, :customer, :order_id, :tags]
 
-  field :comment, 1, type: :string
-  field :submitter, 2, type: Bottle.Messages.User
-  field :customer, 3, type: Bottle.Messages.User
-  field :order_id, 4, type: :string
-  field :tags, 5, repeated: true, type: :string
+  field(:comment, 1, type: :string)
+  field(:submitter, 2, type: Bottle.Messages.User)
+  field(:customer, 3, type: Bottle.Messages.User)
+  field(:order_id, 4, type: :string)
+  field(:tags, 5, repeated: true, type: :string)
 end

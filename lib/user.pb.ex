@@ -7,5 +7,5 @@ defmodule Bottle.Messages.User do
         }
   defstruct [:id]
 
-  field :id, 1, type: :string
+  field(:id, 1, type: :string)
 end

@@ -9,7 +9,7 @@ defmodule Bottle.Messages.Product do
         }
   defstruct [:id, :model, :rushed_assembly]
 
-  field :id, 1, type: :string
-  field :model, 2, type: :string
-  field :rushed_assembly, 3, type: :bool
+  field(:id, 1, type: :string)
+  field(:model, 2, type: :string)
+  field(:rushed_assembly, 3, type: :bool)
 end
