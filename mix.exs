@@ -1,9 +1,9 @@
-defmodule BottleEx.MixProject do
+defmodule Bottle.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :bottle_ex,
+      app: :bottle,
       version: "0.1.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,

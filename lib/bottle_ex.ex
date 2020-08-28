@@ -1,2 +1,2 @@
-defmodule BottleEx do
+defmodule Bottle do
 end
