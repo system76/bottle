@@ -7,6 +7,7 @@ defmodule BottleEx.MixProject do
       version: "0.1.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -15,6 +16,12 @@ defmodule BottleEx.MixProject do
   def application do
     [
       extra_applications: [:logger]
+    ]
+  end
+
+  defp aliases do
+    [
+      "protobuf.gen": ["protoc --elixir_out=./lib/bottle/messages -I priv/protos/ priv/protos/*.proto"
     ]
   end
 
