@@ -61,5 +61,5 @@ jobs:
 
           cd ./elixir
           git add .
-          git commit -m "update protobufs"
+          git commit -m "update protobufs" || true
           git push
