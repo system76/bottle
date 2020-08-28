@@ -25,7 +25,7 @@ jobs:
 
       - name: Merge
         run: |
-          cp -R ./master/protos ./elixir/lib/proto
+          cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir
           mix protobuf.gen
 
