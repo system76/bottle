@@ -1,0 +1,65 @@
+---
+
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+  repository_dispatch:
+    types:
+      - publish
+
+jobs:
+  Elixir:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (master)
+        uses: actions/checkout@v2
+        with:
+          path: master
+
+      - name: Checkout (elixir)
+        uses: actions/checkout@v2
+        with:
+          ref: elixir
+          path: elixir
+
+      - name: Setup (protoc)
+        uses: arduino/setup-protoc@v1
+
+      - name: Setup (elixir)
+        uses: actions/setup-elixir@v1
+        with:
+          elixir-version: "1.10"
+          otp-version: "23.0"
+
+      - name: Dependencies
+        run: |
+          cd ./elixir
+          mix deps.get
+          mix compile
+          mix escript.install --force hex protobuf
+
+      - name: Merge
+        run: |
+          cp -R ./master/protos/. ./elixir/priv/protos/
+          cd ./elixir
+          PATH="$PATH:/home/runner/.mix/escripts" protoc --elixir_out=./lib -I priv/protos/ priv/protos/*.proto
+
+      - name: Format
+        run: |
+          cd ./elixir
+          mix format
+
+      - name: Publish
+        run: |
+          git config --global user.email "hosting@system76.com"
+          git config --global user.name "5iMON-bot"
+
+          cd ./elixir
+          git add .
+          git commit -m "update protobufs"
+          git push
