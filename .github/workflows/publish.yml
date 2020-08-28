@@ -1,0 +1,37 @@
+---
+
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Elixir:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (master)
+        uses: actions/checkout@v2
+        with:
+          path: master
+
+      - name: Checkout (elixir)
+        uses: actions/checkout@v2
+        with:
+          ref: elixir
+          path: elixir
+
+      - name: Merge
+        run: |
+          cp -R ./master/protos ./elixir/lib/proto
+          cd ./elixir
+          mix protobuf.gen
+
+      - name: Deploy
+        run: |
+          cd ./elixir
+          git add .
+          git commit -m "update protobufs"
+          git push
