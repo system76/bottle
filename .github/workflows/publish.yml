@@ -58,7 +58,8 @@ jobs:
 
       - name: Generate
         run: |
-          rm -rf ./elixir/lib/**/*
+          rm -rf ./elixir/lib
+          mkdir ./elixir/lib
 
           cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir/priv/protos
@@ -76,6 +77,6 @@ jobs:
           git config --global user.name "5iMON-bot"
 
           cd ./elixir
-          git add .
+          git add ./lib
           git commit -m "update protobufs" || true
           git push
