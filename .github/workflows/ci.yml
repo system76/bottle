@@ -52,17 +52,14 @@ jobs:
           mix escript.install --force hex protobuf
 
           sudo cp /home/runner/.mix/escripts/protoc-gen-elixir /usr/local/bin/
-          sudo chmod +x /usr/local/bin/buf
+          sudo chmod +x /usr/local/bin/protoc-gen-elixir
 
       - name: Merge
         run: |
           cp -R ./master/protos/. ./elixir/priv/protos/
-          cd ./elixir
+          cd ./elixir/priv/protos
 
-          cat buf.yaml
-          ls -hal ./priv/protos
-
-          buf image build -o - | protoc --elixir_out=./lib $(buf image build -o - | buf ls-files --input -)
+          buf image build -o - | protoc --elixir_out=../../lib $(buf image build -o - | buf ls-files --input -)
 
       - name: Format
         run: |
