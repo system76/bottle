@@ -54,8 +54,10 @@ jobs:
           sudo cp /home/runner/.mix/escripts/protoc-gen-elixir /usr/local/bin/
           sudo chmod +x /usr/local/bin/protoc-gen-elixir
 
-      - name: Merge
+      - name: Generate
         run: |
+          rm -rf ./elixir/lib/**/*
+
           cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir/priv/protos
 
