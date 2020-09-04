@@ -1,4 +1,4 @@
-defmodule Bottle.Account.Address do
+defmodule Bottle.Account.V1.Address do
   @moduledoc false
   use Protobuf, syntax: :proto3
 

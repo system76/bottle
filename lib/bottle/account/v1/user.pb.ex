@@ -1,4 +1,4 @@
-defmodule Bottle.Account.User do
+defmodule Bottle.Account.V1.User do
   @moduledoc false
   use Protobuf, syntax: :proto3
 

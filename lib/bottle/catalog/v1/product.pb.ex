@@ -1,4 +1,4 @@
-defmodule Bottle.Catalog.Product do
+defmodule Bottle.Catalog.V1.Product do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
