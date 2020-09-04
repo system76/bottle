@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package bottle.messages;
+package Bottle.Catalog;
 
 message Product {
   string id = 1;
   string model = 2;
-  bool rushed_assembly = 3;
+  bool rush_assembly = 3;
 }
