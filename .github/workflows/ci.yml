@@ -58,6 +58,10 @@ jobs:
         run: |
           cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir
+
+          cat buf.yaml
+          ls -hal ./priv/protos
+
           buf image build -o - | protoc --elixir_out=./lib $(buf image build -o - | buf ls-files --input -)
 
       - name: Format
