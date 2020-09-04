@@ -12,6 +12,7 @@ message Order {
   Account.User customer = 2;
   Account.Address shipping = 3;
   Account.Address billing = 4;
+  string shipping_method = 5;
 
-  repeated Catalog.Product products = 5;
+  repeated Catalog.Product products = 6;
 }
