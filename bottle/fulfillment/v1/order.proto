@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package bottle.fulfillment.v1;
+
+import "bottle/account/v1/address.proto";
+import "bottle/catalog/v1/product.proto";
+import "bottle/account/v1/user.proto";
+
+message Order {
+  int64 id = 1;
+
+  bottle.account.v1.User customer = 2;
+  bottle.account.v1.Address shipping = 3;
+  bottle.account.v1.Address billing = 4;
+  string shipping_method = 5;
+
+  repeated bottle.catalog.v1.Product products = 6;
+}

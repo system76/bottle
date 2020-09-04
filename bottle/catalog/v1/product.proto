@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Bottle.Catalog;
+package bottle.catalog.v1;
 
 message Product {
   string id = 1;
