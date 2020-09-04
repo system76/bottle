@@ -45,7 +45,7 @@ jobs:
         run: |
           cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir
-          PATH="$PATH:/home/runner/.mix/escripts" protoc --elixir_out=./lib -I priv/protos/ priv/protos/*.proto
+          PATH="$PATH:/home/runner/.mix/escripts" buf image build -o - | protoc --elixir_out=./lib $(buf image build -o - | buf ls-files --input -)
 
       - name: Format
         run: |
