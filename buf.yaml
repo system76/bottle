@@ -1,0 +1,5 @@
+---
+
+build:
+  roots:
+    - priv/protos
