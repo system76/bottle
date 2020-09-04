@@ -1,2 +1,0 @@
-defmodule Bottle do
-end
