@@ -28,6 +28,16 @@ jobs:
       - name: Setup (protoc)
         uses: arduino/setup-protoc@v1
 
+      - name: Setup (buf)
+        env:
+          VERSION: "0.21.0"
+        run: |
+          sudo curl -sSL \
+            "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \
+            -o /usr/local/bin/buf
+
+          sudo chmod +x /usr/local/bin/buf
+
       - name: Setup (elixir)
         uses: actions/setup-elixir@v1
         with:
@@ -41,11 +51,14 @@ jobs:
           mix compile
           mix escript.install --force hex protobuf
 
+          sudo cp /home/runner/.mix/escripts/protoc-gen-elixir /usr/local/bin/
+          sudo chmod +x /usr/local/bin/buf
+
       - name: Merge
         run: |
           cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir
-          PATH="$PATH:/home/runner/.mix/escripts" buf image build -o - | protoc --elixir_out=./lib $(buf image build -o - | buf ls-files --input -)
+          buf image build -o - | protoc --elixir_out=./lib $(buf image build -o - | buf ls-files --input -)
 
       - name: Format
         run: |
