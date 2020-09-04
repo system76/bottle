@@ -60,7 +60,7 @@ jobs:
         run: |
           rm -rf ./elixir/lib/**/*
 
-          cp -R ./master/bottle/. ./elixir/priv/protos/
+          cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir/priv/protos
 
           buf image build -o - | protoc --elixir_out=../../lib $(buf image build -o - | buf ls-files --input -)
