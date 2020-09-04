@@ -10,7 +10,8 @@ on:
       - synchronize
 
 jobs:
-  Lint:
+  Lint_Format:
+    name: Lint (Format)
     runs-on: ubuntu-latest
 
     steps:
@@ -32,14 +33,44 @@ jobs:
           cd protos
           buf check lint
 
+  Lint_Breaking:
+    name: Lint (Breaking)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (current)
+        uses: actions/checkout@v2
+        with:
+          path: current
+
+      - name: Checkout (master)
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          path: master
+
+      - name: Setup (buf)
+        env:
+          VERSION: "0.21.0"
+        run: |
+          sudo curl -sSL \
+            "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \
+            -o /usr/local/bin/buf
+
+          sudo chmod +x /usr/local/bin/buf
+
+      - name: Lint
+        run: |
+          buf check breaking --input ./current/protos --against-input ./master/protos
+
   Elixir:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout (master)
+      - name: Checkout (current)
         uses: actions/checkout@v2
         with:
-          path: master
+          path: current
 
       - name: Checkout (elixir)
         uses: actions/checkout@v2
@@ -80,7 +111,7 @@ jobs:
         run: |
           rm -rf ./elixir/lib/**/*
 
-          cp -R ./master/protos/. ./elixir/priv/protos/
+          cp -R ./current/protos/. ./elixir/priv/protos/
           cd ./elixir/priv/protos
 
           buf image build -o - | protoc --elixir_out=../../lib $(buf image build -o - | buf ls-files --input -)
