@@ -1,15 +1,13 @@
 ---
 
-name: Publish
+name: CI
 
 on:
-  push:
-    branches:
-      - master
-
-  repository_dispatch:
+  pull_request:
     types:
-      - publish
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   Elixir:
@@ -69,13 +67,3 @@ jobs:
         run: |
           cd ./elixir
           mix format
-
-      - name: Publish
-        run: |
-          git config --global user.email "hosting@system76.com"
-          git config --global user.name "5iMON-bot"
-
-          cd ./elixir
-          git add .
-          git commit -m "update protobufs" || true
-          git push
