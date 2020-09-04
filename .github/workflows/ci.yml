@@ -10,6 +10,31 @@ on:
       - synchronize
 
 jobs:
+  Lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup (protoc)
+        uses: arduino/setup-protoc@v1
+
+      - name: Setup (buf)
+        env:
+          VERSION: "0.21.0"
+        run: |
+          sudo curl -sSL \
+            "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \
+            -o /usr/local/bin/buf
+
+          sudo chmod +x /usr/local/bin/buf
+
+      - name: Lint
+        run: |
+          cd protos
+          buf check lint
+
   Elixir:
     runs-on: ubuntu-latest
 
