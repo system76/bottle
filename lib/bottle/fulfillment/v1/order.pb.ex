@@ -3,7 +3,7 @@ defmodule Bottle.Fulfillment.V1.Order do
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          id: integer,
+          id: String.t(),
           customer: Bottle.Account.V1.User.t() | nil,
           shipping: Bottle.Account.V1.Address.t() | nil,
           billing: Bottle.Account.V1.Address.t() | nil,
@@ -12,7 +12,7 @@ defmodule Bottle.Fulfillment.V1.Order do
         }
   defstruct [:id, :customer, :shipping, :billing, :shipping_method, :products]
 
-  field(:id, 1, type: :int64)
+  field(:id, 1, type: :string)
   field(:customer, 2, type: Bottle.Account.V1.User)
   field(:shipping, 3, type: Bottle.Account.V1.Address)
   field(:billing, 4, type: Bottle.Account.V1.Address)
