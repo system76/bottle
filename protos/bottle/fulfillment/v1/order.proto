@@ -13,7 +13,17 @@ message Order {
   bottle.account.v1.Address shipping = 3;
   bottle.account.v1.Address billing = 4;
   string shipping_method = 5;
-  string payment_method = 7;
-  
   repeated bottle.catalog.v1.Product products = 6;
+
+  enum PaymentMethod {
+    STRIPE = 0;
+    CHECK = 1;
+    WIRE_TRANSFER = 2;
+    MONEY_ORDER = 3;
+    PURCHASE_ORDER = 4;
+    WARRANTY = 5;
+    ADVANCED_REPLACEMENT = 6;
+  }
+
+  PaymentMethod payment_method = 7;
 }
