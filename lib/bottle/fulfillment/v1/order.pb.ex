@@ -12,6 +12,7 @@ defmodule Bottle.Fulfillment.V1.Order.PaymentMethod do
           | :PAYMENT_METHOD_WARRANTY
           | :PAYMENT_METHOD_ADVANCED_REPLACEMENT
           | :PAYMENT_METHOD_STRIPE_CC
+          | :PAYMENT_METHOD_STRIPE_KLARNA
 
   field(:PAYMENT_METHOD_UNSPECIFIED, 0)
   field(:PAYMENT_METHOD_CHECK, 1)
@@ -21,6 +22,7 @@ defmodule Bottle.Fulfillment.V1.Order.PaymentMethod do
   field(:PAYMENT_METHOD_WARRANTY, 5)
   field(:PAYMENT_METHOD_ADVANCED_REPLACEMENT, 6)
   field(:PAYMENT_METHOD_STRIPE_CC, 7)
+  field(:PAYMENT_METHOD_STRIPE_KLARNA, 8)
 end
 
 defmodule Bottle.Fulfillment.V1.Order do
