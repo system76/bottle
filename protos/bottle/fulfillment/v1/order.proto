@@ -3,8 +3,8 @@ syntax = "proto3";
 package bottle.fulfillment.v1;
 
 import "bottle/account/v1/address.proto";
-import "bottle/catalog/v1/product.proto";
 import "bottle/account/v1/user.proto";
+import "bottle/catalog/v1/product.proto";
 
 message Order {
   string id = 1;
@@ -13,6 +13,18 @@ message Order {
   bottle.account.v1.Address shipping = 3;
   bottle.account.v1.Address billing = 4;
   string shipping_method = 5;
-
   repeated bottle.catalog.v1.Product products = 6;
+
+  enum PaymentMethod {
+    PAYMENT_METHOD_UNSPECIFIED = 0;
+    PAYMENT_METHOD_CHECK = 1;
+    PAYMENT_METHOD_WIRE_TRANSFER = 2;
+    PAYMENT_METHOD_MONEY_ORDER = 3;
+    PAYMENT_METHOD_PURCHASE_ORDER = 4;
+    PAYMENT_METHOD_WARRANTY = 5;
+    PAYMENT_METHOD_ADVANCED_REPLACEMENT = 6;
+    PAYMENT_METHOD_STRIPE_CC = 7;
+  }
+
+  PaymentMethod payment_method = 7;
 }
