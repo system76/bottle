@@ -16,13 +16,14 @@ message Order {
   repeated bottle.catalog.v1.Product products = 6;
 
   enum PaymentMethod {
-    STRIPE = 0;
-    CHECK = 1;
-    WIRE_TRANSFER = 2;
-    MONEY_ORDER = 3;
-    PURCHASE_ORDER = 4;
-    WARRANTY = 5;
-    ADVANCED_REPLACEMENT = 6;
+    PAYMENT_METHOD_UNSPECIFIED = 0;
+    PAYMENT_METHOD_CHECK = 1;
+    PAYMENT_METHOD_WIRE_TRANSFER = 2;
+    PAYMENT_METHOD_MONEY_ORDER = 3;
+    PAYMENT_METHOD_PURCHASE_ORDER = 4;
+    PAYMENT_METHOD_WARRANTY = 5;
+    PAYMENT_METHOD_ADVANCED_REPLACEMENT = 6;
+    PAYMENT_METHOD_STRIPE_CC = 7;
   }
 
   PaymentMethod payment_method = 7;
