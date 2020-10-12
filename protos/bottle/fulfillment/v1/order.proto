@@ -24,6 +24,7 @@ message Order {
     PAYMENT_METHOD_WARRANTY = 5;
     PAYMENT_METHOD_ADVANCED_REPLACEMENT = 6;
     PAYMENT_METHOD_STRIPE_CC = 7;
+    PAYMENT_METHOD_STRIPE_KLARNA = 8;
   }
 
   PaymentMethod payment_method = 7;
