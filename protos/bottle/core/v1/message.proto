@@ -4,12 +4,12 @@ package bottle.core.v1;
 
 import "bottle/fulfillment/v1/order.proto";
 
-message Case {
+message Message {
   int64 timestamp = 1;
   string request_id = 2;
   string source = 3;
 
-  oneof bottle {
+  oneof resource {
     bottle.fulfillment.v1.Order order = 4;
   }
 }
