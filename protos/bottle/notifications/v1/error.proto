@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package bottle.notifications.v1;
+
+message Error {
+  string id = 1;
+  string error = 2;
+  string reason = 3;
+  map<string, string> context = 4;
+}
