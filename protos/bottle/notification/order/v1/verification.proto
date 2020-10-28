@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package bottle.notification.order.v1;
+
+import "bottle/fulfillment/v1/order.proto";
+
+message Verification {
+  bottle.fulfillment.v1.Order order = 1;
+  repeated string flag = 2;
+}

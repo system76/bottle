@@ -3,7 +3,6 @@ syntax = "proto3";
 package bottle.core.v1;
 
 import "bottle/fulfillment/v1/order.proto";
-import "bottle/notifications/v1/error.proto";
 
 message Bottle {
   int64 timestamp = 1;
@@ -12,6 +11,5 @@ message Bottle {
 
   oneof resource {
     bottle.fulfillment.v1.Order order = 4;
-    bottle.notifications.v1.Error error = 5;
   }
 }

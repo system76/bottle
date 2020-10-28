@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package bottle.notification.order.v1;
+
+import "bottle/fulfillment/v1/order.proto";
+
+message AssemblyFailure {
+  bottle.fulfillment.v1.Order order = 1;
+
+  enum FailureType {
+    FAILURE_TYPE_UNSPECIFIED = 0;
+    FAILURE_TYPE_INVALID_ADDRESS = 1;
+    FAILURE_TYPE_ALREADY_SHIPPED = 2;
+    FAILURE_TYPE_TRIBBLE_ERROR = 3;
+  }
+
+  FailureType type = 2;
+}
