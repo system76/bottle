@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package bottle.notification.order.v1;
+package bottle.fulfillment.v1;
 
 import "bottle/fulfillment/v1/order.proto";
 
