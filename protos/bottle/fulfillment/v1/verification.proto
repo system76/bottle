@@ -6,5 +6,6 @@ import "bottle/fulfillment/v1/order.proto";
 
 message Verification {
   bottle.fulfillment.v1.Order order = 1;
-  repeated string flag = 2;
+  string code = 2;
+  repeated string flag = 3;
 }
