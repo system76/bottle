@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package bottle.support.v1;
+
+import "bottle/account/v1/user.proto";
+
+message Ticket {
+  string subject = 1;
+  string body = 2;
+  repeated string tag = 3;
+  User author = 5; 
+  User customer = 6;
+}

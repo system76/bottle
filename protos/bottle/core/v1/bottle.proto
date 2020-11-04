@@ -16,9 +16,9 @@ message Bottle {
 
   oneof resource {
     bottle.fulfillment.v1.Order order = 4;
-    bottle.fulfillment.v1.Verification verification = 5;
+    bottle.fulfillment.v1.Verification order_verification = 5;
     bottle.notification.order.v1.AssemblyFailure assembly_failure = 6;
-    bottle.notification.user.v1.Created created = 9;
+    bottle.notification.user.v1.Created user_created = 9;
     bottle.notification.user.v1.PasswordChanged password_changed = 7;
     bottle.notification.user.v1.PasswordReset password_reset = 8;
   }
