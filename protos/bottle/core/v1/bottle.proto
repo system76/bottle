@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package bottle.core.v1;
+
+import "bottle/fulfillment/v1/order.proto";
+import "bottle/fulfillment/v1/verification.proto";
+import "bottle/notification/order/v1/assembly_failure.proto";
+import "bottle/notification/user/v1/created.proto";
+import "bottle/notification/user/v1/password_changed.proto";
+import "bottle/notification/user/v1/password_reset.proto";
+
+message Bottle {
+  int64 timestamp = 1;
+  string request_id = 2;
+  string source = 3;
+
+  oneof resource {
+    bottle.fulfillment.v1.Order order = 4;
+    bottle.fulfillment.v1.Verification order_verification = 5;
+    bottle.notification.order.v1.AssemblyFailure assembly_failure = 6;
+    bottle.notification.user.v1.Created user_created = 9;
+    bottle.notification.user.v1.PasswordChanged password_changed = 7;
+    bottle.notification.user.v1.PasswordReset password_reset = 8;
+  }
+}

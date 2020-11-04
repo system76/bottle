@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package bottle.notification.user.v1;
+
+import "bottle/account/v1/user.proto";
+
+message Created {
+  bottle.account.v1.User user = 1;
+}
