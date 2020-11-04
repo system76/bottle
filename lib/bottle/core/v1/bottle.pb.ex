@@ -1,4 +1,4 @@
-defmodule Bottle.Core.V1.Message do
+defmodule Bottle.Core.V1.Bottle do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
@@ -15,4 +15,9 @@ defmodule Bottle.Core.V1.Message do
   field(:request_id, 2, type: :string)
   field(:source, 3, type: :string)
   field(:order, 4, type: Bottle.Fulfillment.V1.Order, oneof: 0)
+  field(:order_verification, 5, type: Bottle.Fulfillment.V1.Verification, oneof: 0)
+  field(:assembly_failure, 6, type: Bottle.Notification.Order.V1.AssemblyFailure, oneof: 0)
+  field(:user_created, 9, type: Bottle.Notification.User.V1.Created, oneof: 0)
+  field(:password_changed, 7, type: Bottle.Notification.User.V1.PasswordChanged, oneof: 0)
+  field(:password_reset, 8, type: Bottle.Notification.User.V1.PasswordReset, oneof: 0)
 end
