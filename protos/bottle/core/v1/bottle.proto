@@ -3,6 +3,11 @@ syntax = "proto3";
 package bottle.core.v1;
 
 import "bottle/fulfillment/v1/order.proto";
+import "bottle/fulfillment/v1/verification.proto";
+import "bottle/notification/order/v1/assembly_failure.proto";
+import "bottle/notification/user/v1/password_changed.proto";
+import "bottle/notification/user/v1/password_reset.proto";
+import "bottle/notification/user/v1/welcome.proto";
 
 message Bottle {
   int64 timestamp = 1;
@@ -11,5 +16,10 @@ message Bottle {
 
   oneof resource {
     bottle.fulfillment.v1.Order order = 4;
+    bottle.fulfillment.v1.Verification verification = 5;
+    bottle.notification.order.v1.AssemblyFailure assembly_failure = 6;
+    bottle.notification.user.v1.PasswordChanged password_changed = 7;
+    bottle.notification.user.v1.PasswordReset password_reset = 8;
+    bottle.notification.user.v1.Welcome welcome = 9;
   }
 }
