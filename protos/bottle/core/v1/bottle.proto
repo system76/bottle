@@ -9,6 +9,12 @@ import "bottle/notification/user/v1/created.proto";
 import "bottle/notification/user/v1/password_changed.proto";
 import "bottle/notification/user/v1/password_reset.proto";
 
+import "bottle/assembly/events/v1/build_created.proto";
+import "bottle/assembly/events/v1/build_updated.proto";
+
+import "bottle/inventory/events/v1/component_availability_requested.proto";
+import "bottle/inventory/events/v1/component_availability_updated.proto";
+
 message Bottle {
   int64 timestamp = 1;
   string request_id = 2;
@@ -18,8 +24,13 @@ message Bottle {
     bottle.fulfillment.v1.Order order = 4;
     bottle.fulfillment.v1.Verification order_verification = 5;
     bottle.notification.order.v1.AssemblyFailure assembly_failure = 6;
-    bottle.notification.user.v1.Created user_created = 9;
     bottle.notification.user.v1.PasswordChanged password_changed = 7;
     bottle.notification.user.v1.PasswordReset password_reset = 8;
+    bottle.notification.user.v1.Created user_created = 9;
+
+    bottle.assembly.events.v1.BuildCreated build_created = 10;
+    bottle.assembly.events.v1.BuildUpdated build_updated = 11;
+    bottle.inventory.events.v1.ComponentAvailabilityUpdated component_availability_updated = 12;
+    bottle.inventory.events.v1.ComponentAvailabilityRequested component_availability_requested = 13;
   }
 }

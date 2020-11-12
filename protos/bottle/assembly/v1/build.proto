@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "bottle/inventory/v1/component.proto";
+
+package bottle.assembly.v1;
+
+message Build {
+  string id = 1;
+  
+  enum BuildStatus {
+    BUILD_STATUS_UNSPECIFIED = 0;
+    BUILD_STATUS_INCOMPLETE = 1;
+    BUILD_STATUS_READY = 2;
+    BUILD_STATUS_BUILT = 3;
+  }
+
+  BuildStatus status = 2;
+
+  message BuildComponent {
+    bottle.inventory.v1.Component component = 1;
+    int32 quantity = 2;
+  }
+
+  repeated BuildComponent build_components = 3;
+}

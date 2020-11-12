@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package bottle.inventory.v1;
+
+message Component {
+  string id = 1;
+}
