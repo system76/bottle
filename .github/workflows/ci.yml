@@ -78,12 +78,9 @@ jobs:
           ref: elixir
           path: elixir
 
-      - name: Setup (protoc)
-        uses: arduino/setup-protoc@v1
-
       - name: Setup (buf)
         env:
-          VERSION: "0.21.0"
+          VERSION: "0.31.1"
         run: |
           sudo curl -sSL \
             "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \
@@ -115,7 +112,7 @@ jobs:
           cp -R ./current/protos/. ./elixir/priv/protos/
           cd ./elixir/priv/protos
 
-          buf image build -o - | protoc --elixir_out=../../lib $(buf image build -o - | buf ls-files --input -)
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"elixir","out:"../../lib"}]}'
 
       - name: Format
         run: |
