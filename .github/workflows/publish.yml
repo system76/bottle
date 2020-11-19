@@ -61,7 +61,7 @@ jobs:
           cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir/priv/protos
 
-          buf generate --template '{"version":"v1beta1","plugins":[{"name":"elixir","out:"../../lib"}]}'
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"elixir","out":"../../lib"}]}'
 
       - name: Format
         run: |
