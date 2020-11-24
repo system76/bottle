@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package bottle.account.v1;
+
+message Organization {
+  string id = 1;
+  string name = 2;
+}

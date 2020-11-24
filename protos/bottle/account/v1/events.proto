@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "bottle/account/v1/organization.proto";
+import "bottle/account/v1/user.proto";
+
+package bottle.account.v1;
+
+message UserCreated {
+  bottle.account.v1.User user = 1;
+}
+
+message PasswordChanged {
+  bottle.account.v1.User user = 1;
+}
+
+message PasswordReset {
+  bottle.account.v1.User user = 1;
+  string reset_key = 2;
+}
+
+message OrganizationCreated {
+  bottle.account.v1.Organization organization = 1;
+}
+
+message OrganizationJoined {
+  bottle.account.v1.Organization organization = 1;
+  bottle.account.v1.User user = 2;
+}
+
+message OrganizationLeft {
+  bottle.account.v1.Organization organization = 1;
+  bottle.account.v1.User user = 2;
+}

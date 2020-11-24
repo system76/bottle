@@ -2,15 +2,11 @@ syntax = "proto3";
 
 package bottle.core.v1;
 
-import "bottle/fulfillment/v1/order.proto";
-import "bottle/fulfillment/v1/verification.proto";
-import "bottle/notification/order/v1/assembly_failure.proto";
-import "bottle/notification/user/v1/created.proto";
-import "bottle/notification/user/v1/password_changed.proto";
-import "bottle/notification/user/v1/password_reset.proto";
-
+import "bottle/account/v1/events.proto";
 import "bottle/assembly/v1/events.proto";
+import "bottle/fulfillment/v1/events.proto";
 import "bottle/inventory/v1/events.proto";
+import "bottle/support/v1/events.proto";
 
 message Bottle {
   int64 timestamp = 1;
@@ -18,15 +14,22 @@ message Bottle {
   string source = 3;
 
   oneof resource {
-    bottle.fulfillment.v1.Order order = 4;
-    bottle.fulfillment.v1.Verification order_verification = 5;
-    bottle.notification.order.v1.AssemblyFailure assembly_failure = 6;
-    bottle.notification.user.v1.PasswordChanged password_changed = 7;
-    bottle.notification.user.v1.PasswordReset password_reset = 8;
-    bottle.notification.user.v1.Created user_created = 9;
+    bottle.fulfillment.v1.VerificationRequested verification_requested = 5;
+    bottle.fulfillment.v1.TribbleFailed tribble_failed = 6;
 
-    bottle.assembly.v1.BuildCreated build_created = 10;
-    bottle.assembly.v1.BuildUpdated build_updated = 11;
-    bottle.inventory.v1.ComponentAvailabilityUpdated component_availability_updated = 12;
+    bottle.account.v1.UserCreated user_created = 7;
+    bottle.account.v1.PasswordChanged password_changed = 8;
+    bottle.account.v1.PasswordReset password_reset = 9;
+    bottle.account.v1.OrganizationCreated organization_created = 10;
+    bottle.account.v1.OrganizationJoined organization_joined = 11;
+    bottle.account.v1.OrganizationLeft organization_left = 12;
+
+    bottle.assembly.v1.BuildCreated build_created = 13;
+    bottle.assembly.v1.BuildUpdated build_updated = 14;
+
+    bottle.inventory.v1.ComponentAvailabilityUpdated component_availability_updated = 15;
+    
+    bottle.support.v1.QuestionCreated question_created = 16;
+    bottle.support.v1.MacroApplied macro_applied = 17;
   }
 }

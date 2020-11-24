@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package bottle.support.v1;
+
+import "bottle/account/v1/user.proto";
+
+message Question {
+  string id = 1;
+  string subject = 2;
+  string message = 3;
+  repeated string tag = 4;
+  map<string, string> custom_fields = 5;
+
+  bottle.account.v1.User customer = 6;
+  bottle.account.v1.User submitter = 7;
+}

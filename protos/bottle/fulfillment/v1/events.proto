@@ -1,10 +1,16 @@
 syntax = "proto3";
 
-package bottle.notification.order.v1;
+package bottle.fulfillment.v1;
 
 import "bottle/fulfillment/v1/order.proto";
 
-message AssemblyFailure {
+message VerificationRequested {
+  bottle.fulfillment.v1.Order order = 1;
+  string code = 2;
+  repeated string flag = 3;
+}
+
+message TribbleFailed {
   bottle.fulfillment.v1.Order order = 1;
 
   enum FailureType {

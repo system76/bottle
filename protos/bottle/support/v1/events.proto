@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package bottle.support.v1;
+
+import "bottle/support/v1/question.proto";
+
+message QuestionCreated {
+  bottle.support.v1.Question question = 1;
+}
+
+message MacroApplied {
+  bottle.support.v1.Question question = 1;
+  repeated string macros = 2;
+}
