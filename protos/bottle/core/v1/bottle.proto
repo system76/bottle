@@ -12,7 +12,6 @@ import "bottle/notification/user/v1/password_reset.proto";
 import "bottle/assembly/events/v1/build_created.proto";
 import "bottle/assembly/events/v1/build_updated.proto";
 
-import "bottle/inventory/events/v1/component_availability_requested.proto";
 import "bottle/inventory/events/v1/component_availability_updated.proto";
 
 message Bottle {
@@ -31,6 +30,5 @@ message Bottle {
     bottle.assembly.events.v1.BuildCreated build_created = 10;
     bottle.assembly.events.v1.BuildUpdated build_updated = 11;
     bottle.inventory.events.v1.ComponentAvailabilityUpdated component_availability_updated = 12;
-    bottle.inventory.events.v1.ComponentAvailabilityRequested component_availability_requested = 13;
   }
 }
