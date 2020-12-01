@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "bottle/assembly/v1/build.proto";
+
+package bottle.assembly.v1;
+
+message BuildListRequest {
+  string request_id = 1;
+}
+
+message BuildListResponse {
+  string request_id = 1;
+  repeated bottle.assembly.v1.Build builds = 2;
+}
+
+service AssemblyService {
+  rpc BuildList(BuildListRequest) returns (BuildListResponse);
+}
