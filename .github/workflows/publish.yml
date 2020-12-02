@@ -55,8 +55,7 @@ jobs:
 
       - name: Generate
         run: |
-          rm -rf ./elixir/lib
-          mkdir ./elixir/lib
+          find ./elixir/lib/ -type f -name '*.pb.ex' -delete
 
           cp -R ./master/protos/. ./elixir/priv/protos/
           cd ./elixir/priv/protos
