@@ -1,0 +1,18 @@
+---
+
+version: v1beta1
+
+build:
+  roots:
+    - protos
+
+lint:
+  use:
+    - DEFAULT
+  except:
+    - SERVICE_SUFFIX
+
+  ignore_only:
+    PACKAGE_VERSION_SUFFIX:
+      - bottle/assembly/v1.proto
+      - bottle/inventory/v1.proto

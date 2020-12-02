@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "bottle/inventory/v1/service.proto";
+
+package bottle.inventory;
+
+service V1 {
+  rpc ComponentAvailability(bottle.inventory.v1.ComponentAvailabilityRequest) returns (bottle.inventory.v1.ComponentAvailabilityResponse);
+}

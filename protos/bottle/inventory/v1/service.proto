@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "bottle/inventory/v1/component.proto";
 
-package bottle.inventory;
+package bottle.inventory.v1;
 
 message ComponentAvailabilityRequest {
   string request_id = 1;
@@ -13,8 +13,4 @@ message ComponentAvailabilityResponse {
   string request_id = 1;
   bottle.inventory.v1.Component component = 2;
   int32 available = 3;
-}
-
-service v1 {
-  rpc ComponentAvailability(ComponentAvailabilityRequest) returns (ComponentAvailabilityResponse);
 }

@@ -6,7 +6,7 @@ package bottle.assembly.v1;
 
 message Build {
   string id = 1;
-  
+
   enum BuildStatus {
     BUILD_STATUS_UNSPECIFIED = 0;
     BUILD_STATUS_INCOMPLETE = 1;

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "bottle/assembly/v1/build.proto";
 
-package bottle.assembly.v1.events;
+package bottle.assembly.v1;
 
 message BuildCreated {
   bottle.assembly.v1.Build build = 1;

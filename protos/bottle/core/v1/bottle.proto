@@ -9,10 +9,8 @@ import "bottle/notification/user/v1/created.proto";
 import "bottle/notification/user/v1/password_changed.proto";
 import "bottle/notification/user/v1/password_reset.proto";
 
-import "bottle/assembly/events/v1/build_created.proto";
-import "bottle/assembly/events/v1/build_updated.proto";
-
-import "bottle/inventory/events/v1/component_availability_updated.proto";
+import "bottle/assembly/v1/events.proto";
+import "bottle/inventory/v1/events.proto";
 
 message Bottle {
   int64 timestamp = 1;
@@ -27,8 +25,8 @@ message Bottle {
     bottle.notification.user.v1.PasswordReset password_reset = 8;
     bottle.notification.user.v1.Created user_created = 9;
 
-    bottle.assembly.events.v1.BuildCreated build_created = 10;
-    bottle.assembly.events.v1.BuildUpdated build_updated = 11;
-    bottle.inventory.events.v1.ComponentAvailabilityUpdated component_availability_updated = 12;
+    bottle.assembly.v1.BuildCreated build_created = 10;
+    bottle.assembly.v1.BuildUpdated build_updated = 11;
+    bottle.inventory.v1.ComponentAvailabilityUpdated component_availability_updated = 12;
   }
 }
