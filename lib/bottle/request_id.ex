@@ -36,8 +36,6 @@ defmodule Bottle.RequestId do
 
   """
 
-  import Logger
-
   @request_types ["http", "rpc", "queue"]
 
   @doc """
@@ -45,15 +43,13 @@ defmodule Bottle.RequestId do
   `Logger.metadata` for easier access later. If you have `Appsignal` installed,
   it will also add the `request_id` to the sample data.
   """
-  def read(type), do: generate(type)
-
-  def read(type, data) do
+  def read(type, data \\ nil) do
     old_request_id = fetch(data)
     request_id = if is_nil(old_request_id), do: generate(type), else: old_request_id
 
     Logger.metadata(request_id: request_id)
 
-    if Code.ensure_loaded?(Appsignal) do
+    if Code.ensure_loaded?(Appsignal.Transaction) do
       Appsignal.Transaction.set_sample_data("environment", %{"request_id" => request_id})
     end
 
@@ -83,7 +79,7 @@ defmodule Bottle.RequestId do
   def fetch(_), do: fetch()
 
   def fetch() do
-    request_id = Keyword.fetch(Logger.metadata(), :request_id)
+    request_id = Keyword.get(Logger.metadata(), :request_id)
     if valid?(request_id), do: request_id, else: nil
   end
 
@@ -95,7 +91,11 @@ defmodule Bottle.RequestId do
   end
 
   def generate(type, key) do
-    "#{to_string(type)}_#{key}"
+    if valid_type?(type) do
+      "#{to_string(type)}_#{key}"
+    else
+      raise ArgumentError, message: "#{type} is not a valid request_id type"
+    end
   end
 
   @doc """
@@ -126,7 +126,7 @@ defmodule Bottle.RequestId do
   Checks if the first part of the `request_id` (the type) is valid.
   """
   def valid_type?(type) do
-    type in @request_types
+    to_string(type) in @request_types
   end
 
   @doc """
