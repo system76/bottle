@@ -29,7 +29,7 @@ jobs:
 
       - name: Setup (buf)
         env:
-          VERSION: "0.31.1"
+          VERSION: "0.32.0"
         run: |
           sudo curl -sSL \
             "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \

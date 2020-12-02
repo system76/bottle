@@ -14,7 +14,3 @@ message ComponentAvailabilityResponse {
   bottle.inventory.v1.Component component = 2;
   int32 available = 3;
 }
-
-service InventoryService {
-  rpc ComponentAvailability(ComponentAvailabilityRequest) returns (ComponentAvailabilityResponse);
-}

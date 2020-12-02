@@ -12,7 +12,3 @@ message BuildListResponse {
   string request_id = 1;
   repeated bottle.assembly.v1.Build builds = 2;
 }
-
-service AssemblyService {
-  rpc BuildList(BuildListRequest) returns (BuildListResponse);
-}

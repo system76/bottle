@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "bottle/inventory/v1/component.proto";
 
-package bottle.inventory.events.v1;
+package bottle.inventory.v1;
 
 message ComponentAvailabilityUpdated {
   bottle.inventory.v1.Component component = 1;

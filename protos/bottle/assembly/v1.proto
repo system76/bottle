@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "bottle/assembly/v1/service.proto";
+
+package bottle.assembly;
+
+service V1 {
+  rpc BuildList(bottle.assembly.v1.BuildListRequest) returns (bottle.assembly.v1.BuildListResponse);
+}
