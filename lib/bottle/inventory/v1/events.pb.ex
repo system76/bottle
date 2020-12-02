@@ -1,4 +1,4 @@
-defmodule Bottle.Inventory.Events.V1.ComponentAvailabilityUpdated do
+defmodule Bottle.Inventory.V1.ComponentAvailabilityUpdated do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
