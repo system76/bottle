@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-import "bottle/assembly/v1/build.proto";
-
-package bottle.assembly.events.v1;
-
-message BuildUpdated {
-  bottle.assembly.v1.Build build = 1;
-}

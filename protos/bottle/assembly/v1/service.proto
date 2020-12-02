@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "bottle/assembly/v1/build.proto";
 
-package bottle.assembly.v1;
+package bottle.assembly;
 
 message BuildListRequest {
   string request_id = 1;
@@ -13,6 +13,6 @@ message BuildListResponse {
   repeated bottle.assembly.v1.Build builds = 2;
 }
 
-service AssemblyService {
+service v1 {
   rpc BuildList(BuildListRequest) returns (BuildListResponse);
 }
