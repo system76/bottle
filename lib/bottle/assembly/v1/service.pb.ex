@@ -16,10 +16,10 @@ defmodule Bottle.Assembly.V1.BuildListResponse do
 
   @type t :: %__MODULE__{
           request_id: String.t(),
-          builds: [Bottle.Assembly.V1.Build.t()]
+          build: Bottle.Assembly.V1.Build.t() | nil
         }
-  defstruct [:request_id, :builds]
+  defstruct [:request_id, :build]
 
   field(:request_id, 1, type: :string)
-  field(:builds, 2, repeated: true, type: Bottle.Assembly.V1.Build)
+  field(:build, 2, type: Bottle.Assembly.V1.Build)
 end

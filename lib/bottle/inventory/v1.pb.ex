@@ -3,9 +3,9 @@ defmodule Bottle.Inventory.V1.Service do
   use GRPC.Service, name: "bottle.inventory.V1"
 
   rpc(
-    :ComponentAvailability,
-    Bottle.Inventory.V1.ComponentAvailabilityRequest,
-    Bottle.Inventory.V1.ComponentAvailabilityResponse
+    :ComponentAvailabilityList,
+    Bottle.Inventory.V1.ComponentAvailabilityListRequest,
+    stream(Bottle.Inventory.V1.ComponentAvailabilityListResponse)
   )
 end
 
