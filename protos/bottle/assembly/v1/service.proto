@@ -10,5 +10,5 @@ message BuildListRequest {
 
 message BuildListResponse {
   string request_id = 1;
-  repeated bottle.assembly.v1.Build builds = 2;
+  bottle.assembly.v1.Build build = 2;
 }
