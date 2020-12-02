@@ -23,3 +23,15 @@ defmodule Bottle.Assembly.V1.BuildListResponse do
   field(:request_id, 1, type: :string)
   field(:builds, 2, repeated: true, type: Bottle.Assembly.V1.Build)
 end
+
+defmodule Bottle.Assembly.V1.AssemblyService.Service do
+  @moduledoc false
+  use GRPC.Service, name: "bottle.assembly.v1.AssemblyService"
+
+  rpc(:BuildList, Bottle.Assembly.V1.BuildListRequest, Bottle.Assembly.V1.BuildListResponse)
+end
+
+defmodule Bottle.Assembly.V1.AssemblyService.Stub do
+  @moduledoc false
+  use GRPC.Stub, service: Bottle.Assembly.V1.AssemblyService.Service
+end

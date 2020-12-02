@@ -27,3 +27,19 @@ defmodule Bottle.Inventory.V1.ComponentAvailabilityResponse do
   field(:component, 2, type: Bottle.Inventory.V1.Component)
   field(:available, 3, type: :int32)
 end
+
+defmodule Bottle.Inventory.V1.InventoryService.Service do
+  @moduledoc false
+  use GRPC.Service, name: "bottle.inventory.v1.InventoryService"
+
+  rpc(
+    :ComponentAvailability,
+    Bottle.Inventory.V1.ComponentAvailabilityRequest,
+    Bottle.Inventory.V1.ComponentAvailabilityResponse
+  )
+end
+
+defmodule Bottle.Inventory.V1.InventoryService.Stub do
+  @moduledoc false
+  use GRPC.Stub, service: Bottle.Inventory.V1.InventoryService.Service
+end
