@@ -15,6 +15,18 @@ defmodule Bottle.Fulfillment.V1.TribbleFailed.FailureType do
   field(:FAILURE_TYPE_TRIBBLE_ERROR, 3)
 end
 
+defmodule Bottle.Fulfillment.V1.OrderCreated do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          order: Bottle.Fulfillment.V1.Order.t() | nil
+        }
+  defstruct [:order]
+
+  field(:order, 1, type: Bottle.Fulfillment.V1.Order)
+end
+
 defmodule Bottle.Fulfillment.V1.VerificationRequested do
   @moduledoc false
   use Protobuf, syntax: :proto3
