@@ -22,13 +22,13 @@ defmodule Bottle.Fulfillment.V1.VerificationRequested do
   @type t :: %__MODULE__{
           order: Bottle.Fulfillment.V1.Order.t() | nil,
           code: String.t(),
-          flag: [String.t()]
+          flags: [String.t()]
         }
-  defstruct [:order, :code, :flag]
+  defstruct [:order, :code, :flags]
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
   field(:code, 2, type: :string)
-  field(:flag, 3, repeated: true, type: :string)
+  field(:flags, 3, repeated: true, type: :string)
 end
 
 defmodule Bottle.Fulfillment.V1.TribbleFailed do
