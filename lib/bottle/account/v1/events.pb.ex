@@ -28,12 +28,12 @@ defmodule Bottle.Account.V1.PasswordReset do
 
   @type t :: %__MODULE__{
           user: Bottle.Account.V1.User.t() | nil,
-          reset_key: String.t()
+          reset_url: String.t()
         }
-  defstruct [:user, :reset_key]
+  defstruct [:user, :reset_url]
 
   field(:user, 1, type: Bottle.Account.V1.User)
-  field(:reset_key, 2, type: :string)
+  field(:reset_url, 2, type: :string)
 end
 
 defmodule Bottle.Account.V1.OrganizationCreated do
