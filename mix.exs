@@ -22,12 +22,13 @@ defmodule Bottle.MixProject do
   defp deps do
     [
       {:cowlib, "~> 2.9.0", override: true},
-      {:grpc, "~> 0.5.0-beta.1"},
-      {:protobuf, "~> 0.7.1"},
       # Only for files generated from Google's protos.
       # Can be ignored if you don't use Google's protos.
       # Or you can generate the code by yourself.
-      {:google_protos, "~> 0.1"}
+      {:google_protos, "~> 0.1"},
+      {:grpc, "~> 0.5.0-beta.1"},
+      {:plug_cowboy, "~> 2.0", optional: true},
+      {:protobuf, "~> 0.7.1"}
     ]
   end
 end
