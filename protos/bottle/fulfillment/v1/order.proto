@@ -28,4 +28,5 @@ message Order {
   }
 
   PaymentMethod payment_method = 7;
+  string scode = 8;
 }
