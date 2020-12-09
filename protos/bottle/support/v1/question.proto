@@ -8,7 +8,7 @@ message Question {
   string id = 1;
   string subject = 2;
   string message = 3;
-  repeated string tag = 4;
+  repeated string tags = 4;
   map<string, string> custom_fields = 5;
 
   bottle.account.v1.User customer = 6;
