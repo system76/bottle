@@ -7,7 +7,7 @@ import "bottle/fulfillment/v1/order.proto";
 message VerificationRequested {
   bottle.fulfillment.v1.Order order = 1;
   string code = 2;
-  repeated string flag = 3;
+  repeated string flags = 3;
 }
 
 message TribbleFailed {
