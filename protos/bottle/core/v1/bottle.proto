@@ -14,6 +14,7 @@ message Bottle {
   string source = 3;
 
   oneof resource {
+    bottle.fulfillment.v1.OrderCreated order_created = 4;
     bottle.fulfillment.v1.VerificationRequested verification_requested = 5;
     bottle.fulfillment.v1.TribbleFailed tribble_failed = 6;
 
