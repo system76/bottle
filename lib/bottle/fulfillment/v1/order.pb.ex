@@ -36,9 +36,19 @@ defmodule Bottle.Fulfillment.V1.Order do
           billing: Bottle.Account.V1.Address.t() | nil,
           shipping_method: String.t(),
           products: [Bottle.Catalog.V1.Product.t()],
-          payment_method: Bottle.Fulfillment.V1.Order.PaymentMethod.t()
+          payment_method: Bottle.Fulfillment.V1.Order.PaymentMethod.t(),
+          scode: String.t()
         }
-  defstruct [:id, :customer, :shipping, :billing, :shipping_method, :products, :payment_method]
+  defstruct [
+    :id,
+    :customer,
+    :shipping,
+    :billing,
+    :shipping_method,
+    :products,
+    :payment_method,
+    :scode
+  ]
 
   field(:id, 1, type: :string)
   field(:customer, 2, type: Bottle.Account.V1.User)
@@ -47,4 +57,5 @@ defmodule Bottle.Fulfillment.V1.Order do
   field(:shipping_method, 5, type: :string)
   field(:products, 6, repeated: true, type: Bottle.Catalog.V1.Product)
   field(:payment_method, 7, type: Bottle.Fulfillment.V1.Order.PaymentMethod, enum: true)
+  field(:scode, 8, type: :string)
 end
