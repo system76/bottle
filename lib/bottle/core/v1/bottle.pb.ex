@@ -14,17 +14,22 @@ defmodule Bottle.Core.V1.Bottle do
   field(:timestamp, 1, type: :int64)
   field(:request_id, 2, type: :string)
   field(:source, 3, type: :string)
-  field(:order, 4, type: Bottle.Fulfillment.V1.Order, oneof: 0)
-  field(:order_verification, 5, type: Bottle.Fulfillment.V1.Verification, oneof: 0)
-  field(:assembly_failure, 6, type: Bottle.Notification.Order.V1.AssemblyFailure, oneof: 0)
-  field(:password_changed, 7, type: Bottle.Notification.User.V1.PasswordChanged, oneof: 0)
-  field(:password_reset, 8, type: Bottle.Notification.User.V1.PasswordReset, oneof: 0)
-  field(:user_created, 9, type: Bottle.Notification.User.V1.Created, oneof: 0)
-  field(:build_created, 10, type: Bottle.Assembly.V1.BuildCreated, oneof: 0)
-  field(:build_updated, 11, type: Bottle.Assembly.V1.BuildUpdated, oneof: 0)
+  field(:verification_requested, 5, type: Bottle.Fulfillment.V1.VerificationRequested, oneof: 0)
+  field(:tribble_failed, 6, type: Bottle.Fulfillment.V1.TribbleFailed, oneof: 0)
+  field(:user_created, 7, type: Bottle.Account.V1.UserCreated, oneof: 0)
+  field(:password_changed, 8, type: Bottle.Account.V1.PasswordChanged, oneof: 0)
+  field(:password_reset, 9, type: Bottle.Account.V1.PasswordReset, oneof: 0)
+  field(:organization_created, 10, type: Bottle.Account.V1.OrganizationCreated, oneof: 0)
+  field(:organization_joined, 11, type: Bottle.Account.V1.OrganizationJoined, oneof: 0)
+  field(:organization_left, 12, type: Bottle.Account.V1.OrganizationLeft, oneof: 0)
+  field(:build_created, 13, type: Bottle.Assembly.V1.BuildCreated, oneof: 0)
+  field(:build_updated, 14, type: Bottle.Assembly.V1.BuildUpdated, oneof: 0)
 
-  field(:component_availability_updated, 12,
+  field(:component_availability_updated, 15,
     type: Bottle.Inventory.V1.ComponentAvailabilityUpdated,
     oneof: 0
   )
+
+  field(:question_created, 16, type: Bottle.Support.V1.QuestionCreated, oneof: 0)
+  field(:macro_applied, 17, type: Bottle.Support.V1.MacroApplied, oneof: 0)
 end
