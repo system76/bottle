@@ -15,7 +15,7 @@ message PasswordChanged {
 
 message PasswordReset {
   bottle.account.v1.User user = 1;
-  string reset_key = 2;
+  string reset_url = 2;
 }
 
 message OrganizationCreated {
