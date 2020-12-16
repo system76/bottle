@@ -18,6 +18,11 @@ message PasswordReset {
   string reset_url = 2;
 }
 
+message TwoFactorAuthorizationRequested {
+  bottle.account.v1.User user = 1;
+  string token = 2;
+}
+
 message OrganizationCreated {
   bottle.account.v1.Organization organization = 1;
 }

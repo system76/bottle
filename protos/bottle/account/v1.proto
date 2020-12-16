@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "bottle/account/v1/service.proto";
+
+package bottle.account;
+
+service V1 {
+  rpc NotificationMethod(bottle.account.v1.NotificationMethodRequest) returns (bottle.account.v1.NotificationMethodResponse);
+}
