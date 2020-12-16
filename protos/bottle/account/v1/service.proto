@@ -6,7 +6,7 @@ package bottle.account.v1;
 
 message NotificationMethodRequest {
   string request_id = 1;
-  string message = 2;
+  string event_type = 2;
   bottle.account.v1.User user = 3;
 }
 
