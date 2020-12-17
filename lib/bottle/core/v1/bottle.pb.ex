@@ -20,6 +20,7 @@ defmodule Bottle.Core.V1.Bottle do
   field(:user_created, 7, type: Bottle.Account.V1.UserCreated, oneof: 0)
   field(:password_changed, 8, type: Bottle.Account.V1.PasswordChanged, oneof: 0)
   field(:password_reset, 9, type: Bottle.Account.V1.PasswordReset, oneof: 0)
+  field(:two_factor_requested, 18, type: Bottle.Account.V1.TwoFactorRequested, oneof: 0)
   field(:organization_created, 10, type: Bottle.Account.V1.OrganizationCreated, oneof: 0)
   field(:organization_joined, 11, type: Bottle.Account.V1.OrganizationJoined, oneof: 0)
   field(:organization_left, 12, type: Bottle.Account.V1.OrganizationLeft, oneof: 0)

@@ -36,6 +36,20 @@ defmodule Bottle.Account.V1.PasswordReset do
   field(:reset_url, 2, type: :string)
 end
 
+defmodule Bottle.Account.V1.TwoFactorRequested do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          user: Bottle.Account.V1.User.t() | nil,
+          token: String.t()
+        }
+  defstruct [:user, :token]
+
+  field(:user, 1, type: Bottle.Account.V1.User)
+  field(:token, 2, type: :string)
+end
+
 defmodule Bottle.Account.V1.OrganizationCreated do
   @moduledoc false
   use Protobuf, syntax: :proto3
