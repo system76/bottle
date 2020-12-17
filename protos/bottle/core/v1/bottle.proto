@@ -21,6 +21,7 @@ message Bottle {
     bottle.account.v1.UserCreated user_created = 7;
     bottle.account.v1.PasswordChanged password_changed = 8;
     bottle.account.v1.PasswordReset password_reset = 9;
+    bottle.account.v1.TwoFactorRequested two_factor_requested = 18;
     bottle.account.v1.OrganizationCreated organization_created = 10;
     bottle.account.v1.OrganizationJoined organization_joined = 11;
     bottle.account.v1.OrganizationLeft organization_left = 12;
@@ -29,7 +30,7 @@ message Bottle {
     bottle.assembly.v1.BuildUpdated build_updated = 14;
 
     bottle.inventory.v1.ComponentAvailabilityUpdated component_availability_updated = 15;
-    
+
     bottle.support.v1.QuestionCreated question_created = 16;
     bottle.support.v1.MacroApplied macro_applied = 17;
   }
