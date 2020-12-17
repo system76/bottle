@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "bottle/account/v1/user.proto";
+
+package bottle.account.v1;
+
+message NotificationMethodRequest {
+  string request_id = 1;
+  string event_type = 2;
+  bottle.account.v1.User user = 3;
+}
+
+message NotificationMethodResponse {
+  string request_id = 1;
+
+  enum NotificationMethod {
+    NOTIFICATION_METHOD_UNSPECIFIED = 0;
+    NOTIFICATION_METHOD_SMS = 1;
+    NOTIFICATION_METHOD_VOICE = 2;
+    NOTIFICATION_METHOD_EMAIL = 3;
+    NOTIFICATION_METHOD_APP = 4;
+  }
+
+  NotificationMethod notification_method = 2;
+  bottle.account.v1.User user = 3;
+}

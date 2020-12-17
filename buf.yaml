@@ -14,5 +14,6 @@ lint:
 
   ignore_only:
     PACKAGE_VERSION_SUFFIX:
+      - bottle/account/v1.proto
       - bottle/assembly/v1.proto
       - bottle/inventory/v1.proto
