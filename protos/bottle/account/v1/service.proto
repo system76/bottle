@@ -22,4 +22,5 @@ message NotificationMethodResponse {
   }
 
   NotificationMethod notification_method = 2;
+  bottle.account.v1.User user = 3;
 }
