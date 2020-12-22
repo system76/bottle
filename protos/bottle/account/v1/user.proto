@@ -3,6 +3,7 @@ syntax = "proto3";
 package bottle.account.v1;
 
 import "bottle/account/v1/organization.proto";
+import "bottle/account/v1/notification_preference.proto";
 
 message User {
   string id = 1;
