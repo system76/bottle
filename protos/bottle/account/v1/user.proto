@@ -21,4 +21,5 @@ message User {
 
   AccountType account_type = 7;
   string company_name = 8;
+  NotificationPreference notification_preference = 9;
 }
