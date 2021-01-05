@@ -23,6 +23,12 @@ message TwoFactorRequested {
   string token = 2;
 }
 
+message TwoFactorRecoveryCodeUsed {
+  bottle.account.v1.User user = 1;
+  string recovery_code = 2;
+  int32 codes_remaining = 3;
+}
+
 message OrganizationCreated {
   bottle.account.v1.Organization organization = 1;
 }
