@@ -14,3 +14,14 @@ message ComponentAvailabilityListResponse {
   bottle.inventory.v1.Component component = 2;
   int32 available = 3;
 }
+
+message InventoryLocationsRequest {
+  string request_id = 1;
+  repeated bottle.inventory.v1.Component components = 2;
+}
+
+message InventoryLocationsResponse {
+  string request_id = 1;
+  bottle.inventory.v1.Component component = 2;
+  int32 available = 3;
+}
