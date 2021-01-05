@@ -50,6 +50,22 @@ defmodule Bottle.Account.V1.TwoFactorRequested do
   field(:token, 2, type: :string)
 end
 
+defmodule Bottle.Account.V1.TwoFactorRecoveryCodeUsed do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          user: Bottle.Account.V1.User.t() | nil,
+          recovery_code: String.t(),
+          codes_remaining: integer
+        }
+  defstruct [:user, :recovery_code, :codes_remaining]
+
+  field(:user, 1, type: Bottle.Account.V1.User)
+  field(:recovery_code, 2, type: :string)
+  field(:codes_remaining, 3, type: :int32)
+end
+
 defmodule Bottle.Account.V1.OrganizationCreated do
   @moduledoc false
   use Protobuf, syntax: :proto3
