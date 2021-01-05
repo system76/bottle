@@ -6,4 +6,5 @@ package bottle.inventory;
 
 service V1 {
   rpc ComponentAvailabilityList(bottle.inventory.v1.ComponentAvailabilityListRequest) returns (stream bottle.inventory.v1.ComponentAvailabilityListResponse);
+  rpc InventoryLocations(bottle.inventory.v1.InventoryLocationsRequest) returns (stream bottle.inventory.v1.InventoryLocationsResponse); 
 }
