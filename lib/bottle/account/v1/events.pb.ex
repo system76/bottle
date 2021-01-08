@@ -1,3 +1,18 @@
+defmodule Bottle.Account.V1.TwoFactorRequested.TwoFactorMethod do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+
+  @type t ::
+          integer
+          | :TWO_FACTOR_METHOD_UNSPECIFIED
+          | :TWO_FACTOR_METHOD_SMS
+          | :TWO_FACTOR_METHOD_VOICE
+
+  field(:TWO_FACTOR_METHOD_UNSPECIFIED, 0)
+  field(:TWO_FACTOR_METHOD_SMS, 1)
+  field(:TWO_FACTOR_METHOD_VOICE, 2)
+end
+
 defmodule Bottle.Account.V1.UserCreated do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -42,12 +57,16 @@ defmodule Bottle.Account.V1.TwoFactorRequested do
 
   @type t :: %__MODULE__{
           user: Bottle.Account.V1.User.t() | nil,
-          token: String.t()
+          token: String.t(),
+          phone_number: String.t(),
+          method: String.t()
         }
-  defstruct [:user, :token]
+  defstruct [:user, :token, :phone_number, :method]
 
   field(:user, 1, type: Bottle.Account.V1.User)
   field(:token, 2, type: :string)
+  field(:phone_number, 3, type: :string)
+  field(:method, 4, type: :string)
 end
 
 defmodule Bottle.Account.V1.TwoFactorRecoveryCodeUsed do
