@@ -21,7 +21,6 @@ message PasswordReset {
 message TwoFactorRequested {
   bottle.account.v1.User user = 1;
   string token = 2;
-  string phone_number = 3;
 
   enum TwoFactorMethod {
     TWO_FACTOR_METHOD_UNSPECIFIED = 0;
@@ -29,7 +28,7 @@ message TwoFactorRequested {
     TWO_FACTOR_METHOD_VOICE = 2;
   }
 
-  string method = 4;
+  string method = 3;
 }
 
 message TwoFactorRecoveryCodeUsed {
