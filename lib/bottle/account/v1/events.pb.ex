@@ -58,15 +58,13 @@ defmodule Bottle.Account.V1.TwoFactorRequested do
   @type t :: %__MODULE__{
           user: Bottle.Account.V1.User.t() | nil,
           token: String.t(),
-          phone_number: String.t(),
           method: String.t()
         }
-  defstruct [:user, :token, :phone_number, :method]
+  defstruct [:user, :token, :method]
 
   field(:user, 1, type: Bottle.Account.V1.User)
   field(:token, 2, type: :string)
-  field(:phone_number, 3, type: :string)
-  field(:method, 4, type: :string)
+  field(:method, 3, type: :string)
 end
 
 defmodule Bottle.Account.V1.TwoFactorRecoveryCodeUsed do
