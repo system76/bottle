@@ -28,7 +28,7 @@ message TwoFactorRequested {
     TWO_FACTOR_METHOD_VOICE = 2;
   }
 
-  string method = 3;
+  TwoFactorMethod method = 3;
 }
 
 message TwoFactorRecoveryCodeUsed {
