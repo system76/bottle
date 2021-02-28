@@ -19,6 +19,7 @@ message Bottle {
     bottle.fulfillment.v1.TribbleFailed tribble_failed = 6;
 
     bottle.account.v1.UserCreated user_created = 7;
+    bottle.account.v1.UserDeleted user_deleted = 20;
     bottle.account.v1.PasswordChanged password_changed = 8;
     bottle.account.v1.PasswordReset password_reset = 9;
     bottle.account.v1.TwoFactorRequested two_factor_requested = 18;
