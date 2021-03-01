@@ -18,6 +18,8 @@ defmodule Bottle.Core.V1.Bottle do
   field(:verification_requested, 5, type: Bottle.Fulfillment.V1.VerificationRequested, oneof: 0)
   field(:tribble_failed, 6, type: Bottle.Fulfillment.V1.TribbleFailed, oneof: 0)
   field(:user_created, 7, type: Bottle.Account.V1.UserCreated, oneof: 0)
+  field(:user_deleted, 20, type: Bottle.Account.V1.UserDeleted, oneof: 0)
+  field(:user_updated, 21, type: Bottle.Account.V1.UserUpdated, oneof: 0)
   field(:password_changed, 8, type: Bottle.Account.V1.PasswordChanged, oneof: 0)
   field(:password_reset, 9, type: Bottle.Account.V1.PasswordReset, oneof: 0)
   field(:two_factor_requested, 18, type: Bottle.Account.V1.TwoFactorRequested, oneof: 0)

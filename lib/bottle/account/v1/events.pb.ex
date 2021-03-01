@@ -25,6 +25,30 @@ defmodule Bottle.Account.V1.UserCreated do
   field(:user, 1, type: Bottle.Account.V1.User)
 end
 
+defmodule Bottle.Account.V1.UserDeleted do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          user: Bottle.Account.V1.User.t() | nil
+        }
+  defstruct [:user]
+
+  field(:user, 1, type: Bottle.Account.V1.User)
+end
+
+defmodule Bottle.Account.V1.UserUpdated do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          user: Bottle.Account.V1.User.t() | nil
+        }
+  defstruct [:user]
+
+  field(:user, 1, type: Bottle.Account.V1.User)
+end
+
 defmodule Bottle.Account.V1.PasswordChanged do
   @moduledoc false
   use Protobuf, syntax: :proto3
