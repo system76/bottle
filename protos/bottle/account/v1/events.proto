@@ -9,6 +9,14 @@ message UserCreated {
   bottle.account.v1.User user = 1;
 }
 
+message UserDeleted {
+  bottle.account.v1.User user = 1;
+}
+
+message UserUpdated {
+  bottle.account.v1.User user = 1;
+}
+
 message PasswordChanged {
   bottle.account.v1.User user = 1;
 }
