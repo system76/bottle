@@ -21,6 +21,8 @@ defmodule Bottle.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:ex_aws, "~> 2.0"},
+      {:ex_aws_sns, "~> 2.0"},
       {:cowlib, "~> 2.9.0", override: true},
       # Only for files generated from Google's protos.
       # Can be ignored if you don't use Google's protos.
