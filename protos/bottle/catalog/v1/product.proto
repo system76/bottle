@@ -12,5 +12,5 @@ message Product {
     PRODUCT_CATEGORY_LAPTOP = 2;
     PRODUCT_CATEGORY_SERVER = 3;
   }
-  ProductCategory category = 5;
+  ProductCategory category = 4;
 }
