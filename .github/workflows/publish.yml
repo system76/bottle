@@ -42,6 +42,7 @@ jobs:
         with:
           elixir-version: "1.10"
           otp-version: "23.0"
+          experimental-otp: true
 
       - name: Dependencies
         run: |
