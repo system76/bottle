@@ -16,7 +16,7 @@ message Order {
   bottle.account.v1.Address billing = 4;
 
   string shipping_method = 5;
-  double shipping_price = 10;
+  double shipping_price = 12;
 
   repeated LineItem line_item = 11;
 
