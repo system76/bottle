@@ -5,5 +5,4 @@ package bottle.catalog.v1;
 message Product {
   string id = 1;
   string model = 2;
-  bool rush_assembly = 3;
 }

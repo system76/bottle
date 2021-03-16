@@ -5,6 +5,8 @@ package bottle.fulfillment.v1;
 import "bottle/account/v1/address.proto";
 import "bottle/account/v1/user.proto";
 import "bottle/catalog/v1/product.proto";
+import "bottle/fulfillment/v1/line_group.proto";
+import "bottle/fulfillment/v1/tax_line.proto";
 
 message Order {
   string id = 1;
@@ -12,8 +14,11 @@ message Order {
   bottle.account.v1.User customer = 2;
   bottle.account.v1.Address shipping = 3;
   bottle.account.v1.Address billing = 4;
+
   string shipping_method = 5;
-  repeated bottle.catalog.v1.Product products = 6;
+  double shipping_price = 10;
+
+  repeated LineGroup line_groups = 11;
 
   enum PaymentMethod {
     PAYMENT_METHOD_UNSPECIFIED = 0;
@@ -29,4 +34,6 @@ message Order {
 
   PaymentMethod payment_method = 7;
   string scode = 8;
+
+  repeated TaxLine tax_lines = 9;
 }
