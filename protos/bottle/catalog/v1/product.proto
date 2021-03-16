@@ -7,10 +7,10 @@ message Product {
   string model = 2;
 
   enum ProductCategory {
-    LINE_GROUP_CATEGORY_UNSPECIFIED = 0;
-    LINE_GROUP_CATEGORY_DESKTOP = 1;
-    LINE_GROUP_CATEGORY_LAPTOP = 2;
-    LINE_GROUP_CATEGORY_SERVER = 3;
+    PRODUCT_CATEGORY_UNSPECIFIED = 0;
+    PRODUCT_CATEGORY_DESKTOP = 1;
+    PRODUCT_CATEGORY_LAPTOP = 2;
+    PRODUCT_CATEGORY_SERVER = 3;
   }
   ProductCategory category = 5;
 }
