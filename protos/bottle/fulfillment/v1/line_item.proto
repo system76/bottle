@@ -11,15 +11,6 @@ message LineItem {
 
   bottle.catalog.v1.Product catalog_product = 4;
 
-  enum LineGroupCategory {
-    LINE_GROUP_CATEGORY_UNSPECIFIED = 0;
-    LINE_GROUP_CATEGORY_DESKTOP = 1;
-    LINE_GROUP_CATEGORY_LAPTOP = 2;
-    LINE_GROUP_CATEGORY_SERVER = 3;
-    LINE_GROUP_CATEGORY_APPAREL = 4;
-  }
-  LineGroupCategory category = 5;
-
   double individual_cost = 10;
   double individual_price = 11;
 }

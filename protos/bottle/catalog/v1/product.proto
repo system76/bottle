@@ -5,4 +5,12 @@ package bottle.catalog.v1;
 message Product {
   string id = 1;
   string model = 2;
+
+  enum ProductCategory {
+    LINE_GROUP_CATEGORY_UNSPECIFIED = 0;
+    LINE_GROUP_CATEGORY_DESKTOP = 1;
+    LINE_GROUP_CATEGORY_LAPTOP = 2;
+    LINE_GROUP_CATEGORY_SERVER = 3;
+  }
+  ProductCategory category = 5;
 }
