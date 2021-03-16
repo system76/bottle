@@ -4,7 +4,7 @@ package bottle.fulfillment.v1;
 
 import "bottle/catalog/v1/product.proto";
 
-message LineGroup {
+message LineItem {
   string id = 1;
   string name = 2;
   int32 quantity = 3;
@@ -19,17 +19,6 @@ message LineGroup {
     LINE_GROUP_CATEGORY_APPAREL = 4;
   }
   LineGroupCategory category = 5;
-
-  bool rush = 6;
-  double rush_price = 7;
-
-  enum LineGroupWarrantyType {
-    LINE_GROUP_WARRANTY_TYPE_UNSPECIFIED = 0;
-    LINE_GROUP_WARRANTY_TYPE_STANDARD = 1;
-    LINE_GROUP_WARRANTY_TYPE_EXTENDED = 2;
-  }
-  LineGroupWarrantyType warranty_type = 8;
-  double warranty_price = 9;
 
   double individual_cost = 10;
   double individual_price = 11;
