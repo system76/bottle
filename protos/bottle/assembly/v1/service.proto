@@ -6,6 +6,8 @@ package bottle.assembly.v1;
 
 message BuildListRequest {
   string request_id = 1;
+
+  repeated Build.BuildStatus status = 2;
 }
 
 message BuildListResponse {
