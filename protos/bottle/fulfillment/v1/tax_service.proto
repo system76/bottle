@@ -12,9 +12,9 @@ message TaxListRequest {
 
 message TaxListResponse {
   string request_id = 1;
-  bottle.fulfillment.v1.TaxLine tax_line = 2;
+  repeated bottle.fulfillment.v1.TaxLine tax_line = 2;
 }
 
 service TaxService {
-  rpc TaxList(TaxListRequest) returns (stream TaxListResponse);
+  rpc TaxList(TaxListRequest) returns (TaxListResponse);
 }
