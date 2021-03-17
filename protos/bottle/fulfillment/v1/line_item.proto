@@ -6,11 +6,13 @@ import "bottle/catalog/v1/product.proto";
 
 message LineItem {
   string id = 1;
-  string name = 2;
-  int32 quantity = 3;
+  int32 quantity = 2;
 
-  bottle.catalog.v1.Product catalog_product = 4;
+  bottle.catalog.v1.Product catalog_product = 3;
 
-  double individual_cost = 10;
-  double individual_price = 11;
+  bool rush = 6;
+  double rush_price = 7;
+
+  double individual_cost = 4;
+  double individual_price = 5;
 }
