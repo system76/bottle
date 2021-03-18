@@ -5,16 +5,16 @@ import "bottle/fulfillment/v1/tax_line.proto";
 
 package bottle.fulfillment.v1;
 
-message TaxListRequest {
+message TaxCalculateRequest {
   string request_id = 1;
   bottle.fulfillment.v1.Order order = 2;
 }
 
-message TaxListResponse {
+message TaxCalculateResponse {
   string request_id = 1;
   repeated bottle.fulfillment.v1.TaxLine tax_line = 2;
 }
 
 service TaxService {
-  rpc TaxList(TaxListRequest) returns (TaxListResponse);
+  rpc TaxCalculate(TaxCalculateRequest) returns (TaxCalculateResponse);
 }

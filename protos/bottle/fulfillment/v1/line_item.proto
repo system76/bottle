@@ -2,16 +2,17 @@ syntax = "proto3";
 
 package bottle.fulfillment.v1;
 
+import "bottle/catalog/v1/addon.proto";
 import "bottle/catalog/v1/product.proto";
 
 message LineItem {
   string id = 1;
   int32 quantity = 2;
 
-  bottle.catalog.v1.Product catalog_product = 3;
+  oneof item {
+    bottle.catalog.v1.Product catalog_product = 5;
+    bottle.catalog.v1.Addon catalog_addon = 6;
+  }
 
-  bool rush = 6;
-  int64 rush_price = 7;
-
-  int64 individual_price = 5;
+  int64 individual_price = 4;
 }
