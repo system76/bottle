@@ -8,11 +8,13 @@ defmodule Bottle.Assembly.V1.Build.BuildStatus do
           | :BUILD_STATUS_INCOMPLETE
           | :BUILD_STATUS_READY
           | :BUILD_STATUS_BUILT
+          | :BUILD_STATUS_INPROGRESS
 
   field(:BUILD_STATUS_UNSPECIFIED, 0)
   field(:BUILD_STATUS_INCOMPLETE, 1)
   field(:BUILD_STATUS_READY, 2)
   field(:BUILD_STATUS_BUILT, 3)
+  field(:BUILD_STATUS_INPROGRESS, 4)
 end
 
 defmodule Bottle.Assembly.V1.Build.BuildComponent do
@@ -36,11 +38,19 @@ defmodule Bottle.Assembly.V1.Build do
   @type t :: %__MODULE__{
           id: String.t(),
           status: Bottle.Assembly.V1.Build.BuildStatus.t(),
-          build_components: [Bottle.Assembly.V1.Build.BuildComponent.t()]
+          build_components: [Bottle.Assembly.V1.Build.BuildComponent.t()],
+          model: String.t(),
+          order: Bottle.Fulfillment.V1.Order.t() | nil,
+          created_at: String.t(),
+          updated_at: String.t()
         }
-  defstruct [:id, :status, :build_components]
+  defstruct [:id, :status, :build_components, :model, :order, :created_at, :updated_at]
 
   field(:id, 1, type: :string)
   field(:status, 2, type: Bottle.Assembly.V1.Build.BuildStatus, enum: true)
   field(:build_components, 3, repeated: true, type: Bottle.Assembly.V1.Build.BuildComponent)
+  field(:model, 4, type: :string)
+  field(:order, 5, type: Bottle.Fulfillment.V1.Order)
+  field(:created_at, 6, type: :string)
+  field(:updated_at, 7, type: :string)
 end
