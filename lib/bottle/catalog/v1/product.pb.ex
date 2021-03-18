@@ -1,3 +1,22 @@
+defmodule Bottle.Catalog.V1.Product.ProductCategory do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+
+  @type t ::
+          integer
+          | :PRODUCT_CATEGORY_UNSPECIFIED
+          | :PRODUCT_CATEGORY_DESKTOP
+          | :PRODUCT_CATEGORY_LAPTOP
+          | :PRODUCT_CATEGORY_SERVER
+          | :PRODUCT_CATEGORY_APPAREL
+
+  field(:PRODUCT_CATEGORY_UNSPECIFIED, 0)
+  field(:PRODUCT_CATEGORY_DESKTOP, 1)
+  field(:PRODUCT_CATEGORY_LAPTOP, 2)
+  field(:PRODUCT_CATEGORY_SERVER, 3)
+  field(:PRODUCT_CATEGORY_APPAREL, 4)
+end
+
 defmodule Bottle.Catalog.V1.Product do
   @moduledoc false
   use Protobuf, syntax: :proto3
@@ -5,11 +24,11 @@ defmodule Bottle.Catalog.V1.Product do
   @type t :: %__MODULE__{
           id: String.t(),
           model: String.t(),
-          rush_assembly: boolean
+          category: Bottle.Catalog.V1.Product.ProductCategory.t()
         }
-  defstruct [:id, :model, :rush_assembly]
+  defstruct [:id, :model, :category]
 
   field(:id, 1, type: :string)
   field(:model, 2, type: :string)
-  field(:rush_assembly, 3, type: :bool)
+  field(:category, 4, type: Bottle.Catalog.V1.Product.ProductCategory, enum: true)
 end

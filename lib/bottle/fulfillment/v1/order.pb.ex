@@ -34,28 +34,37 @@ defmodule Bottle.Fulfillment.V1.Order do
           customer: Bottle.Account.V1.User.t() | nil,
           shipping: Bottle.Account.V1.Address.t() | nil,
           billing: Bottle.Account.V1.Address.t() | nil,
+          line_item: [Bottle.Fulfillment.V1.LineItem.t()],
           shipping_method: String.t(),
-          products: [Bottle.Catalog.V1.Product.t()],
+          shipping_price: integer,
           payment_method: Bottle.Fulfillment.V1.Order.PaymentMethod.t(),
-          scode: String.t()
+          scode: String.t(),
+          tax_exempt: boolean,
+          tax_lines: [Bottle.Fulfillment.V1.TaxLine.t()]
         }
   defstruct [
     :id,
     :customer,
     :shipping,
     :billing,
+    :line_item,
     :shipping_method,
-    :products,
+    :shipping_price,
     :payment_method,
-    :scode
+    :scode,
+    :tax_exempt,
+    :tax_lines
   ]
 
   field(:id, 1, type: :string)
   field(:customer, 2, type: Bottle.Account.V1.User)
   field(:shipping, 3, type: Bottle.Account.V1.Address)
   field(:billing, 4, type: Bottle.Account.V1.Address)
+  field(:line_item, 11, repeated: true, type: Bottle.Fulfillment.V1.LineItem)
   field(:shipping_method, 5, type: :string)
-  field(:products, 6, repeated: true, type: Bottle.Catalog.V1.Product)
+  field(:shipping_price, 12, type: :int64)
   field(:payment_method, 7, type: Bottle.Fulfillment.V1.Order.PaymentMethod, enum: true)
   field(:scode, 8, type: :string)
+  field(:tax_exempt, 9, type: :bool)
+  field(:tax_lines, 10, repeated: true, type: Bottle.Fulfillment.V1.TaxLine)
 end
