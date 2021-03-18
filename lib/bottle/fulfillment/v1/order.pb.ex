@@ -34,7 +34,7 @@ defmodule Bottle.Fulfillment.V1.Order do
           customer: Bottle.Account.V1.User.t() | nil,
           shipping: Bottle.Account.V1.Address.t() | nil,
           billing: Bottle.Account.V1.Address.t() | nil,
-          line_item: [Bottle.Fulfillment.V1.LineItem.t()],
+          line_items: [Bottle.Fulfillment.V1.LineItem.t()],
           shipping_method: String.t(),
           shipping_price: integer,
           payment_method: Bottle.Fulfillment.V1.Order.PaymentMethod.t(),
@@ -47,7 +47,7 @@ defmodule Bottle.Fulfillment.V1.Order do
     :customer,
     :shipping,
     :billing,
-    :line_item,
+    :line_items,
     :shipping_method,
     :shipping_price,
     :payment_method,
@@ -60,7 +60,7 @@ defmodule Bottle.Fulfillment.V1.Order do
   field(:customer, 2, type: Bottle.Account.V1.User)
   field(:shipping, 3, type: Bottle.Account.V1.Address)
   field(:billing, 4, type: Bottle.Account.V1.Address)
-  field(:line_item, 11, repeated: true, type: Bottle.Fulfillment.V1.LineItem)
+  field(:line_items, 11, repeated: true, type: Bottle.Fulfillment.V1.LineItem)
   field(:shipping_method, 5, type: :string)
   field(:shipping_price, 12, type: :int64)
   field(:payment_method, 7, type: Bottle.Fulfillment.V1.Order.PaymentMethod, enum: true)
