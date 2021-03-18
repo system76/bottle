@@ -13,6 +13,7 @@ message Build {
     BUILD_STATUS_INCOMPLETE = 1;
     BUILD_STATUS_READY = 2;
     BUILD_STATUS_BUILT = 3;
+    BUILD_STATUS_INPROGRESS = 4;
   }
 
   BuildStatus status = 2;
