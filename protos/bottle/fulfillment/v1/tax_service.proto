@@ -12,7 +12,7 @@ message TaxCalculateRequest {
 
 message TaxCalculateResponse {
   string request_id = 1;
-  repeated bottle.fulfillment.v1.TaxLine tax_line = 2;
+  bottle.fulfillment.v1.Order order = 2;
 }
 
 service TaxService {
