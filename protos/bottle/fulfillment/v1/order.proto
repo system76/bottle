@@ -18,7 +18,7 @@ message Order {
   repeated LineItem line_item = 11;
 
   string shipping_method = 5;
-  double shipping_price = 12;
+  int64 shipping_price = 12;
 
   enum PaymentMethod {
     PAYMENT_METHOD_UNSPECIFIED = 0;
