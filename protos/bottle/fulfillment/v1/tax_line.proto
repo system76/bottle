@@ -5,5 +5,5 @@ package bottle.fulfillment.v1;
 message TaxLine {
   string id = 1;
   string name = 2;
-  int64 price = 3;
+  int64 amount = 3;
 }

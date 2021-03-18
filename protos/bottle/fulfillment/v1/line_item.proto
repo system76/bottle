@@ -13,6 +13,5 @@ message LineItem {
   bool rush = 6;
   int64 rush_price = 7;
 
-  int64 individual_cost = 4;
   int64 individual_price = 5;
 }
