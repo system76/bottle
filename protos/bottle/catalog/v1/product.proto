@@ -5,5 +5,13 @@ package bottle.catalog.v1;
 message Product {
   string id = 1;
   string model = 2;
-  bool rush_assembly = 3;
+
+  enum ProductCategory {
+    PRODUCT_CATEGORY_UNSPECIFIED = 0;
+    PRODUCT_CATEGORY_DESKTOP = 1;
+    PRODUCT_CATEGORY_LAPTOP = 2;
+    PRODUCT_CATEGORY_SERVER = 3;
+    PRODUCT_CATEGORY_APPAREL = 4;
+  }
+  ProductCategory category = 4;
 }

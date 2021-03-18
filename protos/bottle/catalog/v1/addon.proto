@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package bottle.catalog.v1;
+
+message Addon {
+  enum AddonCategory {
+    ADDON_CATEGORY_UNSPECIFIED = 0;
+    ADDON_CATEGORY_RUSH_ASSEMBLY = 1;
+  }
+  AddonCategory category = 1;
+}
