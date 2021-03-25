@@ -9,12 +9,16 @@ defmodule Bottle.Catalog.V1.Product.ProductCategory do
           | :PRODUCT_CATEGORY_LAPTOP
           | :PRODUCT_CATEGORY_SERVER
           | :PRODUCT_CATEGORY_APPAREL
+          | :PRODUCT_CATEGORY_BAG
+          | :PRODUCT_CATEGORY_ACCESSORY
 
   field(:PRODUCT_CATEGORY_UNSPECIFIED, 0)
   field(:PRODUCT_CATEGORY_DESKTOP, 1)
   field(:PRODUCT_CATEGORY_LAPTOP, 2)
   field(:PRODUCT_CATEGORY_SERVER, 3)
   field(:PRODUCT_CATEGORY_APPAREL, 4)
+  field(:PRODUCT_CATEGORY_BAG, 5)
+  field(:PRODUCT_CATEGORY_ACCESSORY, 6)
 end
 
 defmodule Bottle.Catalog.V1.Product do

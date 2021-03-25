@@ -2,10 +2,17 @@ defmodule Bottle.Catalog.V1.Addon.AddonCategory do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
 
-  @type t :: integer | :ADDON_CATEGORY_UNSPECIFIED | :ADDON_CATEGORY_RUSH_ASSEMBLY
+  @type t ::
+          integer
+          | :ADDON_CATEGORY_UNSPECIFIED
+          | :ADDON_CATEGORY_RUSH_ASSEMBLY
+          | :ADDON_CATEGORY_HANDLING
+          | :ADDON_CATEGORY_EWASTE
 
   field(:ADDON_CATEGORY_UNSPECIFIED, 0)
   field(:ADDON_CATEGORY_RUSH_ASSEMBLY, 1)
+  field(:ADDON_CATEGORY_HANDLING, 2)
+  field(:ADDON_CATEGORY_EWASTE, 3)
 end
 
 defmodule Bottle.Catalog.V1.Addon do
