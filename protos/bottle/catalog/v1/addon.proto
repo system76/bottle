@@ -6,6 +6,8 @@ message Addon {
   enum AddonCategory {
     ADDON_CATEGORY_UNSPECIFIED = 0;
     ADDON_CATEGORY_RUSH_ASSEMBLY = 1;
+    ADDON_CATEGORY_HANDLING = 2;
+    ADDON_CATEGORY_EWASTE = 3;
   }
   AddonCategory category = 1;
 }
