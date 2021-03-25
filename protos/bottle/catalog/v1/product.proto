@@ -12,6 +12,8 @@ message Product {
     PRODUCT_CATEGORY_LAPTOP = 2;
     PRODUCT_CATEGORY_SERVER = 3;
     PRODUCT_CATEGORY_APPAREL = 4;
+    PRODUCT_CATEGORY_BAG = 5;
+    PRODUCT_CATEGORY_ACCESSORY = 6;
   }
   ProductCategory category = 4;
 }
