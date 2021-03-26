@@ -35,6 +35,5 @@ message Order {
   PaymentMethod payment_method = 7;
   string scode = 8;
 
-  bool tax_exempt = 9;
   repeated TaxLine tax_lines = 10;
 }
