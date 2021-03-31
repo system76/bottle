@@ -8,11 +8,6 @@ message OrderCreated {
   bottle.fulfillment.v1.Order order = 1;
 }
 
-message VerificationRequested {
-  bottle.fulfillment.v1.Order order = 1;
-  repeated string flags = 2;
-}
-
 message TribbleFailed {
   bottle.fulfillment.v1.Order order = 1;
 

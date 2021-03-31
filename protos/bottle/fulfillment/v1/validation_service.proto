@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "bottle/fulfillment/v1/order.proto";
+import "bottle/fulfillment/v1/tax_line.proto";
+
+package bottle.fulfillment.v1;
+
+message ValidationRequest {
+  bottle.fulfillment.v1.Order order = 1;
+}
+
+message ValidationResponse {
+  bottle.fulfillment.v1.Order order = 1;
+  repeated string flags = 2;
+}
