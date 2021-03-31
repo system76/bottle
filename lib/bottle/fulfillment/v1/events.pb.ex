@@ -27,6 +27,20 @@ defmodule Bottle.Fulfillment.V1.OrderCreated do
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
 end
 
+defmodule Bottle.Fulfillment.V1.OrderUpdated do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          old: Bottle.Fulfillment.V1.Order.t() | nil,
+          new: Bottle.Fulfillment.V1.Order.t() | nil
+        }
+  defstruct [:old, :new]
+
+  field(:old, 1, type: Bottle.Fulfillment.V1.Order)
+  field(:new, 2, type: Bottle.Fulfillment.V1.Order)
+end
+
 defmodule Bottle.Fulfillment.V1.VerificationRequested do
   @moduledoc false
   use Protobuf, syntax: :proto3
