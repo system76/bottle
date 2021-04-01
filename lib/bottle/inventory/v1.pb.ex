@@ -7,6 +7,12 @@ defmodule Bottle.Inventory.V1.Service do
     Bottle.Inventory.V1.ComponentAvailabilityListRequest,
     stream(Bottle.Inventory.V1.ComponentAvailabilityListResponse)
   )
+
+  rpc(
+    :LocationList,
+    Bottle.Inventory.V1.LocationListRequest,
+    stream(Bottle.Inventory.V1.LocationListResponse)
+  )
 end
 
 defmodule Bottle.Inventory.V1.Stub do

@@ -27,3 +27,31 @@ defmodule Bottle.Inventory.V1.ComponentAvailabilityListResponse do
   field(:component, 2, type: Bottle.Inventory.V1.Component)
   field(:available, 3, type: :int32)
 end
+
+defmodule Bottle.Inventory.V1.LocationListRequest do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          request_id: String.t(),
+          locations: [Bottle.Inventory.V1.Location.t()]
+        }
+  defstruct [:request_id, :locations]
+
+  field(:request_id, 1, type: :string)
+  field(:locations, 2, repeated: true, type: Bottle.Inventory.V1.Location)
+end
+
+defmodule Bottle.Inventory.V1.LocationListResponse do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          request_id: String.t(),
+          location: Bottle.Inventory.V1.Location.t() | nil
+        }
+  defstruct [:request_id, :location]
+
+  field(:request_id, 1, type: :string)
+  field(:location, 2, type: Bottle.Inventory.V1.Location)
+end
