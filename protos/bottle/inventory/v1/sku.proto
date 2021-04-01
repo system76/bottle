@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package bottle.inventory.v1;
+
+message Sku {
+  string id = 1;
+  string name = 2;
+}

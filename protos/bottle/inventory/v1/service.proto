@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "bottle/inventory/v1/component.proto";
+import "bottle/inventory/v1/location.proto";
 
 package bottle.inventory.v1;
 
@@ -13,4 +14,14 @@ message ComponentAvailabilityListResponse {
   string request_id = 1;
   bottle.inventory.v1.Component component = 2;
   int32 available = 3;
+}
+
+message LocationListRequest {
+  string request_id = 1;
+  repeated bottle.inventory.v1.Location locations = 2;
+}
+
+message LocationListResponse {
+  string request_id = 1;
+  bottle.inventory.v1.Location location = 2;
 }
