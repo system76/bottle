@@ -16,12 +16,12 @@ message ComponentAvailabilityListResponse {
   int32 available = 3;
 }
 
-message InventoryLocationsRequest {
+message LocationListRequest {
   string request_id = 1;
   repeated bottle.inventory.v1.Location locations = 2;
 }
 
-message InventoryLocationsResponse {
+message LocationListResponse {
   string request_id = 1;
   bottle.inventory.v1.Location location = 2;
 }
