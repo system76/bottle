@@ -1,3 +1,13 @@
+defmodule Bottle.Fulfillment.V1.Order.Status do
+  @moduledoc false
+  use Protobuf, enum: true, syntax: :proto3
+
+  @type t :: integer | :STATUS_UNSPECIFIED | :STATUS_COMPLETE
+
+  field(:STATUS_UNSPECIFIED, 0)
+  field(:STATUS_COMPLETE, 1)
+end
+
 defmodule Bottle.Fulfillment.V1.Order.PaymentMethod do
   @moduledoc false
   use Protobuf, enum: true, syntax: :proto3
@@ -31,6 +41,7 @@ defmodule Bottle.Fulfillment.V1.Order do
 
   @type t :: %__MODULE__{
           id: String.t(),
+          status: Bottle.Fulfillment.V1.Order.Status.t(),
           customer: Bottle.Account.V1.User.t() | nil,
           shipping: Bottle.Account.V1.Address.t() | nil,
           billing: Bottle.Account.V1.Address.t() | nil,
@@ -43,6 +54,7 @@ defmodule Bottle.Fulfillment.V1.Order do
         }
   defstruct [
     :id,
+    :status,
     :customer,
     :shipping,
     :billing,
@@ -55,6 +67,7 @@ defmodule Bottle.Fulfillment.V1.Order do
   ]
 
   field(:id, 1, type: :string)
+  field(:status, 13, type: Bottle.Fulfillment.V1.Order.Status, enum: true)
   field(:customer, 2, type: Bottle.Account.V1.User)
   field(:shipping, 3, type: Bottle.Account.V1.Address)
   field(:billing, 4, type: Bottle.Account.V1.Address)
