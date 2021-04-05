@@ -8,11 +8,13 @@ defmodule Bottle.Catalog.V1.Addon.AddonCategory do
           | :ADDON_CATEGORY_RUSH_ASSEMBLY
           | :ADDON_CATEGORY_HANDLING
           | :ADDON_CATEGORY_EWASTE
+          | :ADDON_CATEGORY_EXTENDED_WARRANTY
 
   field(:ADDON_CATEGORY_UNSPECIFIED, 0)
   field(:ADDON_CATEGORY_RUSH_ASSEMBLY, 1)
   field(:ADDON_CATEGORY_HANDLING, 2)
   field(:ADDON_CATEGORY_EWASTE, 3)
+  field(:ADDON_CATEGORY_EXTENDED_WARRANTY, 4)
 end
 
 defmodule Bottle.Catalog.V1.Addon do
