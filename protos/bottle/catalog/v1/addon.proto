@@ -8,6 +8,7 @@ message Addon {
     ADDON_CATEGORY_RUSH_ASSEMBLY = 1;
     ADDON_CATEGORY_HANDLING = 2;
     ADDON_CATEGORY_EWASTE = 3;
+    ADDON_CATEGORY_EXTENDED_WARRANTY = 4;
   }
   AddonCategory category = 1;
 }
