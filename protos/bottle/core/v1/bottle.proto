@@ -16,8 +16,9 @@ message Bottle {
 
   oneof resource {
     bottle.fulfillment.v1.OrderCreated order_created = 4;
-    bottle.fulfillment.v1.OrderVerificationRequest order_verification_request = 22;
-    bottle.fulfillment.v1.OrderVerificationResponse order_verification_response = 23;
+    bottle.fulfillment.v1.OrderUpdated order_updated = 22;
+    bottle.fulfillment.v1.OrderVerificationRequest order_verification_request = 23;
+    bottle.fulfillment.v1.OrderVerificationResponse order_verification_response = 24;
     bottle.fulfillment.v1.TribbleFailed tribble_failed = 6;
 
     bottle.account.v1.UserCreated user_created = 7;
