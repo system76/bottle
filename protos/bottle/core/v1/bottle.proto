@@ -5,6 +5,7 @@ package bottle.core.v1;
 import "bottle/account/v1/events.proto";
 import "bottle/assembly/v1/events.proto";
 import "bottle/fulfillment/v1/events.proto";
+import "bottle/fulfillment/v1/order_verification_service.proto";
 import "bottle/inventory/v1/events.proto";
 import "bottle/support/v1/events.proto";
 
@@ -16,7 +17,8 @@ message Bottle {
   oneof resource {
     bottle.fulfillment.v1.OrderCreated order_created = 4;
     bottle.fulfillment.v1.OrderUpdated order_updated = 22;
-    bottle.fulfillment.v1.VerificationRequested verification_requested = 5;
+    bottle.fulfillment.v1.OrderVerificationRequest order_verification_request = 23;
+    bottle.fulfillment.v1.OrderVerificationResponse order_verification_response = 24;
     bottle.fulfillment.v1.TribbleFailed tribble_failed = 6;
 
     bottle.account.v1.UserCreated user_created = 7;
