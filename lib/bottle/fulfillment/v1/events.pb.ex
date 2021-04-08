@@ -41,20 +41,6 @@ defmodule Bottle.Fulfillment.V1.OrderUpdated do
   field(:new, 2, type: Bottle.Fulfillment.V1.Order)
 end
 
-defmodule Bottle.Fulfillment.V1.VerificationRequested do
-  @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          order: Bottle.Fulfillment.V1.Order.t() | nil,
-          flags: [String.t()]
-        }
-  defstruct [:order, :flags]
-
-  field(:order, 1, type: Bottle.Fulfillment.V1.Order)
-  field(:flags, 2, repeated: true, type: :string)
-end
-
 defmodule Bottle.Fulfillment.V1.TribbleFailed do
   @moduledoc false
   use Protobuf, syntax: :proto3

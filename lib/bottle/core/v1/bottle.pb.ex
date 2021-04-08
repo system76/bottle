@@ -16,7 +16,17 @@ defmodule Bottle.Core.V1.Bottle do
   field(:source, 3, type: :string)
   field(:order_created, 4, type: Bottle.Fulfillment.V1.OrderCreated, oneof: 0)
   field(:order_updated, 22, type: Bottle.Fulfillment.V1.OrderUpdated, oneof: 0)
-  field(:verification_requested, 5, type: Bottle.Fulfillment.V1.VerificationRequested, oneof: 0)
+
+  field(:order_verification_request, 23,
+    type: Bottle.Fulfillment.V1.OrderVerificationRequest,
+    oneof: 0
+  )
+
+  field(:order_verification_response, 24,
+    type: Bottle.Fulfillment.V1.OrderVerificationResponse,
+    oneof: 0
+  )
+
   field(:tribble_failed, 6, type: Bottle.Fulfillment.V1.TribbleFailed, oneof: 0)
   field(:user_created, 7, type: Bottle.Account.V1.UserCreated, oneof: 0)
   field(:user_deleted, 20, type: Bottle.Account.V1.UserDeleted, oneof: 0)
