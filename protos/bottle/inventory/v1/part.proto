@@ -10,4 +10,5 @@ message Part {
   string serial_number = 2;
   bottle.inventory.v1.Sku sku = 3;
   bottle.inventory.v1.Location location = 4;
+  string rma_description = 5;
 }
