@@ -51,6 +51,8 @@ defmodule Bottle.Core.V1.Bottle do
     oneof: 0
   )
 
+  field(:part_created, 25, type: Bottle.Inventory.V1.PartCreated, oneof: 0)
+  field(:part_updated, 26, type: Bottle.Inventory.V1.PartUpdated, oneof: 0)
   field(:question_created, 16, type: Bottle.Support.V1.QuestionCreated, oneof: 0)
   field(:macro_applied, 17, type: Bottle.Support.V1.MacroApplied, oneof: 0)
 end
