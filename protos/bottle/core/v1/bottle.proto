@@ -36,6 +36,8 @@ message Bottle {
     bottle.assembly.v1.BuildUpdated build_updated = 14;
 
     bottle.inventory.v1.ComponentAvailabilityUpdated component_availability_updated = 15;
+    bottle.inventory.v1.PartCreated part_created = 25;
+    bottle.inventory.v1.PartUpdated part_updated = 26;
 
     bottle.support.v1.QuestionCreated question_created = 16;
     bottle.support.v1.MacroApplied macro_applied = 17;
