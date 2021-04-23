@@ -50,7 +50,8 @@ defmodule Bottle.Fulfillment.V1.Order do
           shipping_price: integer,
           payment_method: Bottle.Fulfillment.V1.Order.PaymentMethod.t(),
           scode: String.t(),
-          tax_lines: [Bottle.Fulfillment.V1.TaxLine.t()]
+          tax_lines: [Bottle.Fulfillment.V1.TaxLine.t()],
+          events: [Bottle.Fulfillment.V1.Event.t()]
         }
   defstruct [
     :id,
@@ -63,7 +64,8 @@ defmodule Bottle.Fulfillment.V1.Order do
     :shipping_price,
     :payment_method,
     :scode,
-    :tax_lines
+    :tax_lines,
+    :events
   ]
 
   field(:id, 1, type: :string)
@@ -77,4 +79,5 @@ defmodule Bottle.Fulfillment.V1.Order do
   field(:payment_method, 7, type: Bottle.Fulfillment.V1.Order.PaymentMethod, enum: true)
   field(:scode, 8, type: :string)
   field(:tax_lines, 10, repeated: true, type: Bottle.Fulfillment.V1.TaxLine)
+  field(:events, 14, repeated: true, type: Bottle.Fulfillment.V1.Event)
 end
