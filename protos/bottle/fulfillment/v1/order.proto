@@ -5,6 +5,7 @@ package bottle.fulfillment.v1;
 import "bottle/account/v1/address.proto";
 import "bottle/account/v1/user.proto";
 import "bottle/catalog/v1/product.proto";
+import "bottle/fulfillment/v1/event.proto";
 import "bottle/fulfillment/v1/line_item.proto";
 import "bottle/fulfillment/v1/tax_line.proto";
 
@@ -42,4 +43,6 @@ message Order {
   string scode = 8;
 
   repeated TaxLine tax_lines = 10;
+
+  repeated Event events = 14;
 }
