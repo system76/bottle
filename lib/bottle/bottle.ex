@@ -2,6 +2,10 @@ defmodule Bottle do
   @moduledoc """
   A collection of helper functions used by all consuming and producer services
   """
+
+  @callback publish(struct(), keyword()) :: :ok | {:error, reason :: :blocked | :closing}
+
+  @spec publish(struct(), keyword()) :: :ok | {:error, reason :: :blocked | :closing}
   def publish(message, opts \\ []) do
     {exchange, routing_key} = exchange_and_routing_key(message)
     encoded_message = wrap_and_encode(message, routing_key, opts)
