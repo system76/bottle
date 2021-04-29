@@ -10,6 +10,7 @@ defmodule Bottle.Catalog.V1.Addon.AddonCategory do
           | :ADDON_CATEGORY_EWASTE
           | :ADDON_CATEGORY_EXTENDED_WARRANTY
           | :ADDON_CATEGORY_SHIPPING
+          | :ADDON_CATEGORY_SOFTWARE_MAINTENANCE
 
   field(:ADDON_CATEGORY_UNSPECIFIED, 0)
   field(:ADDON_CATEGORY_RUSH_ASSEMBLY, 1)
@@ -17,6 +18,7 @@ defmodule Bottle.Catalog.V1.Addon.AddonCategory do
   field(:ADDON_CATEGORY_EWASTE, 3)
   field(:ADDON_CATEGORY_EXTENDED_WARRANTY, 4)
   field(:ADDON_CATEGORY_SHIPPING, 5)
+  field(:ADDON_CATEGORY_SOFTWARE_MAINTENANCE, 6)
 end
 
 defmodule Bottle.Catalog.V1.Addon do
