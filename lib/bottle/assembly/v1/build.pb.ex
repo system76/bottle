@@ -39,16 +39,27 @@ defmodule Bottle.Assembly.V1.Build do
           id: String.t(),
           status: Bottle.Assembly.V1.Build.BuildStatus.t(),
           build_components: [Bottle.Assembly.V1.Build.BuildComponent.t()],
+          missing_components: [Bottle.Assembly.V1.Build.BuildComponent.t()],
           model: String.t(),
           order: Bottle.Fulfillment.V1.Order.t() | nil,
           created_at: String.t(),
           updated_at: String.t()
         }
-  defstruct [:id, :status, :build_components, :model, :order, :created_at, :updated_at]
+  defstruct [
+    :id,
+    :status,
+    :build_components,
+    :missing_components,
+    :model,
+    :order,
+    :created_at,
+    :updated_at
+  ]
 
   field(:id, 1, type: :string)
   field(:status, 2, type: Bottle.Assembly.V1.Build.BuildStatus, enum: true)
   field(:build_components, 3, repeated: true, type: Bottle.Assembly.V1.Build.BuildComponent)
+  field(:missing_components, 8, repeated: true, type: Bottle.Assembly.V1.Build.BuildComponent)
   field(:model, 4, type: :string)
   field(:order, 5, type: Bottle.Fulfillment.V1.Order)
   field(:created_at, 6, type: :string)
