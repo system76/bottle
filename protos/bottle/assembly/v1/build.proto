@@ -24,6 +24,7 @@ message Build {
   }
 
   repeated BuildComponent build_components = 3;
+  repeated BuildComponent missing_components = 8;
 
   string model = 4;
   bottle.fulfillment.v1.Order order = 5;
