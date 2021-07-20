@@ -45,3 +45,5 @@ deps/
 
 ### Node Branch ###
 node_modules/
+package.json
+package-lock.json
