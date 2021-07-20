@@ -1,0 +1,19 @@
+{
+  "name": "@system76/bottle",
+  "version": "0.1.0",
+  "description": "Protobuf messages in a bottle",
+  "author": "Blake Kostner <btkostner.io>",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/system76/bottle#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/system76/bottle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/system76/bottle/issues"
+  },
+  "exports": {
+    "./*": "./bottle/*",
+    "./package.json": "./package.json"
+  }
+}
