@@ -18,15 +18,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup (buf)
-        env:
-          VERSION: "0.32.0"
-        run: |
-          sudo curl -sSL \
-            "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \
-            -o /usr/local/bin/buf
+      - name: Setup (protoc)
+        uses: arduino/setup-protoc@v1
+        with:
+          version: 3.15.8
 
-          sudo chmod +x /usr/local/bin/buf
+      - name: Setup (buf)
+        uses: wizhi/setup-buf@v1
+        with:
+          version: 0.44.0
 
       - name: Lint
         run: buf check lint
@@ -47,15 +47,15 @@ jobs:
           ref: master
           path: master
 
-      - name: Setup (buf)
-        env:
-          VERSION: "0.32.0"
-        run: |
-          sudo curl -sSL \
-            "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \
-            -o /usr/local/bin/buf
+      - name: Setup (protoc)
+        uses: arduino/setup-protoc@v1
+        with:
+          version: 3.15.8
 
-          sudo chmod +x /usr/local/bin/buf
+      - name: Setup (buf)
+        uses: wizhi/setup-buf@v1
+        with:
+          version: 0.44.0
 
       - name: Lint
         run: |
@@ -76,15 +76,15 @@ jobs:
           ref: elixir
           path: elixir
 
-      - name: Setup (buf)
-        env:
-          VERSION: "0.32.0"
-        run: |
-          sudo curl -sSL \
-            "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" \
-            -o /usr/local/bin/buf
+      - name: Setup (protoc)
+        uses: arduino/setup-protoc@v1
+        with:
+          version: 3.15.8
 
-          sudo chmod +x /usr/local/bin/buf
+      - name: Setup (buf)
+        uses: wizhi/setup-buf@v1
+        with:
+          version: 0.44.0
 
       - name: Setup (elixir)
         uses: actions/setup-elixir@v1
@@ -116,3 +116,57 @@ jobs:
         run: |
           cd ./elixir
           mix format
+
+  Node:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (master)
+        uses: actions/checkout@v2
+        with:
+          path: master
+
+      - name: Checkout (node)
+        uses: actions/checkout@v2
+        with:
+          ref: node
+          path: node
+
+      - name: Setup (protoc)
+        uses: arduino/setup-protoc@v1
+        with:
+          version: 3.15.8
+
+      - name: Setup (buf)
+        uses: wizhi/setup-buf@v1
+        with:
+          version: 0.44.0
+
+      - name: Setup (node)
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Setup (ts-proto)
+        run: |
+          npm i ts-proto@1.82.2
+
+      - name: Generate
+        run: |
+          find ./node -type f -name '*_pb*.js' -delete
+
+          rm -rf ./node/protos/*
+          cp -R ./master/protos/. ./node/protos/
+          cd ./node/protos
+
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"./dist","opt":"import_style=commonjs,binary"}]}'
+
+      - name: Publish
+        run: |
+          git config --global user.email "hosting@system76.com"
+          git config --global user.name "5iMON-bot"
+
+          cd ./node
+          git add .
+          git commit -m "update protobufs" || true
+          git push
