@@ -51,7 +51,7 @@ jobs:
 
       - name: Lint
         run: |
-          buf breaking --against '.git#branch=master' ./current/protos
+          buf breaking --against '.git#branch=master' ./protos
 
   Elixir:
     runs-on: ubuntu-latest
@@ -145,16 +145,16 @@ jobs:
 
       - name: Generate
         run: |
-          rm -rf ./node/lib
+          rm -rf ./node/bottle
           rm -rf ./node/protos
 
-          mkdir -p ./node/lib
+          mkdir -p ./node/bottle
           mkdir -p ./node/protos
 
           cp -R ./master/protos/. ./node/protos/
           cd ./node/protos
 
-          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../lib","opt":"import_style=commonjs,binary"},{"name":"ts","path":"../../node_modules/.bin/protoc-gen-ts_proto","out":"../lib"}]}'
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../","opt":"import_style=commonjs,binary"},{"name":"ts","path":"../../node_modules/.bin/protoc-gen-ts_proto","out":"../"}]}'
 
       - name: Publish
         run: |
