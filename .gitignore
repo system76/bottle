@@ -42,3 +42,6 @@ tags
 ### Elixir Branch ###
 _build/
 deps/
+
+### Node Branch ###
+node_modules/

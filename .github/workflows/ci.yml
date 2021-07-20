@@ -153,10 +153,23 @@ jobs:
 
       - name: Generate
         run: |
-          find ./node -type f -name '*_pb*.js' -delete
+          rm -rf ./node/lib
+          rm -rf ./node/protos
 
-          rm -rf ./node/protos/*
+          mkdir -p ./node/lib
+          mkdir -p ./node/protos
+
           cp -R ./master/protos/. ./node/protos/
           cd ./node/protos
 
-          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../","opt":"import_style=commonjs,binary"}]}'
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../lib","opt":"import_style=commonjs,binary"},{"name":"ts","plugin":"../../node_modules/.bin/protoc-gen-ts","out":"../lib"}]}'
+
+      - name: Publish
+        run: |
+          git config --global user.email "hosting@system76.com"
+          git config --global user.name "5iMON-bot"
+
+          cd ./node
+          git add .
+          git commit -m "update protobufs" || true
+          git push
