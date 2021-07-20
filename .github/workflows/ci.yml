@@ -150,6 +150,7 @@ jobs:
       - name: Setup (ts-proto)
         run: |
           npm i ts-proto@1.82.2
+          echo "./node_modules/.bin" >> $GITHUB_PATH
 
       - name: Generate
         run: |
@@ -162,7 +163,7 @@ jobs:
           cp -R ./master/protos/. ./node/protos/
           cd ./node/protos
 
-          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../lib","opt":"import_style=commonjs,binary"},{"name":"ts","plugin":"../../node_modules/.bin/protoc-gen-ts","out":"../lib"}]}'
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../lib","opt":"import_style=commonjs,binary"},{"name":"ts","out":"../lib"}]}'
 
       - name: Publish
         run: |
