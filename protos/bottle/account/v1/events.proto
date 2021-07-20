@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+import "bottle/account/v1/organization.proto";
+import "bottle/account/v1/user.proto";
+
+package bottle.account.v1;
+
+message UserCreated {
+  bottle.account.v1.User user = 1;
+}
+
+message UserDeleted {
+  bottle.account.v1.User user = 1;
+}
+
+message UserUpdated {
+  bottle.account.v1.User user = 1;
+}
+
+message PasswordChanged {
+  bottle.account.v1.User user = 1;
+}
+
+message PasswordReset {
+  bottle.account.v1.User user = 1;
+  string reset_url = 2;
+}
+
+message TwoFactorRequested {
+  bottle.account.v1.User user = 1;
+  string token = 2;
+
+  enum TwoFactorMethod {
+    TWO_FACTOR_METHOD_UNSPECIFIED = 0;
+    TWO_FACTOR_METHOD_SMS = 1;
+    TWO_FACTOR_METHOD_VOICE = 2;
+  }
+
+  TwoFactorMethod method = 3;
+}
+
+message TwoFactorRecoveryCodeUsed {
+  bottle.account.v1.User user = 1;
+  string recovery_code = 2;
+  int32 codes_remaining = 3;
+}
+
+message OrganizationCreated {
+  bottle.account.v1.Organization organization = 1;
+}
+
+message OrganizationJoined {
+  bottle.account.v1.Organization organization = 1;
+  bottle.account.v1.User user = 2;
+}
+
+message OrganizationLeft {
+  bottle.account.v1.Organization organization = 1;
+  bottle.account.v1.User user = 2;
+}

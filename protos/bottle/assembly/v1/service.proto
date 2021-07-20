@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "bottle/assembly/v1/build.proto";
+
+package bottle.assembly.v1;
+
+message BuildListRequest {
+  string request_id = 1;
+}
+
+message BuildListResponse {
+  string request_id = 1;
+  bottle.assembly.v1.Build build = 2;
+}
+
+message ComponentDemandRequest {
+  string request_id = 1;
+}
+
+message ComponentDemandResponse {
+  string request_id = 1;
+  int32 demand_quantity = 2;
+}

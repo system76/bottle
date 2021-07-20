@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package bottle.core.v1;
+
+import "bottle/account/v1/events.proto";
+import "bottle/assembly/v1/events.proto";
+import "bottle/fulfillment/v1/events.proto";
+import "bottle/fulfillment/v1/order_verification_service.proto";
+import "bottle/inventory/v1/events.proto";
+import "bottle/support/v1/events.proto";
+
+message Bottle {
+  int64 timestamp = 1;
+  string request_id = 2;
+  string source = 3;
+
+  oneof resource {
+    bottle.fulfillment.v1.OrderCreated order_created = 4;
+    bottle.fulfillment.v1.OrderUpdated order_updated = 22;
+    bottle.fulfillment.v1.OrderVerificationRequest order_verification_request = 23;
+    bottle.fulfillment.v1.OrderVerificationResponse order_verification_response = 24;
+    bottle.fulfillment.v1.TribbleFailed tribble_failed = 6;
+
+    bottle.account.v1.UserCreated user_created = 7;
+    bottle.account.v1.UserDeleted user_deleted = 20;
+    bottle.account.v1.UserUpdated user_updated = 21;
+    bottle.account.v1.PasswordChanged password_changed = 8;
+    bottle.account.v1.PasswordReset password_reset = 9;
+    bottle.account.v1.TwoFactorRequested two_factor_requested = 18;
+    bottle.account.v1.TwoFactorRecoveryCodeUsed two_factor_recovery_code_used = 19;
+    bottle.account.v1.OrganizationCreated organization_created = 10;
+    bottle.account.v1.OrganizationJoined organization_joined = 11;
+    bottle.account.v1.OrganizationLeft organization_left = 12;
+
+    bottle.assembly.v1.BuildCreated build_created = 13;
+    bottle.assembly.v1.BuildUpdated build_updated = 14;
+
+    bottle.inventory.v1.ComponentAvailabilityUpdated component_availability_updated = 15;
+    bottle.inventory.v1.PartCreated part_created = 25;
+    bottle.inventory.v1.PartUpdated part_updated = 26;
+
+    bottle.support.v1.QuestionCreated question_created = 16;
+    bottle.support.v1.MacroApplied macro_applied = 17;
+  }
+}

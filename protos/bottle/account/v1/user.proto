@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package bottle.account.v1;
+
+import "bottle/account/v1/organization.proto";
+
+message User {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string phone_number = 4;
+  string email = 5;
+  bool newsletter = 6;
+
+  enum AccountType {
+    ACCOUNT_TYPE_UNSPECIFIED = 0;
+    ACCOUNT_TYPE_INDIVIDUAL = 1;
+    ACCOUNT_TYPE_BUSINESS = 2;
+    ACCOUNT_TYPE_RESELLER = 3;
+  }
+
+  AccountType account_type = 7;
+  string company_name = 8;
+}

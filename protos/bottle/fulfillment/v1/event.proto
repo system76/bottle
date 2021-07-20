@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package bottle.fulfillment.v1;
+
+message Event {
+  enum Event {
+    EVENT_UNSPECIFIED = 0;
+    EVENT_FULLY_SHIPPED = 1;
+  }
+
+  Event event = 1;
+  string occured_at = 2;
+}
