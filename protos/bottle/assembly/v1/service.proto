@@ -13,7 +13,7 @@ message BuildListResponse {
   bottle.assembly.v1.Build build = 2;
 }
 
-message ComponentDemand {
+message ComponentDemandRequest {
   string request_id = 1;
 }
 
