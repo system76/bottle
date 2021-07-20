@@ -18,11 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup (protoc)
-        uses: arduino/setup-protoc@v1
-        with:
-          version: 3.15.8
-
       - name: Setup (buf)
         uses: wizhi/setup-buf@v1
         with:
@@ -38,11 +33,14 @@ jobs:
     steps:
       - name: Checkout (current)
         uses: actions/checkout@v2
-
-      - name: Setup (protoc)
-        uses: arduino/setup-protoc@v1
         with:
-          version: 3.15.8
+          path: current
+
+      - name: Checkout (master)
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          path: master
 
       - name: Setup (buf)
         uses: wizhi/setup-buf@v1
@@ -51,7 +49,7 @@ jobs:
 
       - name: Lint
         run: |
-          buf breaking --against '.git#branch=master' ./protos
+          buf breaking --against ./master/protos ./current/protos
 
   Elixir:
     runs-on: ubuntu-latest
@@ -155,13 +153,3 @@ jobs:
           cd ./node/protos
 
           buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../","opt":"import_style=commonjs,binary"},{"name":"ts","path":"../../node_modules/.bin/protoc-gen-ts_proto","out":"../"}]}'
-
-      - name: Publish
-        run: |
-          git config --global user.email "hosting@system76.com"
-          git config --global user.name "5iMON-bot"
-
-          cd ./node
-          git add .
-          git commit -m "update protobufs" || true
-          git push
