@@ -38,14 +38,6 @@ jobs:
     steps:
       - name: Checkout (current)
         uses: actions/checkout@v2
-        with:
-          path: current
-
-      - name: Checkout (master)
-        uses: actions/checkout@v2
-        with:
-          ref: master
-          path: master
 
       - name: Setup (protoc)
         uses: arduino/setup-protoc@v1
@@ -59,7 +51,7 @@ jobs:
 
       - name: Lint
         run: |
-          buf check breaking --input ./current/protos --against-input ./master/protos
+          buf breaking --against '.git#branch=master' ./current/protos
 
   Elixir:
     runs-on: ubuntu-latest
