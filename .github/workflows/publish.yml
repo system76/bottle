@@ -121,7 +121,7 @@ jobs:
           cp -R ./master/protos/. ./node/protos/
           cd ./node/protos
 
-          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"./dist","opt":"import_style=commonjs,binary"}]}'
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../","opt":"import_style=commonjs,binary"}]}'
 
       - name: Publish
         run: |

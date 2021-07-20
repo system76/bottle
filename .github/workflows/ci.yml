@@ -159,14 +159,4 @@ jobs:
           cp -R ./master/protos/. ./node/protos/
           cd ./node/protos
 
-          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"./dist","opt":"import_style=commonjs,binary"}]}'
-
-      - name: Publish
-        run: |
-          git config --global user.email "hosting@system76.com"
-          git config --global user.name "5iMON-bot"
-
-          cd ./node
-          git add .
-          git commit -m "update protobufs" || true
-          git push
+          buf generate --template '{"version":"v1beta1","plugins":[{"name":"js","out":"../","opt":"import_style=commonjs,binary"}]}'
