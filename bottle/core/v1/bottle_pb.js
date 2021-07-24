@@ -19,6 +19,8 @@ var bottle_account_v1_events_pb = require('../../../bottle/account/v1/events_pb.
 goog.object.extend(proto, bottle_account_v1_events_pb);
 var bottle_assembly_v1_events_pb = require('../../../bottle/assembly/v1/events_pb.js');
 goog.object.extend(proto, bottle_assembly_v1_events_pb);
+var bottle_core_v1_testing_pb = require('../../../bottle/core/v1/testing_pb.js');
+goog.object.extend(proto, bottle_core_v1_testing_pb);
 var bottle_fulfillment_v1_events_pb = require('../../../bottle/fulfillment/v1/events_pb.js');
 goog.object.extend(proto, bottle_fulfillment_v1_events_pb);
 var bottle_fulfillment_v1_order_verification_service_pb = require('../../../bottle/fulfillment/v1/order_verification_service_pb.js');
@@ -59,7 +61,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,15,25,26,16,17]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,15,25,26,16,17,27]];
 
 /**
  * @enum {number}
@@ -87,7 +89,8 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   PART_CREATED: 25,
   PART_UPDATED: 26,
   QUESTION_CREATED: 16,
-  MACRO_APPLIED: 17
+  MACRO_APPLIED: 17,
+  TEST_EVENT: 27
 };
 
 /**
@@ -152,7 +155,8 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     partCreated: (f = msg.getPartCreated()) && bottle_inventory_v1_events_pb.PartCreated.toObject(includeInstance, f),
     partUpdated: (f = msg.getPartUpdated()) && bottle_inventory_v1_events_pb.PartUpdated.toObject(includeInstance, f),
     questionCreated: (f = msg.getQuestionCreated()) && bottle_support_v1_events_pb.QuestionCreated.toObject(includeInstance, f),
-    macroApplied: (f = msg.getMacroApplied()) && bottle_support_v1_events_pb.MacroApplied.toObject(includeInstance, f)
+    macroApplied: (f = msg.getMacroApplied()) && bottle_support_v1_events_pb.MacroApplied.toObject(includeInstance, f),
+    testEvent: (f = msg.getTestEvent()) && bottle_core_v1_testing_pb.TestEvent.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -310,6 +314,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_support_v1_events_pb.MacroApplied;
       reader.readMessage(value,bottle_support_v1_events_pb.MacroApplied.deserializeBinaryFromReader);
       msg.setMacroApplied(value);
+      break;
+    case 27:
+      var value = new bottle_core_v1_testing_pb.TestEvent;
+      reader.readMessage(value,bottle_core_v1_testing_pb.TestEvent.deserializeBinaryFromReader);
+      msg.setTestEvent(value);
       break;
     default:
       reader.skipField();
@@ -535,6 +544,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       17,
       f,
       bottle_support_v1_events_pb.MacroApplied.serializeBinaryToWriter
+    );
+  }
+  f = message.getTestEvent();
+  if (f != null) {
+    writer.writeMessage(
+      27,
+      f,
+      bottle_core_v1_testing_pb.TestEvent.serializeBinaryToWriter
     );
   }
 };
@@ -1405,6 +1422,43 @@ proto.bottle.core.v1.Bottle.prototype.clearMacroApplied = function() {
  */
 proto.bottle.core.v1.Bottle.prototype.hasMacroApplied = function() {
   return jspb.Message.getField(this, 17) != null;
+};
+
+
+/**
+ * optional TestEvent test_event = 27;
+ * @return {?proto.bottle.core.v1.TestEvent}
+ */
+proto.bottle.core.v1.Bottle.prototype.getTestEvent = function() {
+  return /** @type{?proto.bottle.core.v1.TestEvent} */ (
+    jspb.Message.getWrapperField(this, bottle_core_v1_testing_pb.TestEvent, 27));
+};
+
+
+/**
+ * @param {?proto.bottle.core.v1.TestEvent|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setTestEvent = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 27, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearTestEvent = function() {
+  return this.setTestEvent(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasTestEvent = function() {
+  return jspb.Message.getField(this, 27) != null;
 };
 
 

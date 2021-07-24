@@ -32,6 +32,7 @@ import {
   QuestionCreated,
   MacroApplied,
 } from "../../../bottle/support/v1/events";
+import { TestEvent } from "../../../bottle/core/v1/testing";
 
 export const protobufPackage = "bottle.core.v1";
 
@@ -61,6 +62,7 @@ export interface Bottle {
   partUpdated: PartUpdated | undefined;
   questionCreated: QuestionCreated | undefined;
   macroApplied: MacroApplied | undefined;
+  testEvent: TestEvent | undefined;
 }
 
 const baseBottle: object = { timestamp: 0, requestId: "", source: "" };
@@ -208,6 +210,9 @@ export const Bottle = {
         writer.uint32(138).fork()
       ).ldelim();
     }
+    if (message.testEvent !== undefined) {
+      TestEvent.encode(message.testEvent, writer.uint32(218).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -320,6 +325,9 @@ export const Bottle = {
           break;
         case 17:
           message.macroApplied = MacroApplied.decode(reader, reader.uint32());
+          break;
+        case 27:
+          message.testEvent = TestEvent.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -507,6 +515,11 @@ export const Bottle = {
     } else {
       message.macroApplied = undefined;
     }
+    if (object.testEvent !== undefined && object.testEvent !== null) {
+      message.testEvent = TestEvent.fromJSON(object.testEvent);
+    } else {
+      message.testEvent = undefined;
+    }
     return message;
   },
 
@@ -604,6 +617,10 @@ export const Bottle = {
     message.macroApplied !== undefined &&
       (obj.macroApplied = message.macroApplied
         ? MacroApplied.toJSON(message.macroApplied)
+        : undefined);
+    message.testEvent !== undefined &&
+      (obj.testEvent = message.testEvent
+        ? TestEvent.toJSON(message.testEvent)
         : undefined);
     return obj;
   },
@@ -785,6 +802,11 @@ export const Bottle = {
       message.macroApplied = MacroApplied.fromPartial(object.macroApplied);
     } else {
       message.macroApplied = undefined;
+    }
+    if (object.testEvent !== undefined && object.testEvent !== null) {
+      message.testEvent = TestEvent.fromPartial(object.testEvent);
+    } else {
+      message.testEvent = undefined;
     }
     return message;
   },
