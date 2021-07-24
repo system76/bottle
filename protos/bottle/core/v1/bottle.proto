@@ -4,6 +4,7 @@ package bottle.core.v1;
 
 import "bottle/account/v1/events.proto";
 import "bottle/assembly/v1/events.proto";
+import "bottle/core/v1/testing.proto";
 import "bottle/fulfillment/v1/events.proto";
 import "bottle/fulfillment/v1/order_verification_service.proto";
 import "bottle/inventory/v1/events.proto";
@@ -41,5 +42,7 @@ message Bottle {
 
     bottle.support.v1.QuestionCreated question_created = 16;
     bottle.support.v1.MacroApplied macro_applied = 17;
+
+    bottle.core.v1.TestEvent test_event = 27;
   }
 }
