@@ -14,11 +14,16 @@ message ListComponentAvailabilityRequest {
 message ListComponentAvailabilityResponse {
   string request_id = 1;
   bottle.inventory.v1.Component component = 2;
+  int32 total_available_quantity = 3;
 
-  bottle.inventory.v1.Sku sku = 3;
-  bottle.inventory.v1.Location location = 4;
-  int32 required_quantity_per_kit = 5;
-  int32 available_quantity = 6;
+  message PickingOption {
+    bottle.inventory.v1.Sku sku = 1;
+    bottle.inventory.v1.Location recommended_location = 2;
+    int32 required_quantity_per_kit = 3;
+    int32 available_quantity = 4;
+  }
+
+  repeated PickingOption picking_options = 4;
 }
 
 message ListSkuAvailabilityRequest {

@@ -15,8 +15,13 @@ export interface ListComponentAvailabilityRequest {
 export interface ListComponentAvailabilityResponse {
   requestId: string;
   component: Component | undefined;
+  totalAvailableQuantity: number;
+  pickingOptions: ListComponentAvailabilityResponse_PickingOption[];
+}
+
+export interface ListComponentAvailabilityResponse_PickingOption {
   sku: Sku | undefined;
-  location: Location | undefined;
+  recommendedLocation: Location | undefined;
   requiredQuantityPerKit: number;
   availableQuantity: number;
 }
@@ -140,8 +145,7 @@ export const ListComponentAvailabilityRequest = {
 
 const baseListComponentAvailabilityResponse: object = {
   requestId: "",
-  requiredQuantityPerKit: 0,
-  availableQuantity: 0,
+  totalAvailableQuantity: 0,
 };
 
 export const ListComponentAvailabilityResponse = {
@@ -155,17 +159,14 @@ export const ListComponentAvailabilityResponse = {
     if (message.component !== undefined) {
       Component.encode(message.component, writer.uint32(18).fork()).ldelim();
     }
-    if (message.sku !== undefined) {
-      Sku.encode(message.sku, writer.uint32(26).fork()).ldelim();
+    if (message.totalAvailableQuantity !== 0) {
+      writer.uint32(24).int32(message.totalAvailableQuantity);
     }
-    if (message.location !== undefined) {
-      Location.encode(message.location, writer.uint32(34).fork()).ldelim();
-    }
-    if (message.requiredQuantityPerKit !== 0) {
-      writer.uint32(40).int32(message.requiredQuantityPerKit);
-    }
-    if (message.availableQuantity !== 0) {
-      writer.uint32(48).int32(message.availableQuantity);
+    for (const v of message.pickingOptions) {
+      ListComponentAvailabilityResponse_PickingOption.encode(
+        v!,
+        writer.uint32(34).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -179,6 +180,7 @@ export const ListComponentAvailabilityResponse = {
     const message = {
       ...baseListComponentAvailabilityResponse,
     } as ListComponentAvailabilityResponse;
+    message.pickingOptions = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -189,16 +191,15 @@ export const ListComponentAvailabilityResponse = {
           message.component = Component.decode(reader, reader.uint32());
           break;
         case 3:
-          message.sku = Sku.decode(reader, reader.uint32());
+          message.totalAvailableQuantity = reader.int32();
           break;
         case 4:
-          message.location = Location.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.requiredQuantityPerKit = reader.int32();
-          break;
-        case 6:
-          message.availableQuantity = reader.int32();
+          message.pickingOptions.push(
+            ListComponentAvailabilityResponse_PickingOption.decode(
+              reader,
+              reader.uint32()
+            )
+          );
           break;
         default:
           reader.skipType(tag & 7);
@@ -212,6 +213,7 @@ export const ListComponentAvailabilityResponse = {
     const message = {
       ...baseListComponentAvailabilityResponse,
     } as ListComponentAvailabilityResponse;
+    message.pickingOptions = [];
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
     } else {
@@ -222,15 +224,162 @@ export const ListComponentAvailabilityResponse = {
     } else {
       message.component = undefined;
     }
+    if (
+      object.totalAvailableQuantity !== undefined &&
+      object.totalAvailableQuantity !== null
+    ) {
+      message.totalAvailableQuantity = Number(object.totalAvailableQuantity);
+    } else {
+      message.totalAvailableQuantity = 0;
+    }
+    if (object.pickingOptions !== undefined && object.pickingOptions !== null) {
+      for (const e of object.pickingOptions) {
+        message.pickingOptions.push(
+          ListComponentAvailabilityResponse_PickingOption.fromJSON(e)
+        );
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: ListComponentAvailabilityResponse): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.component !== undefined &&
+      (obj.component = message.component
+        ? Component.toJSON(message.component)
+        : undefined);
+    message.totalAvailableQuantity !== undefined &&
+      (obj.totalAvailableQuantity = message.totalAvailableQuantity);
+    if (message.pickingOptions) {
+      obj.pickingOptions = message.pickingOptions.map((e) =>
+        e
+          ? ListComponentAvailabilityResponse_PickingOption.toJSON(e)
+          : undefined
+      );
+    } else {
+      obj.pickingOptions = [];
+    }
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListComponentAvailabilityResponse>
+  ): ListComponentAvailabilityResponse {
+    const message = {
+      ...baseListComponentAvailabilityResponse,
+    } as ListComponentAvailabilityResponse;
+    message.pickingOptions = [];
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    if (object.component !== undefined && object.component !== null) {
+      message.component = Component.fromPartial(object.component);
+    } else {
+      message.component = undefined;
+    }
+    if (
+      object.totalAvailableQuantity !== undefined &&
+      object.totalAvailableQuantity !== null
+    ) {
+      message.totalAvailableQuantity = object.totalAvailableQuantity;
+    } else {
+      message.totalAvailableQuantity = 0;
+    }
+    if (object.pickingOptions !== undefined && object.pickingOptions !== null) {
+      for (const e of object.pickingOptions) {
+        message.pickingOptions.push(
+          ListComponentAvailabilityResponse_PickingOption.fromPartial(e)
+        );
+      }
+    }
+    return message;
+  },
+};
+
+const baseListComponentAvailabilityResponse_PickingOption: object = {
+  requiredQuantityPerKit: 0,
+  availableQuantity: 0,
+};
+
+export const ListComponentAvailabilityResponse_PickingOption = {
+  encode(
+    message: ListComponentAvailabilityResponse_PickingOption,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.recommendedLocation !== undefined) {
+      Location.encode(
+        message.recommendedLocation,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    if (message.requiredQuantityPerKit !== 0) {
+      writer.uint32(24).int32(message.requiredQuantityPerKit);
+    }
+    if (message.availableQuantity !== 0) {
+      writer.uint32(32).int32(message.availableQuantity);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListComponentAvailabilityResponse_PickingOption {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseListComponentAvailabilityResponse_PickingOption,
+    } as ListComponentAvailabilityResponse_PickingOption;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.recommendedLocation = Location.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        case 3:
+          message.requiredQuantityPerKit = reader.int32();
+          break;
+        case 4:
+          message.availableQuantity = reader.int32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListComponentAvailabilityResponse_PickingOption {
+    const message = {
+      ...baseListComponentAvailabilityResponse_PickingOption,
+    } as ListComponentAvailabilityResponse_PickingOption;
     if (object.sku !== undefined && object.sku !== null) {
       message.sku = Sku.fromJSON(object.sku);
     } else {
       message.sku = undefined;
     }
-    if (object.location !== undefined && object.location !== null) {
-      message.location = Location.fromJSON(object.location);
+    if (
+      object.recommendedLocation !== undefined &&
+      object.recommendedLocation !== null
+    ) {
+      message.recommendedLocation = Location.fromJSON(
+        object.recommendedLocation
+      );
     } else {
-      message.location = undefined;
+      message.recommendedLocation = undefined;
     }
     if (
       object.requiredQuantityPerKit !== undefined &&
@@ -251,18 +400,13 @@ export const ListComponentAvailabilityResponse = {
     return message;
   },
 
-  toJSON(message: ListComponentAvailabilityResponse): unknown {
+  toJSON(message: ListComponentAvailabilityResponse_PickingOption): unknown {
     const obj: any = {};
-    message.requestId !== undefined && (obj.requestId = message.requestId);
-    message.component !== undefined &&
-      (obj.component = message.component
-        ? Component.toJSON(message.component)
-        : undefined);
     message.sku !== undefined &&
       (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
-    message.location !== undefined &&
-      (obj.location = message.location
-        ? Location.toJSON(message.location)
+    message.recommendedLocation !== undefined &&
+      (obj.recommendedLocation = message.recommendedLocation
+        ? Location.toJSON(message.recommendedLocation)
         : undefined);
     message.requiredQuantityPerKit !== undefined &&
       (obj.requiredQuantityPerKit = message.requiredQuantityPerKit);
@@ -272,30 +416,25 @@ export const ListComponentAvailabilityResponse = {
   },
 
   fromPartial(
-    object: DeepPartial<ListComponentAvailabilityResponse>
-  ): ListComponentAvailabilityResponse {
+    object: DeepPartial<ListComponentAvailabilityResponse_PickingOption>
+  ): ListComponentAvailabilityResponse_PickingOption {
     const message = {
-      ...baseListComponentAvailabilityResponse,
-    } as ListComponentAvailabilityResponse;
-    if (object.requestId !== undefined && object.requestId !== null) {
-      message.requestId = object.requestId;
-    } else {
-      message.requestId = "";
-    }
-    if (object.component !== undefined && object.component !== null) {
-      message.component = Component.fromPartial(object.component);
-    } else {
-      message.component = undefined;
-    }
+      ...baseListComponentAvailabilityResponse_PickingOption,
+    } as ListComponentAvailabilityResponse_PickingOption;
     if (object.sku !== undefined && object.sku !== null) {
       message.sku = Sku.fromPartial(object.sku);
     } else {
       message.sku = undefined;
     }
-    if (object.location !== undefined && object.location !== null) {
-      message.location = Location.fromPartial(object.location);
+    if (
+      object.recommendedLocation !== undefined &&
+      object.recommendedLocation !== null
+    ) {
+      message.recommendedLocation = Location.fromPartial(
+        object.recommendedLocation
+      );
     } else {
-      message.location = undefined;
+      message.recommendedLocation = undefined;
     }
     if (
       object.requiredQuantityPerKit !== undefined &&
