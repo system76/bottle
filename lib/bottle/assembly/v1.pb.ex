@@ -2,16 +2,18 @@ defmodule Bottle.Assembly.V1.Service do
   @moduledoc false
   use GRPC.Service, name: "bottle.assembly.V1"
 
+  rpc(:GetBuild, Bottle.Assembly.V1.GetBuildRequest, Bottle.Assembly.V1.GetBuildResponse)
+
   rpc(
-    :BuildList,
-    Bottle.Assembly.V1.BuildListRequest,
-    stream(Bottle.Assembly.V1.BuildListResponse)
+    :ListPickableBuilds,
+    Bottle.Assembly.V1.ListPickableBuildsRequest,
+    stream(Bottle.Assembly.V1.ListPickableBuildsResponse)
   )
 
   rpc(
-    :ComponentDemand,
-    Bottle.Assembly.V1.ComponentDemandRequest,
-    Bottle.Assembly.V1.ComponentDemandResponse
+    :ListComponentDemands,
+    Bottle.Assembly.V1.ListComponentDemandsRequest,
+    stream(Bottle.Assembly.V1.ListComponentDemandsResponse)
   )
 end
 

@@ -3,15 +3,21 @@ defmodule Bottle.Inventory.V1.Service do
   use GRPC.Service, name: "bottle.inventory.V1"
 
   rpc(
-    :ComponentAvailabilityList,
-    Bottle.Inventory.V1.ComponentAvailabilityListRequest,
-    stream(Bottle.Inventory.V1.ComponentAvailabilityListResponse)
+    :ListComponentAvailability,
+    Bottle.Inventory.V1.ListComponentAvailabilityRequest,
+    stream(Bottle.Inventory.V1.ListComponentAvailabilityResponse)
   )
 
   rpc(
-    :LocationList,
-    Bottle.Inventory.V1.LocationListRequest,
-    stream(Bottle.Inventory.V1.LocationListResponse)
+    :ListSkuAvailability,
+    Bottle.Inventory.V1.ListSkuAvailabilityRequest,
+    stream(Bottle.Inventory.V1.ListSkuAvailabilityResponse)
+  )
+
+  rpc(
+    :ListLocations,
+    Bottle.Inventory.V1.ListLocationsRequest,
+    stream(Bottle.Inventory.V1.ListLocationsResponse)
   )
 end
 
