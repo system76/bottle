@@ -5,6 +5,7 @@ import "bottle/assembly/v1/service.proto";
 package bottle.assembly;
 
 service V1 {
-  rpc BuildList(bottle.assembly.v1.BuildListRequest) returns (stream bottle.assembly.v1.BuildListResponse);
-  rpc ComponentDemand(bottle.assembly.v1.ComponentDemandRequest) returns (bottle.assembly.v1.ComponentDemandResponse);
+  rpc GetBuild(bottle.assembly.v1.GetBuildRequest) returns (bottle.assembly.v1.GetBuildResponse);
+  rpc ListPickableBuilds(bottle.assembly.v1.ListPickableBuildsRequest) returns (stream bottle.assembly.v1.ListPickableBuildsResponse);
+  rpc ListComponentDemands(bottle.assembly.v1.ListComponentDemandsRequest) returns (stream bottle.assembly.v1.ListComponentDemandsResponse);
 }

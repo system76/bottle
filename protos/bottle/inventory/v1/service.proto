@@ -2,26 +2,51 @@ syntax = "proto3";
 
 import "bottle/inventory/v1/component.proto";
 import "bottle/inventory/v1/location.proto";
+import "bottle/inventory/v1/sku.proto";
 
 package bottle.inventory.v1;
 
-message ComponentAvailabilityListRequest {
+message ListComponentAvailabilityRequest {
   string request_id = 1;
   repeated bottle.inventory.v1.Component components = 2;
 }
 
-message ComponentAvailabilityListResponse {
+message ListComponentAvailabilityResponse {
   string request_id = 1;
   bottle.inventory.v1.Component component = 2;
-  int32 available = 3;
+
+  message AvailableSku {
+    bottle.inventory.v1.Sku sku = 1;
+    bottle.inventory.v1.Location location = 2;
+    int32 available_quantity = 3;
+  }
+
+  repeated AvailableSku available_sku = 3;
 }
 
-message LocationListRequest {
+message ListSkuAvailabilityRequest {
+  string request_id = 1;
+  bottle.inventory.v1.Sku sku = 2;
+}
+
+message ListSkuAvailabilityResponse {
+  string request_id = 1;
+  bottle.inventory.v1.Sku sku = 2;
+
+  message AvailableLocations {
+    bottle.inventory.v1.Location location = 1;
+    int32 available_quantity = 2;
+  }
+
+  repeated AvailableLocations available_locations = 3;
+}
+
+message ListLocationsRequest {
   string request_id = 1;
   repeated bottle.inventory.v1.Location locations = 2;
 }
 
-message LocationListResponse {
+message ListLocationsResponse {
   string request_id = 1;
   bottle.inventory.v1.Location location = 2;
 }
