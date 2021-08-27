@@ -18,9 +18,14 @@ message ListComponentAvailabilityResponse {
 
   message PickingOption {
     bottle.inventory.v1.Sku sku = 1;
-    bottle.inventory.v1.Location recommended_location = 2;
-    int32 required_quantity_per_kit = 3;
-    int32 available_quantity = 4;
+    int32 required_quantity_per_kit = 2;
+
+    message AvailableLocation {
+      bottle.inventory.v1.Location location = 1;
+      int32 available_quantity = 2;
+    }
+
+    repeated AvailableLocation available_locations = 3;
   }
 
   repeated PickingOption picking_options = 4;
