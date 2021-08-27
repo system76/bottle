@@ -12,22 +12,40 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityRequest do
   field(:components, 2, repeated: true, type: Bottle.Inventory.V1.Component)
 end
 
+defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.AvailableLocation do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          location: Bottle.Inventory.V1.Location.t() | nil,
+          available_quantity: integer
+        }
+  defstruct [:location, :available_quantity]
+
+  field(:location, 1, type: Bottle.Inventory.V1.Location)
+  field(:available_quantity, 2, type: :int32)
+end
+
 defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption do
   @moduledoc false
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
           sku: Bottle.Inventory.V1.Sku.t() | nil,
-          recommended_location: Bottle.Inventory.V1.Location.t() | nil,
           required_quantity_per_kit: integer,
-          available_quantity: integer
+          available_locations: [
+            Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.AvailableLocation.t()
+          ]
         }
-  defstruct [:sku, :recommended_location, :required_quantity_per_kit, :available_quantity]
+  defstruct [:sku, :required_quantity_per_kit, :available_locations]
 
   field(:sku, 1, type: Bottle.Inventory.V1.Sku)
-  field(:recommended_location, 2, type: Bottle.Inventory.V1.Location)
-  field(:required_quantity_per_kit, 3, type: :int32)
-  field(:available_quantity, 4, type: :int32)
+  field(:required_quantity_per_kit, 2, type: :int32)
+
+  field(:available_locations, 3,
+    repeated: true,
+    type: Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.AvailableLocation
+  )
 end
 
 defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse do
