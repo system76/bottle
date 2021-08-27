@@ -7,6 +7,7 @@ export const protobufPackage = "bottle.assembly.v1";
 
 export interface GetBuildRequest {
   requestId: string;
+  build: Build | undefined;
 }
 
 export interface GetBuildResponse {
@@ -40,6 +41,9 @@ export const GetBuildRequest = {
     if (message.requestId !== "") {
       writer.uint32(10).string(message.requestId);
     }
+    if (message.build !== undefined) {
+      Build.encode(message.build, writer.uint32(18).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -52,6 +56,9 @@ export const GetBuildRequest = {
       switch (tag >>> 3) {
         case 1:
           message.requestId = reader.string();
+          break;
+        case 2:
+          message.build = Build.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -68,12 +75,19 @@ export const GetBuildRequest = {
     } else {
       message.requestId = "";
     }
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromJSON(object.build);
+    } else {
+      message.build = undefined;
+    }
     return message;
   },
 
   toJSON(message: GetBuildRequest): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.build !== undefined &&
+      (obj.build = message.build ? Build.toJSON(message.build) : undefined);
     return obj;
   },
 
@@ -83,6 +97,11 @@ export const GetBuildRequest = {
       message.requestId = object.requestId;
     } else {
       message.requestId = "";
+    }
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromPartial(object.build);
+    } else {
+      message.build = undefined;
     }
     return message;
   },

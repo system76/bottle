@@ -181,7 +181,8 @@ proto.bottle.assembly.v1.GetBuildRequest.prototype.toObject = function(opt_inclu
  */
 proto.bottle.assembly.v1.GetBuildRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    requestId: jspb.Message.getFieldWithDefault(msg, 1, "")
+    requestId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    build: (f = msg.getBuild()) && bottle_assembly_v1_build_pb.Build.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -222,6 +223,11 @@ proto.bottle.assembly.v1.GetBuildRequest.deserializeBinaryFromReader = function(
       var value = /** @type {string} */ (reader.readString());
       msg.setRequestId(value);
       break;
+    case 2:
+      var value = new bottle_assembly_v1_build_pb.Build;
+      reader.readMessage(value,bottle_assembly_v1_build_pb.Build.deserializeBinaryFromReader);
+      msg.setBuild(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -258,6 +264,14 @@ proto.bottle.assembly.v1.GetBuildRequest.serializeBinaryToWriter = function(mess
       f
     );
   }
+  f = message.getBuild();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      bottle_assembly_v1_build_pb.Build.serializeBinaryToWriter
+    );
+  }
 };
 
 
@@ -276,6 +290,43 @@ proto.bottle.assembly.v1.GetBuildRequest.prototype.getRequestId = function() {
  */
 proto.bottle.assembly.v1.GetBuildRequest.prototype.setRequestId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional Build build = 2;
+ * @return {?proto.bottle.assembly.v1.Build}
+ */
+proto.bottle.assembly.v1.GetBuildRequest.prototype.getBuild = function() {
+  return /** @type{?proto.bottle.assembly.v1.Build} */ (
+    jspb.Message.getWrapperField(this, bottle_assembly_v1_build_pb.Build, 2));
+};
+
+
+/**
+ * @param {?proto.bottle.assembly.v1.Build|undefined} value
+ * @return {!proto.bottle.assembly.v1.GetBuildRequest} returns this
+*/
+proto.bottle.assembly.v1.GetBuildRequest.prototype.setBuild = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.assembly.v1.GetBuildRequest} returns this
+ */
+proto.bottle.assembly.v1.GetBuildRequest.prototype.clearBuild = function() {
+  return this.setBuild(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.assembly.v1.GetBuildRequest.prototype.hasBuild = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 

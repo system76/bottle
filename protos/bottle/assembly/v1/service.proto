@@ -6,6 +6,7 @@ package bottle.assembly.v1;
 
 message GetBuildRequest {
   string request_id = 1;
+  bottle.assembly.v1.Build build = 2;
 }
 
 message GetBuildResponse {
