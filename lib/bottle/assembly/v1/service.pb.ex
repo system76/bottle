@@ -3,11 +3,13 @@ defmodule Bottle.Assembly.V1.GetBuildRequest do
   use Protobuf, syntax: :proto3
 
   @type t :: %__MODULE__{
-          request_id: String.t()
+          request_id: String.t(),
+          build: Bottle.Assembly.V1.Build.t() | nil
         }
-  defstruct [:request_id]
+  defstruct [:request_id, :build]
 
   field(:request_id, 1, type: :string)
+  field(:build, 2, type: Bottle.Assembly.V1.Build)
 end
 
 defmodule Bottle.Assembly.V1.GetBuildResponse do
