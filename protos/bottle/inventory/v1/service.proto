@@ -15,13 +15,10 @@ message ListComponentAvailabilityResponse {
   string request_id = 1;
   bottle.inventory.v1.Component component = 2;
 
-  message AvailableSku {
-    bottle.inventory.v1.Sku sku = 1;
-    bottle.inventory.v1.Location location = 2;
-    int32 available_quantity = 3;
-  }
-
-  repeated AvailableSku available_sku = 3;
+  bottle.inventory.v1.Sku sku = 3;
+  bottle.inventory.v1.Location location = 4;
+  int32 required_quantity_per_kit = 5;
+  int32 available_quantity = 6;
 }
 
 message ListSkuAvailabilityRequest {
@@ -32,13 +29,8 @@ message ListSkuAvailabilityRequest {
 message ListSkuAvailabilityResponse {
   string request_id = 1;
   bottle.inventory.v1.Sku sku = 2;
-
-  message AvailableLocations {
-    bottle.inventory.v1.Location location = 1;
-    int32 available_quantity = 2;
-  }
-
-  repeated AvailableLocations available_locations = 3;
+  bottle.inventory.v1.Location location = 3;
+  int32 available_quantity = 4;
 }
 
 message ListLocationsRequest {
