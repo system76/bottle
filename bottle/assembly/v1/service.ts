@@ -5,38 +5,48 @@ import { Build } from "../../../bottle/assembly/v1/build";
 
 export const protobufPackage = "bottle.assembly.v1";
 
-export interface BuildListRequest {
+export interface GetBuildRequest {
   requestId: string;
 }
 
-export interface BuildListResponse {
+export interface GetBuildResponse {
   requestId: string;
   build: Build | undefined;
 }
 
-export interface ComponentDemandRequest {
+export interface ListPickableBuildsRequest {
   requestId: string;
 }
 
-export interface ComponentDemandResponse {
+export interface ListPickableBuildsResponse {
   requestId: string;
+  build: Build | undefined;
+}
+
+export interface ListComponentDemandsRequest {
+  requestId: string;
+}
+
+export interface ListComponentDemandsResponse {
+  requestId: string;
+  componentId: string;
   demandQuantity: number;
 }
 
-const baseBuildListRequest: object = { requestId: "" };
+const baseGetBuildRequest: object = { requestId: "" };
 
-export const BuildListRequest = {
-  encode(message: BuildListRequest, writer: Writer = Writer.create()): Writer {
+export const GetBuildRequest = {
+  encode(message: GetBuildRequest, writer: Writer = Writer.create()): Writer {
     if (message.requestId !== "") {
       writer.uint32(10).string(message.requestId);
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): BuildListRequest {
+  decode(input: Reader | Uint8Array, length?: number): GetBuildRequest {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseBuildListRequest } as BuildListRequest;
+    const message = { ...baseGetBuildRequest } as GetBuildRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -51,8 +61,8 @@ export const BuildListRequest = {
     return message;
   },
 
-  fromJSON(object: any): BuildListRequest {
-    const message = { ...baseBuildListRequest } as BuildListRequest;
+  fromJSON(object: any): GetBuildRequest {
+    const message = { ...baseGetBuildRequest } as GetBuildRequest;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
     } else {
@@ -61,14 +71,14 @@ export const BuildListRequest = {
     return message;
   },
 
-  toJSON(message: BuildListRequest): unknown {
+  toJSON(message: GetBuildRequest): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BuildListRequest>): BuildListRequest {
-    const message = { ...baseBuildListRequest } as BuildListRequest;
+  fromPartial(object: DeepPartial<GetBuildRequest>): GetBuildRequest {
+    const message = { ...baseGetBuildRequest } as GetBuildRequest;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
     } else {
@@ -78,10 +88,10 @@ export const BuildListRequest = {
   },
 };
 
-const baseBuildListResponse: object = { requestId: "" };
+const baseGetBuildResponse: object = { requestId: "" };
 
-export const BuildListResponse = {
-  encode(message: BuildListResponse, writer: Writer = Writer.create()): Writer {
+export const GetBuildResponse = {
+  encode(message: GetBuildResponse, writer: Writer = Writer.create()): Writer {
     if (message.requestId !== "") {
       writer.uint32(10).string(message.requestId);
     }
@@ -91,10 +101,10 @@ export const BuildListResponse = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): BuildListResponse {
+  decode(input: Reader | Uint8Array, length?: number): GetBuildResponse {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseBuildListResponse } as BuildListResponse;
+    const message = { ...baseGetBuildResponse } as GetBuildResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -112,8 +122,8 @@ export const BuildListResponse = {
     return message;
   },
 
-  fromJSON(object: any): BuildListResponse {
-    const message = { ...baseBuildListResponse } as BuildListResponse;
+  fromJSON(object: any): GetBuildResponse {
+    const message = { ...baseGetBuildResponse } as GetBuildResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
     } else {
@@ -127,7 +137,7 @@ export const BuildListResponse = {
     return message;
   },
 
-  toJSON(message: BuildListResponse): unknown {
+  toJSON(message: GetBuildResponse): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     message.build !== undefined &&
@@ -135,8 +145,8 @@ export const BuildListResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BuildListResponse>): BuildListResponse {
-    const message = { ...baseBuildListResponse } as BuildListResponse;
+  fromPartial(object: DeepPartial<GetBuildResponse>): GetBuildResponse {
+    const message = { ...baseGetBuildResponse } as GetBuildResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
     } else {
@@ -151,11 +161,11 @@ export const BuildListResponse = {
   },
 };
 
-const baseComponentDemandRequest: object = { requestId: "" };
+const baseListPickableBuildsRequest: object = { requestId: "" };
 
-export const ComponentDemandRequest = {
+export const ListPickableBuildsRequest = {
   encode(
-    message: ComponentDemandRequest,
+    message: ListPickableBuildsRequest,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.requestId !== "") {
@@ -164,10 +174,15 @@ export const ComponentDemandRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): ComponentDemandRequest {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListPickableBuildsRequest {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseComponentDemandRequest } as ComponentDemandRequest;
+    const message = {
+      ...baseListPickableBuildsRequest,
+    } as ListPickableBuildsRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -182,8 +197,10 @@ export const ComponentDemandRequest = {
     return message;
   },
 
-  fromJSON(object: any): ComponentDemandRequest {
-    const message = { ...baseComponentDemandRequest } as ComponentDemandRequest;
+  fromJSON(object: any): ListPickableBuildsRequest {
+    const message = {
+      ...baseListPickableBuildsRequest,
+    } as ListPickableBuildsRequest;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
     } else {
@@ -192,16 +209,18 @@ export const ComponentDemandRequest = {
     return message;
   },
 
-  toJSON(message: ComponentDemandRequest): unknown {
+  toJSON(message: ListPickableBuildsRequest): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<ComponentDemandRequest>
-  ): ComponentDemandRequest {
-    const message = { ...baseComponentDemandRequest } as ComponentDemandRequest;
+    object: DeepPartial<ListPickableBuildsRequest>
+  ): ListPickableBuildsRequest {
+    const message = {
+      ...baseListPickableBuildsRequest,
+    } as ListPickableBuildsRequest;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
     } else {
@@ -211,18 +230,178 @@ export const ComponentDemandRequest = {
   },
 };
 
-const baseComponentDemandResponse: object = {
-  requestId: "",
-  demandQuantity: 0,
-};
+const baseListPickableBuildsResponse: object = { requestId: "" };
 
-export const ComponentDemandResponse = {
+export const ListPickableBuildsResponse = {
   encode(
-    message: ComponentDemandResponse,
+    message: ListPickableBuildsResponse,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.requestId !== "") {
       writer.uint32(10).string(message.requestId);
+    }
+    if (message.build !== undefined) {
+      Build.encode(message.build, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListPickableBuildsResponse {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseListPickableBuildsResponse,
+    } as ListPickableBuildsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        case 2:
+          message.build = Build.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListPickableBuildsResponse {
+    const message = {
+      ...baseListPickableBuildsResponse,
+    } as ListPickableBuildsResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromJSON(object.build);
+    } else {
+      message.build = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: ListPickableBuildsResponse): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.build !== undefined &&
+      (obj.build = message.build ? Build.toJSON(message.build) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListPickableBuildsResponse>
+  ): ListPickableBuildsResponse {
+    const message = {
+      ...baseListPickableBuildsResponse,
+    } as ListPickableBuildsResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromPartial(object.build);
+    } else {
+      message.build = undefined;
+    }
+    return message;
+  },
+};
+
+const baseListComponentDemandsRequest: object = { requestId: "" };
+
+export const ListComponentDemandsRequest = {
+  encode(
+    message: ListComponentDemandsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListComponentDemandsRequest {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseListComponentDemandsRequest,
+    } as ListComponentDemandsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListComponentDemandsRequest {
+    const message = {
+      ...baseListComponentDemandsRequest,
+    } as ListComponentDemandsRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    return message;
+  },
+
+  toJSON(message: ListComponentDemandsRequest): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListComponentDemandsRequest>
+  ): ListComponentDemandsRequest {
+    const message = {
+      ...baseListComponentDemandsRequest,
+    } as ListComponentDemandsRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    return message;
+  },
+};
+
+const baseListComponentDemandsResponse: object = {
+  requestId: "",
+  componentId: "",
+  demandQuantity: 0,
+};
+
+export const ListComponentDemandsResponse = {
+  encode(
+    message: ListComponentDemandsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    if (message.componentId !== "") {
+      writer.uint32(26).string(message.componentId);
     }
     if (message.demandQuantity !== 0) {
       writer.uint32(16).int32(message.demandQuantity);
@@ -230,17 +409,23 @@ export const ComponentDemandResponse = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): ComponentDemandResponse {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListComponentDemandsResponse {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseComponentDemandResponse,
-    } as ComponentDemandResponse;
+      ...baseListComponentDemandsResponse,
+    } as ListComponentDemandsResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.requestId = reader.string();
+          break;
+        case 3:
+          message.componentId = reader.string();
           break;
         case 2:
           message.demandQuantity = reader.int32();
@@ -253,14 +438,19 @@ export const ComponentDemandResponse = {
     return message;
   },
 
-  fromJSON(object: any): ComponentDemandResponse {
+  fromJSON(object: any): ListComponentDemandsResponse {
     const message = {
-      ...baseComponentDemandResponse,
-    } as ComponentDemandResponse;
+      ...baseListComponentDemandsResponse,
+    } as ListComponentDemandsResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
     } else {
       message.requestId = "";
+    }
+    if (object.componentId !== undefined && object.componentId !== null) {
+      message.componentId = String(object.componentId);
+    } else {
+      message.componentId = "";
     }
     if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
       message.demandQuantity = Number(object.demandQuantity);
@@ -270,24 +460,31 @@ export const ComponentDemandResponse = {
     return message;
   },
 
-  toJSON(message: ComponentDemandResponse): unknown {
+  toJSON(message: ListComponentDemandsResponse): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.componentId !== undefined &&
+      (obj.componentId = message.componentId);
     message.demandQuantity !== undefined &&
       (obj.demandQuantity = message.demandQuantity);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<ComponentDemandResponse>
-  ): ComponentDemandResponse {
+    object: DeepPartial<ListComponentDemandsResponse>
+  ): ListComponentDemandsResponse {
     const message = {
-      ...baseComponentDemandResponse,
-    } as ComponentDemandResponse;
+      ...baseListComponentDemandsResponse,
+    } as ListComponentDemandsResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
     } else {
       message.requestId = "";
+    }
+    if (object.componentId !== undefined && object.componentId !== null) {
+      message.componentId = object.componentId;
+    } else {
+      message.componentId = "";
     }
     if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
       message.demandQuantity = object.demandQuantity;

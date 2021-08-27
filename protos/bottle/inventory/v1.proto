@@ -5,6 +5,7 @@ import "bottle/inventory/v1/service.proto";
 package bottle.inventory;
 
 service V1 {
-  rpc ComponentAvailabilityList(bottle.inventory.v1.ComponentAvailabilityListRequest) returns (stream bottle.inventory.v1.ComponentAvailabilityListResponse);
-  rpc LocationList(bottle.inventory.v1.LocationListRequest) returns (stream bottle.inventory.v1.LocationListResponse); 
+  rpc ListComponentAvailability(bottle.inventory.v1.ListComponentAvailabilityRequest) returns (stream bottle.inventory.v1.ListComponentAvailabilityResponse);
+  rpc ListSkuAvailability(bottle.inventory.v1.ListSkuAvailabilityRequest) returns (stream bottle.inventory.v1.ListSkuAvailabilityResponse);
+  rpc ListLocations(bottle.inventory.v1.ListLocationsRequest) returns (stream bottle.inventory.v1.ListLocationsResponse);
 }

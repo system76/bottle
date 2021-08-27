@@ -3,45 +3,65 @@ import { util, configure, Reader } from "protobufjs/minimal";
 import * as Long from "long";
 import { Observable } from "rxjs";
 import {
-  BuildListResponse,
-  ComponentDemandResponse,
-  BuildListRequest,
-  ComponentDemandRequest,
+  GetBuildResponse,
+  ListPickableBuildsResponse,
+  ListComponentDemandsResponse,
+  GetBuildRequest,
+  ListPickableBuildsRequest,
+  ListComponentDemandsRequest,
 } from "../../bottle/assembly/v1/service";
 
 export const protobufPackage = "bottle.assembly";
 
 export interface V1 {
-  BuildList(request: BuildListRequest): Observable<BuildListResponse>;
-  ComponentDemand(
-    request: ComponentDemandRequest
-  ): Promise<ComponentDemandResponse>;
+  GetBuild(request: GetBuildRequest): Promise<GetBuildResponse>;
+  ListPickableBuilds(
+    request: ListPickableBuildsRequest
+  ): Observable<ListPickableBuildsResponse>;
+  ListComponentDemands(
+    request: ListComponentDemandsRequest
+  ): Observable<ListComponentDemandsResponse>;
 }
 
 export class V1ClientImpl implements V1 {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.BuildList = this.BuildList.bind(this);
-    this.ComponentDemand = this.ComponentDemand.bind(this);
+    this.GetBuild = this.GetBuild.bind(this);
+    this.ListPickableBuilds = this.ListPickableBuilds.bind(this);
+    this.ListComponentDemands = this.ListComponentDemands.bind(this);
   }
-  BuildList(request: BuildListRequest): Promise<BuildListResponse> {
-    const data = BuildListRequest.encode(request).finish();
-    const promise = this.rpc.request("bottle.assembly.V1", "BuildList", data);
-    return promise.then((data) => BuildListResponse.decode(new Reader(data)));
+  GetBuild(request: GetBuildRequest): Promise<GetBuildResponse> {
+    const data = GetBuildRequest.encode(request).finish();
+    const promise = this.rpc.request("bottle.assembly.V1", "GetBuild", data);
+    return promise.then((data) => GetBuildResponse.decode(new Reader(data)));
   }
 
-  ComponentDemand(
-    request: ComponentDemandRequest
-  ): Promise<ComponentDemandResponse> {
-    const data = ComponentDemandRequest.encode(request).finish();
+  ListPickableBuilds(
+    request: ListPickableBuildsRequest
+  ): Promise<ListPickableBuildsResponse> {
+    const data = ListPickableBuildsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "bottle.assembly.V1",
-      "ComponentDemand",
+      "ListPickableBuilds",
       data
     );
     return promise.then((data) =>
-      ComponentDemandResponse.decode(new Reader(data))
+      ListPickableBuildsResponse.decode(new Reader(data))
+    );
+  }
+
+  ListComponentDemands(
+    request: ListComponentDemandsRequest
+  ): Promise<ListComponentDemandsResponse> {
+    const data = ListComponentDemandsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "bottle.assembly.V1",
+      "ListComponentDemands",
+      data
+    );
+    return promise.then((data) =>
+      ListComponentDemandsResponse.decode(new Reader(data))
     );
   }
 }

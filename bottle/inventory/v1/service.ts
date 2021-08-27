@@ -2,36 +2,52 @@
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
 import { Component } from "../../../bottle/inventory/v1/component";
+import { Sku } from "../../../bottle/inventory/v1/sku";
 import { Location } from "../../../bottle/inventory/v1/location";
 
 export const protobufPackage = "bottle.inventory.v1";
 
-export interface ComponentAvailabilityListRequest {
+export interface ListComponentAvailabilityRequest {
   requestId: string;
   components: Component[];
 }
 
-export interface ComponentAvailabilityListResponse {
+export interface ListComponentAvailabilityResponse {
   requestId: string;
   component: Component | undefined;
-  available: number;
+  sku: Sku | undefined;
+  location: Location | undefined;
+  requiredQuantityPerKit: number;
+  availableQuantity: number;
 }
 
-export interface LocationListRequest {
+export interface ListSkuAvailabilityRequest {
+  requestId: string;
+  sku: Sku | undefined;
+}
+
+export interface ListSkuAvailabilityResponse {
+  requestId: string;
+  sku: Sku | undefined;
+  location: Location | undefined;
+  availableQuantity: number;
+}
+
+export interface ListLocationsRequest {
   requestId: string;
   locations: Location[];
 }
 
-export interface LocationListResponse {
+export interface ListLocationsResponse {
   requestId: string;
   location: Location | undefined;
 }
 
-const baseComponentAvailabilityListRequest: object = { requestId: "" };
+const baseListComponentAvailabilityRequest: object = { requestId: "" };
 
-export const ComponentAvailabilityListRequest = {
+export const ListComponentAvailabilityRequest = {
   encode(
-    message: ComponentAvailabilityListRequest,
+    message: ListComponentAvailabilityRequest,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.requestId !== "") {
@@ -46,12 +62,12 @@ export const ComponentAvailabilityListRequest = {
   decode(
     input: Reader | Uint8Array,
     length?: number
-  ): ComponentAvailabilityListRequest {
+  ): ListComponentAvailabilityRequest {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseComponentAvailabilityListRequest,
-    } as ComponentAvailabilityListRequest;
+      ...baseListComponentAvailabilityRequest,
+    } as ListComponentAvailabilityRequest;
     message.components = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -70,10 +86,10 @@ export const ComponentAvailabilityListRequest = {
     return message;
   },
 
-  fromJSON(object: any): ComponentAvailabilityListRequest {
+  fromJSON(object: any): ListComponentAvailabilityRequest {
     const message = {
-      ...baseComponentAvailabilityListRequest,
-    } as ComponentAvailabilityListRequest;
+      ...baseListComponentAvailabilityRequest,
+    } as ListComponentAvailabilityRequest;
     message.components = [];
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
@@ -88,7 +104,7 @@ export const ComponentAvailabilityListRequest = {
     return message;
   },
 
-  toJSON(message: ComponentAvailabilityListRequest): unknown {
+  toJSON(message: ListComponentAvailabilityRequest): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     if (message.components) {
@@ -102,11 +118,11 @@ export const ComponentAvailabilityListRequest = {
   },
 
   fromPartial(
-    object: DeepPartial<ComponentAvailabilityListRequest>
-  ): ComponentAvailabilityListRequest {
+    object: DeepPartial<ListComponentAvailabilityRequest>
+  ): ListComponentAvailabilityRequest {
     const message = {
-      ...baseComponentAvailabilityListRequest,
-    } as ComponentAvailabilityListRequest;
+      ...baseListComponentAvailabilityRequest,
+    } as ListComponentAvailabilityRequest;
     message.components = [];
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
@@ -122,14 +138,15 @@ export const ComponentAvailabilityListRequest = {
   },
 };
 
-const baseComponentAvailabilityListResponse: object = {
+const baseListComponentAvailabilityResponse: object = {
   requestId: "",
-  available: 0,
+  requiredQuantityPerKit: 0,
+  availableQuantity: 0,
 };
 
-export const ComponentAvailabilityListResponse = {
+export const ListComponentAvailabilityResponse = {
   encode(
-    message: ComponentAvailabilityListResponse,
+    message: ListComponentAvailabilityResponse,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.requestId !== "") {
@@ -138,8 +155,17 @@ export const ComponentAvailabilityListResponse = {
     if (message.component !== undefined) {
       Component.encode(message.component, writer.uint32(18).fork()).ldelim();
     }
-    if (message.available !== 0) {
-      writer.uint32(24).int32(message.available);
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.location !== undefined) {
+      Location.encode(message.location, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.requiredQuantityPerKit !== 0) {
+      writer.uint32(40).int32(message.requiredQuantityPerKit);
+    }
+    if (message.availableQuantity !== 0) {
+      writer.uint32(48).int32(message.availableQuantity);
     }
     return writer;
   },
@@ -147,12 +173,12 @@ export const ComponentAvailabilityListResponse = {
   decode(
     input: Reader | Uint8Array,
     length?: number
-  ): ComponentAvailabilityListResponse {
+  ): ListComponentAvailabilityResponse {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseComponentAvailabilityListResponse,
-    } as ComponentAvailabilityListResponse;
+      ...baseListComponentAvailabilityResponse,
+    } as ListComponentAvailabilityResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -163,7 +189,16 @@ export const ComponentAvailabilityListResponse = {
           message.component = Component.decode(reader, reader.uint32());
           break;
         case 3:
-          message.available = reader.int32();
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.location = Location.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.requiredQuantityPerKit = reader.int32();
+          break;
+        case 6:
+          message.availableQuantity = reader.int32();
           break;
         default:
           reader.skipType(tag & 7);
@@ -173,10 +208,10 @@ export const ComponentAvailabilityListResponse = {
     return message;
   },
 
-  fromJSON(object: any): ComponentAvailabilityListResponse {
+  fromJSON(object: any): ListComponentAvailabilityResponse {
     const message = {
-      ...baseComponentAvailabilityListResponse,
-    } as ComponentAvailabilityListResponse;
+      ...baseListComponentAvailabilityResponse,
+    } as ListComponentAvailabilityResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
     } else {
@@ -187,31 +222,61 @@ export const ComponentAvailabilityListResponse = {
     } else {
       message.component = undefined;
     }
-    if (object.available !== undefined && object.available !== null) {
-      message.available = Number(object.available);
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
     } else {
-      message.available = 0;
+      message.sku = undefined;
+    }
+    if (object.location !== undefined && object.location !== null) {
+      message.location = Location.fromJSON(object.location);
+    } else {
+      message.location = undefined;
+    }
+    if (
+      object.requiredQuantityPerKit !== undefined &&
+      object.requiredQuantityPerKit !== null
+    ) {
+      message.requiredQuantityPerKit = Number(object.requiredQuantityPerKit);
+    } else {
+      message.requiredQuantityPerKit = 0;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = Number(object.availableQuantity);
+    } else {
+      message.availableQuantity = 0;
     }
     return message;
   },
 
-  toJSON(message: ComponentAvailabilityListResponse): unknown {
+  toJSON(message: ListComponentAvailabilityResponse): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     message.component !== undefined &&
       (obj.component = message.component
         ? Component.toJSON(message.component)
         : undefined);
-    message.available !== undefined && (obj.available = message.available);
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    message.location !== undefined &&
+      (obj.location = message.location
+        ? Location.toJSON(message.location)
+        : undefined);
+    message.requiredQuantityPerKit !== undefined &&
+      (obj.requiredQuantityPerKit = message.requiredQuantityPerKit);
+    message.availableQuantity !== undefined &&
+      (obj.availableQuantity = message.availableQuantity);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<ComponentAvailabilityListResponse>
-  ): ComponentAvailabilityListResponse {
+    object: DeepPartial<ListComponentAvailabilityResponse>
+  ): ListComponentAvailabilityResponse {
     const message = {
-      ...baseComponentAvailabilityListResponse,
-    } as ComponentAvailabilityListResponse;
+      ...baseListComponentAvailabilityResponse,
+    } as ListComponentAvailabilityResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
     } else {
@@ -222,20 +287,262 @@ export const ComponentAvailabilityListResponse = {
     } else {
       message.component = undefined;
     }
-    if (object.available !== undefined && object.available !== null) {
-      message.available = object.available;
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
     } else {
-      message.available = 0;
+      message.sku = undefined;
+    }
+    if (object.location !== undefined && object.location !== null) {
+      message.location = Location.fromPartial(object.location);
+    } else {
+      message.location = undefined;
+    }
+    if (
+      object.requiredQuantityPerKit !== undefined &&
+      object.requiredQuantityPerKit !== null
+    ) {
+      message.requiredQuantityPerKit = object.requiredQuantityPerKit;
+    } else {
+      message.requiredQuantityPerKit = 0;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = object.availableQuantity;
+    } else {
+      message.availableQuantity = 0;
     }
     return message;
   },
 };
 
-const baseLocationListRequest: object = { requestId: "" };
+const baseListSkuAvailabilityRequest: object = { requestId: "" };
 
-export const LocationListRequest = {
+export const ListSkuAvailabilityRequest = {
   encode(
-    message: LocationListRequest,
+    message: ListSkuAvailabilityRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListSkuAvailabilityRequest {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseListSkuAvailabilityRequest,
+    } as ListSkuAvailabilityRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        case 2:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListSkuAvailabilityRequest {
+    const message = {
+      ...baseListSkuAvailabilityRequest,
+    } as ListSkuAvailabilityRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: ListSkuAvailabilityRequest): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListSkuAvailabilityRequest>
+  ): ListSkuAvailabilityRequest {
+    const message = {
+      ...baseListSkuAvailabilityRequest,
+    } as ListSkuAvailabilityRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    return message;
+  },
+};
+
+const baseListSkuAvailabilityResponse: object = {
+  requestId: "",
+  availableQuantity: 0,
+};
+
+export const ListSkuAvailabilityResponse = {
+  encode(
+    message: ListSkuAvailabilityResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.location !== undefined) {
+      Location.encode(message.location, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.availableQuantity !== 0) {
+      writer.uint32(32).int32(message.availableQuantity);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListSkuAvailabilityResponse {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseListSkuAvailabilityResponse,
+    } as ListSkuAvailabilityResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        case 2:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.location = Location.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.availableQuantity = reader.int32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListSkuAvailabilityResponse {
+    const message = {
+      ...baseListSkuAvailabilityResponse,
+    } as ListSkuAvailabilityResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (object.location !== undefined && object.location !== null) {
+      message.location = Location.fromJSON(object.location);
+    } else {
+      message.location = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = Number(object.availableQuantity);
+    } else {
+      message.availableQuantity = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: ListSkuAvailabilityResponse): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    message.location !== undefined &&
+      (obj.location = message.location
+        ? Location.toJSON(message.location)
+        : undefined);
+    message.availableQuantity !== undefined &&
+      (obj.availableQuantity = message.availableQuantity);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListSkuAvailabilityResponse>
+  ): ListSkuAvailabilityResponse {
+    const message = {
+      ...baseListSkuAvailabilityResponse,
+    } as ListSkuAvailabilityResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (object.location !== undefined && object.location !== null) {
+      message.location = Location.fromPartial(object.location);
+    } else {
+      message.location = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = object.availableQuantity;
+    } else {
+      message.availableQuantity = 0;
+    }
+    return message;
+  },
+};
+
+const baseListLocationsRequest: object = { requestId: "" };
+
+export const ListLocationsRequest = {
+  encode(
+    message: ListLocationsRequest,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.requestId !== "") {
@@ -247,10 +554,10 @@ export const LocationListRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): LocationListRequest {
+  decode(input: Reader | Uint8Array, length?: number): ListLocationsRequest {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseLocationListRequest } as LocationListRequest;
+    const message = { ...baseListLocationsRequest } as ListLocationsRequest;
     message.locations = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -269,8 +576,8 @@ export const LocationListRequest = {
     return message;
   },
 
-  fromJSON(object: any): LocationListRequest {
-    const message = { ...baseLocationListRequest } as LocationListRequest;
+  fromJSON(object: any): ListLocationsRequest {
+    const message = { ...baseListLocationsRequest } as ListLocationsRequest;
     message.locations = [];
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
@@ -285,7 +592,7 @@ export const LocationListRequest = {
     return message;
   },
 
-  toJSON(message: LocationListRequest): unknown {
+  toJSON(message: ListLocationsRequest): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     if (message.locations) {
@@ -298,8 +605,8 @@ export const LocationListRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<LocationListRequest>): LocationListRequest {
-    const message = { ...baseLocationListRequest } as LocationListRequest;
+  fromPartial(object: DeepPartial<ListLocationsRequest>): ListLocationsRequest {
+    const message = { ...baseListLocationsRequest } as ListLocationsRequest;
     message.locations = [];
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
@@ -315,11 +622,11 @@ export const LocationListRequest = {
   },
 };
 
-const baseLocationListResponse: object = { requestId: "" };
+const baseListLocationsResponse: object = { requestId: "" };
 
-export const LocationListResponse = {
+export const ListLocationsResponse = {
   encode(
-    message: LocationListResponse,
+    message: ListLocationsResponse,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.requestId !== "") {
@@ -331,10 +638,10 @@ export const LocationListResponse = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): LocationListResponse {
+  decode(input: Reader | Uint8Array, length?: number): ListLocationsResponse {
     const reader = input instanceof Reader ? input : new Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseLocationListResponse } as LocationListResponse;
+    const message = { ...baseListLocationsResponse } as ListLocationsResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -352,8 +659,8 @@ export const LocationListResponse = {
     return message;
   },
 
-  fromJSON(object: any): LocationListResponse {
-    const message = { ...baseLocationListResponse } as LocationListResponse;
+  fromJSON(object: any): ListLocationsResponse {
+    const message = { ...baseListLocationsResponse } as ListLocationsResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = String(object.requestId);
     } else {
@@ -367,7 +674,7 @@ export const LocationListResponse = {
     return message;
   },
 
-  toJSON(message: LocationListResponse): unknown {
+  toJSON(message: ListLocationsResponse): unknown {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     message.location !== undefined &&
@@ -377,8 +684,10 @@ export const LocationListResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<LocationListResponse>): LocationListResponse {
-    const message = { ...baseLocationListResponse } as LocationListResponse;
+  fromPartial(
+    object: DeepPartial<ListLocationsResponse>
+  ): ListLocationsResponse {
+    const message = { ...baseListLocationsResponse } as ListLocationsResponse;
     if (object.requestId !== undefined && object.requestId !== null) {
       message.requestId = object.requestId;
     } else {

@@ -4,20 +4,30 @@ import "bottle/assembly/v1/build.proto";
 
 package bottle.assembly.v1;
 
-message BuildListRequest {
+message GetBuildRequest {
   string request_id = 1;
 }
 
-message BuildListResponse {
+message GetBuildResponse {
   string request_id = 1;
   bottle.assembly.v1.Build build = 2;
 }
 
-message ComponentDemandRequest {
+message ListPickableBuildsRequest {
   string request_id = 1;
 }
 
-message ComponentDemandResponse {
+message ListPickableBuildsResponse {
   string request_id = 1;
+  bottle.assembly.v1.Build build = 2;
+}
+
+message ListComponentDemandsRequest {
+  string request_id = 1;
+}
+
+message ListComponentDemandsResponse {
+  string request_id = 1;
+  string component_id = 3;
   int32 demand_quantity = 2;
 }

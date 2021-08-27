@@ -3,51 +3,73 @@ import { util, configure, Reader } from "protobufjs/minimal";
 import * as Long from "long";
 import { Observable } from "rxjs";
 import {
-  ComponentAvailabilityListResponse,
-  LocationListResponse,
-  ComponentAvailabilityListRequest,
-  LocationListRequest,
+  ListComponentAvailabilityResponse,
+  ListSkuAvailabilityResponse,
+  ListLocationsResponse,
+  ListComponentAvailabilityRequest,
+  ListSkuAvailabilityRequest,
+  ListLocationsRequest,
 } from "../../bottle/inventory/v1/service";
 
 export const protobufPackage = "bottle.inventory";
 
 export interface V1 {
-  ComponentAvailabilityList(
-    request: ComponentAvailabilityListRequest
-  ): Observable<ComponentAvailabilityListResponse>;
-  LocationList(request: LocationListRequest): Observable<LocationListResponse>;
+  ListComponentAvailability(
+    request: ListComponentAvailabilityRequest
+  ): Observable<ListComponentAvailabilityResponse>;
+  ListSkuAvailability(
+    request: ListSkuAvailabilityRequest
+  ): Observable<ListSkuAvailabilityResponse>;
+  ListLocations(
+    request: ListLocationsRequest
+  ): Observable<ListLocationsResponse>;
 }
 
 export class V1ClientImpl implements V1 {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.ComponentAvailabilityList = this.ComponentAvailabilityList.bind(this);
-    this.LocationList = this.LocationList.bind(this);
+    this.ListComponentAvailability = this.ListComponentAvailability.bind(this);
+    this.ListSkuAvailability = this.ListSkuAvailability.bind(this);
+    this.ListLocations = this.ListLocations.bind(this);
   }
-  ComponentAvailabilityList(
-    request: ComponentAvailabilityListRequest
-  ): Promise<ComponentAvailabilityListResponse> {
-    const data = ComponentAvailabilityListRequest.encode(request).finish();
+  ListComponentAvailability(
+    request: ListComponentAvailabilityRequest
+  ): Promise<ListComponentAvailabilityResponse> {
+    const data = ListComponentAvailabilityRequest.encode(request).finish();
     const promise = this.rpc.request(
       "bottle.inventory.V1",
-      "ComponentAvailabilityList",
+      "ListComponentAvailability",
       data
     );
     return promise.then((data) =>
-      ComponentAvailabilityListResponse.decode(new Reader(data))
+      ListComponentAvailabilityResponse.decode(new Reader(data))
     );
   }
 
-  LocationList(request: LocationListRequest): Promise<LocationListResponse> {
-    const data = LocationListRequest.encode(request).finish();
+  ListSkuAvailability(
+    request: ListSkuAvailabilityRequest
+  ): Promise<ListSkuAvailabilityResponse> {
+    const data = ListSkuAvailabilityRequest.encode(request).finish();
     const promise = this.rpc.request(
       "bottle.inventory.V1",
-      "LocationList",
+      "ListSkuAvailability",
       data
     );
     return promise.then((data) =>
-      LocationListResponse.decode(new Reader(data))
+      ListSkuAvailabilityResponse.decode(new Reader(data))
+    );
+  }
+
+  ListLocations(request: ListLocationsRequest): Promise<ListLocationsResponse> {
+    const data = ListLocationsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "bottle.inventory.V1",
+      "ListLocations",
+      data
+    );
+    return promise.then((data) =>
+      ListLocationsResponse.decode(new Reader(data))
     );
   }
 }
