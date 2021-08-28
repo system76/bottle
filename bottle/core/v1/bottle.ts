@@ -22,7 +22,11 @@ import {
   OrganizationJoined,
   OrganizationLeft,
 } from "../../../bottle/account/v1/events";
-import { BuildCreated, BuildUpdated } from "../../../bottle/assembly/v1/events";
+import {
+  BuildCreated,
+  BuildUpdated,
+  BuildPicked,
+} from "../../../bottle/assembly/v1/events";
 import {
   ComponentAvailabilityUpdated,
   PartCreated,
@@ -57,6 +61,7 @@ export interface Bottle {
   organizationLeft: OrganizationLeft | undefined;
   buildCreated: BuildCreated | undefined;
   buildUpdated: BuildUpdated | undefined;
+  buildPicked: BuildPicked | undefined;
   componentAvailabilityUpdated: ComponentAvailabilityUpdated | undefined;
   partCreated: PartCreated | undefined;
   partUpdated: PartUpdated | undefined;
@@ -178,6 +183,12 @@ export const Bottle = {
       BuildUpdated.encode(
         message.buildUpdated,
         writer.uint32(114).fork()
+      ).ldelim();
+    }
+    if (message.buildPicked !== undefined) {
+      BuildPicked.encode(
+        message.buildPicked,
+        writer.uint32(226).fork()
       ).ldelim();
     }
     if (message.componentAvailabilityUpdated !== undefined) {
@@ -306,6 +317,9 @@ export const Bottle = {
           break;
         case 14:
           message.buildUpdated = BuildUpdated.decode(reader, reader.uint32());
+          break;
+        case 28:
+          message.buildPicked = BuildPicked.decode(reader, reader.uint32());
           break;
         case 15:
           message.componentAvailabilityUpdated =
@@ -479,6 +493,11 @@ export const Bottle = {
     } else {
       message.buildUpdated = undefined;
     }
+    if (object.buildPicked !== undefined && object.buildPicked !== null) {
+      message.buildPicked = BuildPicked.fromJSON(object.buildPicked);
+    } else {
+      message.buildPicked = undefined;
+    }
     if (
       object.componentAvailabilityUpdated !== undefined &&
       object.componentAvailabilityUpdated !== null
@@ -595,6 +614,10 @@ export const Bottle = {
     message.buildUpdated !== undefined &&
       (obj.buildUpdated = message.buildUpdated
         ? BuildUpdated.toJSON(message.buildUpdated)
+        : undefined);
+    message.buildPicked !== undefined &&
+      (obj.buildPicked = message.buildPicked
+        ? BuildPicked.toJSON(message.buildPicked)
         : undefined);
     message.componentAvailabilityUpdated !== undefined &&
       (obj.componentAvailabilityUpdated = message.componentAvailabilityUpdated
@@ -766,6 +789,11 @@ export const Bottle = {
       message.buildUpdated = BuildUpdated.fromPartial(object.buildUpdated);
     } else {
       message.buildUpdated = undefined;
+    }
+    if (object.buildPicked !== undefined && object.buildPicked !== null) {
+      message.buildPicked = BuildPicked.fromPartial(object.buildPicked);
+    } else {
+      message.buildPicked = undefined;
     }
     if (
       object.componentAvailabilityUpdated !== undefined &&

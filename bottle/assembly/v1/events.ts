@@ -2,6 +2,8 @@
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
 import { Build } from "../../../bottle/assembly/v1/build";
+import { Location } from "../../../bottle/inventory/v1/location";
+import { Part } from "../../../bottle/inventory/v1/part";
 
 export const protobufPackage = "bottle.assembly.v1";
 
@@ -12,6 +14,12 @@ export interface BuildCreated {
 export interface BuildUpdated {
   old: Build | undefined;
   new: Build | undefined;
+}
+
+export interface BuildPicked {
+  build: Build | undefined;
+  location: Location | undefined;
+  parts: Part[];
 }
 
 const baseBuildCreated: object = {};
@@ -139,6 +147,106 @@ export const BuildUpdated = {
       message.new = Build.fromPartial(object.new);
     } else {
       message.new = undefined;
+    }
+    return message;
+  },
+};
+
+const baseBuildPicked: object = {};
+
+export const BuildPicked = {
+  encode(message: BuildPicked, writer: Writer = Writer.create()): Writer {
+    if (message.build !== undefined) {
+      Build.encode(message.build, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.location !== undefined) {
+      Location.encode(message.location, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.parts) {
+      Part.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): BuildPicked {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseBuildPicked } as BuildPicked;
+    message.parts = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.build = Build.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.location = Location.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.parts.push(Part.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BuildPicked {
+    const message = { ...baseBuildPicked } as BuildPicked;
+    message.parts = [];
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromJSON(object.build);
+    } else {
+      message.build = undefined;
+    }
+    if (object.location !== undefined && object.location !== null) {
+      message.location = Location.fromJSON(object.location);
+    } else {
+      message.location = undefined;
+    }
+    if (object.parts !== undefined && object.parts !== null) {
+      for (const e of object.parts) {
+        message.parts.push(Part.fromJSON(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: BuildPicked): unknown {
+    const obj: any = {};
+    message.build !== undefined &&
+      (obj.build = message.build ? Build.toJSON(message.build) : undefined);
+    message.location !== undefined &&
+      (obj.location = message.location
+        ? Location.toJSON(message.location)
+        : undefined);
+    if (message.parts) {
+      obj.parts = message.parts.map((e) => (e ? Part.toJSON(e) : undefined));
+    } else {
+      obj.parts = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<BuildPicked>): BuildPicked {
+    const message = { ...baseBuildPicked } as BuildPicked;
+    message.parts = [];
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromPartial(object.build);
+    } else {
+      message.build = undefined;
+    }
+    if (object.location !== undefined && object.location !== null) {
+      message.location = Location.fromPartial(object.location);
+    } else {
+      message.location = undefined;
+    }
+    if (object.parts !== undefined && object.parts !== null) {
+      for (const e of object.parts) {
+        message.parts.push(Part.fromPartial(e));
+      }
     }
     return message;
   },

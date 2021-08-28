@@ -61,7 +61,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,15,25,26,16,17,27]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,28,15,25,26,16,17,27]];
 
 /**
  * @enum {number}
@@ -85,6 +85,7 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   ORGANIZATION_LEFT: 12,
   BUILD_CREATED: 13,
   BUILD_UPDATED: 14,
+  BUILD_PICKED: 28,
   COMPONENT_AVAILABILITY_UPDATED: 15,
   PART_CREATED: 25,
   PART_UPDATED: 26,
@@ -151,6 +152,7 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     organizationLeft: (f = msg.getOrganizationLeft()) && bottle_account_v1_events_pb.OrganizationLeft.toObject(includeInstance, f),
     buildCreated: (f = msg.getBuildCreated()) && bottle_assembly_v1_events_pb.BuildCreated.toObject(includeInstance, f),
     buildUpdated: (f = msg.getBuildUpdated()) && bottle_assembly_v1_events_pb.BuildUpdated.toObject(includeInstance, f),
+    buildPicked: (f = msg.getBuildPicked()) && bottle_assembly_v1_events_pb.BuildPicked.toObject(includeInstance, f),
     componentAvailabilityUpdated: (f = msg.getComponentAvailabilityUpdated()) && bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated.toObject(includeInstance, f),
     partCreated: (f = msg.getPartCreated()) && bottle_inventory_v1_events_pb.PartCreated.toObject(includeInstance, f),
     partUpdated: (f = msg.getPartUpdated()) && bottle_inventory_v1_events_pb.PartUpdated.toObject(includeInstance, f),
@@ -289,6 +291,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_assembly_v1_events_pb.BuildUpdated;
       reader.readMessage(value,bottle_assembly_v1_events_pb.BuildUpdated.deserializeBinaryFromReader);
       msg.setBuildUpdated(value);
+      break;
+    case 28:
+      var value = new bottle_assembly_v1_events_pb.BuildPicked;
+      reader.readMessage(value,bottle_assembly_v1_events_pb.BuildPicked.deserializeBinaryFromReader);
+      msg.setBuildPicked(value);
       break;
     case 15:
       var value = new bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated;
@@ -504,6 +511,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       14,
       f,
       bottle_assembly_v1_events_pb.BuildUpdated.serializeBinaryToWriter
+    );
+  }
+  f = message.getBuildPicked();
+  if (f != null) {
+    writer.writeMessage(
+      28,
+      f,
+      bottle_assembly_v1_events_pb.BuildPicked.serializeBinaryToWriter
     );
   }
   f = message.getComponentAvailabilityUpdated();
@@ -1237,6 +1252,43 @@ proto.bottle.core.v1.Bottle.prototype.clearBuildUpdated = function() {
  */
 proto.bottle.core.v1.Bottle.prototype.hasBuildUpdated = function() {
   return jspb.Message.getField(this, 14) != null;
+};
+
+
+/**
+ * optional bottle.assembly.v1.BuildPicked build_picked = 28;
+ * @return {?proto.bottle.assembly.v1.BuildPicked}
+ */
+proto.bottle.core.v1.Bottle.prototype.getBuildPicked = function() {
+  return /** @type{?proto.bottle.assembly.v1.BuildPicked} */ (
+    jspb.Message.getWrapperField(this, bottle_assembly_v1_events_pb.BuildPicked, 28));
+};
+
+
+/**
+ * @param {?proto.bottle.assembly.v1.BuildPicked|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setBuildPicked = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 28, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearBuildPicked = function() {
+  return this.setBuildPicked(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasBuildPicked = function() {
+  return jspb.Message.getField(this, 28) != null;
 };
 
 
