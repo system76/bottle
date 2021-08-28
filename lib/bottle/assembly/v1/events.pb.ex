@@ -23,3 +23,19 @@ defmodule Bottle.Assembly.V1.BuildUpdated do
   field(:old, 1, type: Bottle.Assembly.V1.Build)
   field(:new, 2, type: Bottle.Assembly.V1.Build)
 end
+
+defmodule Bottle.Assembly.V1.BuildPicked do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          build: Bottle.Assembly.V1.Build.t() | nil,
+          location: Bottle.Inventory.V1.Location.t() | nil,
+          parts: [Bottle.Inventory.V1.Part.t()]
+        }
+  defstruct [:build, :location, :parts]
+
+  field(:build, 1, type: Bottle.Assembly.V1.Build)
+  field(:location, 2, type: Bottle.Inventory.V1.Location)
+  field(:parts, 3, repeated: true, type: Bottle.Inventory.V1.Part)
+end
