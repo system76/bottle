@@ -1,6 +1,8 @@
 syntax = "proto3";
 
 import "bottle/assembly/v1/build.proto";
+import "bottle/inventory/v1/location.proto";
+import "bottle/inventory/v1/part.proto";
 
 package bottle.assembly.v1;
 
@@ -11,4 +13,10 @@ message BuildCreated {
 message BuildUpdated {
   bottle.assembly.v1.Build old = 1;
   bottle.assembly.v1.Build new = 2;
+}
+
+message BuildPicked {
+  bottle.assembly.v1.Build build = 1;
+  bottle.inventory.v1.Location location = 2;
+  repeated bottle.inventory.v1.Part parts = 3;
 }
