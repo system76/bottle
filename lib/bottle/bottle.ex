@@ -11,7 +11,7 @@ defmodule Bottle do
     encoded_message = wrap_and_encode(message, routing_key, opts)
 
     with {:ok, channel} <- AMQP.Application.get_channel(:events) do
-      AMQP.Basic.publish(channel, exchange, routing_key, encoded_message)
+      AMQP.Basic.publish(channel, exchange, routing_key, encoded_message, opts)
     end
   end
 
