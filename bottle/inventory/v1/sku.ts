@@ -7,9 +7,10 @@ export const protobufPackage = "bottle.inventory.v1";
 export interface Sku {
   id: string;
   name: string;
+  description: string;
 }
 
-const baseSku: object = { id: "", name: "" };
+const baseSku: object = { id: "", name: "", description: "" };
 
 export const Sku = {
   encode(message: Sku, writer: Writer = Writer.create()): Writer {
@@ -18,6 +19,9 @@ export const Sku = {
     }
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
     }
     return writer;
   },
@@ -34,6 +38,9 @@ export const Sku = {
           break;
         case 2:
           message.name = reader.string();
+          break;
+        case 3:
+          message.description = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -55,6 +62,11 @@ export const Sku = {
     } else {
       message.name = "";
     }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = String(object.description);
+    } else {
+      message.description = "";
+    }
     return message;
   },
 
@@ -62,6 +74,8 @@ export const Sku = {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     message.name !== undefined && (obj.name = message.name);
+    message.description !== undefined &&
+      (obj.description = message.description);
     return obj;
   },
 
@@ -76,6 +90,11 @@ export const Sku = {
       message.name = object.name;
     } else {
       message.name = "";
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    } else {
+      message.description = "";
     }
     return message;
   },

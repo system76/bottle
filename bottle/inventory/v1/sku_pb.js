@@ -70,7 +70,8 @@ proto.bottle.inventory.v1.Sku.prototype.toObject = function(opt_includeInstance)
 proto.bottle.inventory.v1.Sku.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, "")
+    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -115,6 +116,10 @@ proto.bottle.inventory.v1.Sku.deserializeBinaryFromReader = function(msg, reader
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDescription(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -158,6 +163,13 @@ proto.bottle.inventory.v1.Sku.serializeBinaryToWriter = function(message, writer
       f
     );
   }
+  f = message.getDescription();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -194,6 +206,24 @@ proto.bottle.inventory.v1.Sku.prototype.getName = function() {
  */
 proto.bottle.inventory.v1.Sku.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string description = 3;
+ * @return {string}
+ */
+proto.bottle.inventory.v1.Sku.prototype.getDescription = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.bottle.inventory.v1.Sku} returns this
+ */
+proto.bottle.inventory.v1.Sku.prototype.setDescription = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
