@@ -39,3 +39,17 @@ defmodule Bottle.Assembly.V1.BuildPicked do
   field(:location, 2, type: Bottle.Inventory.V1.Location)
   field(:parts, 3, repeated: true, type: Bottle.Inventory.V1.Part)
 end
+
+defmodule Bottle.Assembly.V1.ComponentDemandUpdated do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          component_id: String.t(),
+          quantity: integer
+        }
+  defstruct [:component_id, :quantity]
+
+  field(:component_id, 1, type: :string)
+  field(:quantity, 2, type: :int32)
+end

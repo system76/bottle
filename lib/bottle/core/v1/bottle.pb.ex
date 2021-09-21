@@ -46,6 +46,7 @@ defmodule Bottle.Core.V1.Bottle do
   field(:build_created, 13, type: Bottle.Assembly.V1.BuildCreated, oneof: 0)
   field(:build_updated, 14, type: Bottle.Assembly.V1.BuildUpdated, oneof: 0)
   field(:build_picked, 28, type: Bottle.Assembly.V1.BuildPicked, oneof: 0)
+  field(:component_demand_updated, 29, type: Bottle.Assembly.V1.ComponentDemandUpdated, oneof: 0)
 
   field(:component_availability_updated, 15,
     type: Bottle.Inventory.V1.ComponentAvailabilityUpdated,
