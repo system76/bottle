@@ -36,7 +36,7 @@ message Bottle {
     bottle.assembly.v1.BuildCreated build_created = 13;
     bottle.assembly.v1.BuildUpdated build_updated = 14;
     bottle.assembly.v1.BuildPicked build_picked = 28;
-    bottle.assembly.v1.ComponentDemandUpdated component_demand_updated = 28;
+    bottle.assembly.v1.ComponentDemandUpdated component_demand_updated = 29;
 
     bottle.inventory.v1.ComponentAvailabilityUpdated component_availability_updated = 15;
     bottle.inventory.v1.PartCreated part_created = 25;
