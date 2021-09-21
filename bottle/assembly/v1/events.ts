@@ -22,6 +22,11 @@ export interface BuildPicked {
   parts: Part[];
 }
 
+export interface ComponentDemandUpdated {
+  componentId: string;
+  quantity: number;
+}
+
 const baseBuildCreated: object = {};
 
 export const BuildCreated = {
@@ -247,6 +252,84 @@ export const BuildPicked = {
       for (const e of object.parts) {
         message.parts.push(Part.fromPartial(e));
       }
+    }
+    return message;
+  },
+};
+
+const baseComponentDemandUpdated: object = { componentId: "", quantity: 0 };
+
+export const ComponentDemandUpdated = {
+  encode(
+    message: ComponentDemandUpdated,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.componentId !== "") {
+      writer.uint32(10).string(message.componentId);
+    }
+    if (message.quantity !== 0) {
+      writer.uint32(16).int32(message.quantity);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): ComponentDemandUpdated {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseComponentDemandUpdated } as ComponentDemandUpdated;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.componentId = reader.string();
+          break;
+        case 2:
+          message.quantity = reader.int32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ComponentDemandUpdated {
+    const message = { ...baseComponentDemandUpdated } as ComponentDemandUpdated;
+    if (object.componentId !== undefined && object.componentId !== null) {
+      message.componentId = String(object.componentId);
+    } else {
+      message.componentId = "";
+    }
+    if (object.quantity !== undefined && object.quantity !== null) {
+      message.quantity = Number(object.quantity);
+    } else {
+      message.quantity = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: ComponentDemandUpdated): unknown {
+    const obj: any = {};
+    message.componentId !== undefined &&
+      (obj.componentId = message.componentId);
+    message.quantity !== undefined && (obj.quantity = message.quantity);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ComponentDemandUpdated>
+  ): ComponentDemandUpdated {
+    const message = { ...baseComponentDemandUpdated } as ComponentDemandUpdated;
+    if (object.componentId !== undefined && object.componentId !== null) {
+      message.componentId = object.componentId;
+    } else {
+      message.componentId = "";
+    }
+    if (object.quantity !== undefined && object.quantity !== null) {
+      message.quantity = object.quantity;
+    } else {
+      message.quantity = 0;
     }
     return message;
   },

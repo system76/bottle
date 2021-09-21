@@ -61,7 +61,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,28,15,25,26,16,17,27]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,28,29,15,25,26,16,17,27]];
 
 /**
  * @enum {number}
@@ -86,6 +86,7 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   BUILD_CREATED: 13,
   BUILD_UPDATED: 14,
   BUILD_PICKED: 28,
+  COMPONENT_DEMAND_UPDATED: 29,
   COMPONENT_AVAILABILITY_UPDATED: 15,
   PART_CREATED: 25,
   PART_UPDATED: 26,
@@ -153,6 +154,7 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     buildCreated: (f = msg.getBuildCreated()) && bottle_assembly_v1_events_pb.BuildCreated.toObject(includeInstance, f),
     buildUpdated: (f = msg.getBuildUpdated()) && bottle_assembly_v1_events_pb.BuildUpdated.toObject(includeInstance, f),
     buildPicked: (f = msg.getBuildPicked()) && bottle_assembly_v1_events_pb.BuildPicked.toObject(includeInstance, f),
+    componentDemandUpdated: (f = msg.getComponentDemandUpdated()) && bottle_assembly_v1_events_pb.ComponentDemandUpdated.toObject(includeInstance, f),
     componentAvailabilityUpdated: (f = msg.getComponentAvailabilityUpdated()) && bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated.toObject(includeInstance, f),
     partCreated: (f = msg.getPartCreated()) && bottle_inventory_v1_events_pb.PartCreated.toObject(includeInstance, f),
     partUpdated: (f = msg.getPartUpdated()) && bottle_inventory_v1_events_pb.PartUpdated.toObject(includeInstance, f),
@@ -296,6 +298,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_assembly_v1_events_pb.BuildPicked;
       reader.readMessage(value,bottle_assembly_v1_events_pb.BuildPicked.deserializeBinaryFromReader);
       msg.setBuildPicked(value);
+      break;
+    case 29:
+      var value = new bottle_assembly_v1_events_pb.ComponentDemandUpdated;
+      reader.readMessage(value,bottle_assembly_v1_events_pb.ComponentDemandUpdated.deserializeBinaryFromReader);
+      msg.setComponentDemandUpdated(value);
       break;
     case 15:
       var value = new bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated;
@@ -519,6 +526,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       28,
       f,
       bottle_assembly_v1_events_pb.BuildPicked.serializeBinaryToWriter
+    );
+  }
+  f = message.getComponentDemandUpdated();
+  if (f != null) {
+    writer.writeMessage(
+      29,
+      f,
+      bottle_assembly_v1_events_pb.ComponentDemandUpdated.serializeBinaryToWriter
     );
   }
   f = message.getComponentAvailabilityUpdated();
@@ -1289,6 +1304,43 @@ proto.bottle.core.v1.Bottle.prototype.clearBuildPicked = function() {
  */
 proto.bottle.core.v1.Bottle.prototype.hasBuildPicked = function() {
   return jspb.Message.getField(this, 28) != null;
+};
+
+
+/**
+ * optional bottle.assembly.v1.ComponentDemandUpdated component_demand_updated = 29;
+ * @return {?proto.bottle.assembly.v1.ComponentDemandUpdated}
+ */
+proto.bottle.core.v1.Bottle.prototype.getComponentDemandUpdated = function() {
+  return /** @type{?proto.bottle.assembly.v1.ComponentDemandUpdated} */ (
+    jspb.Message.getWrapperField(this, bottle_assembly_v1_events_pb.ComponentDemandUpdated, 29));
+};
+
+
+/**
+ * @param {?proto.bottle.assembly.v1.ComponentDemandUpdated|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setComponentDemandUpdated = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 29, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearComponentDemandUpdated = function() {
+  return this.setComponentDemandUpdated(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasComponentDemandUpdated = function() {
+  return jspb.Message.getField(this, 29) != null;
 };
 
 
