@@ -30,6 +30,7 @@ import {
 } from "../../../bottle/assembly/v1/events";
 import {
   ComponentAvailabilityUpdated,
+  SkuDetailsUpdated,
   PartCreated,
   PartUpdated,
 } from "../../../bottle/inventory/v1/events";
@@ -65,6 +66,7 @@ export interface Bottle {
   buildPicked: BuildPicked | undefined;
   componentDemandUpdated: ComponentDemandUpdated | undefined;
   componentAvailabilityUpdated: ComponentAvailabilityUpdated | undefined;
+  skuDetailsUpdated: SkuDetailsUpdated | undefined;
   partCreated: PartCreated | undefined;
   partUpdated: PartUpdated | undefined;
   questionCreated: QuestionCreated | undefined;
@@ -205,6 +207,12 @@ export const Bottle = {
         writer.uint32(122).fork()
       ).ldelim();
     }
+    if (message.skuDetailsUpdated !== undefined) {
+      SkuDetailsUpdated.encode(
+        message.skuDetailsUpdated,
+        writer.uint32(242).fork()
+      ).ldelim();
+    }
     if (message.partCreated !== undefined) {
       PartCreated.encode(
         message.partCreated,
@@ -338,6 +346,12 @@ export const Bottle = {
         case 15:
           message.componentAvailabilityUpdated =
             ComponentAvailabilityUpdated.decode(reader, reader.uint32());
+          break;
+        case 30:
+          message.skuDetailsUpdated = SkuDetailsUpdated.decode(
+            reader,
+            reader.uint32()
+          );
           break;
         case 25:
           message.partCreated = PartCreated.decode(reader, reader.uint32());
@@ -533,6 +547,16 @@ export const Bottle = {
     } else {
       message.componentAvailabilityUpdated = undefined;
     }
+    if (
+      object.skuDetailsUpdated !== undefined &&
+      object.skuDetailsUpdated !== null
+    ) {
+      message.skuDetailsUpdated = SkuDetailsUpdated.fromJSON(
+        object.skuDetailsUpdated
+      );
+    } else {
+      message.skuDetailsUpdated = undefined;
+    }
     if (object.partCreated !== undefined && object.partCreated !== null) {
       message.partCreated = PartCreated.fromJSON(object.partCreated);
     } else {
@@ -652,6 +676,10 @@ export const Bottle = {
         ? ComponentAvailabilityUpdated.toJSON(
             message.componentAvailabilityUpdated
           )
+        : undefined);
+    message.skuDetailsUpdated !== undefined &&
+      (obj.skuDetailsUpdated = message.skuDetailsUpdated
+        ? SkuDetailsUpdated.toJSON(message.skuDetailsUpdated)
         : undefined);
     message.partCreated !== undefined &&
       (obj.partCreated = message.partCreated
@@ -843,6 +871,16 @@ export const Bottle = {
         );
     } else {
       message.componentAvailabilityUpdated = undefined;
+    }
+    if (
+      object.skuDetailsUpdated !== undefined &&
+      object.skuDetailsUpdated !== null
+    ) {
+      message.skuDetailsUpdated = SkuDetailsUpdated.fromPartial(
+        object.skuDetailsUpdated
+      );
+    } else {
+      message.skuDetailsUpdated = undefined;
     }
     if (object.partCreated !== undefined && object.partCreated !== null) {
       message.partCreated = PartCreated.fromPartial(object.partCreated);

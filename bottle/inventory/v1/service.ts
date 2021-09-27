@@ -20,14 +20,33 @@ export interface ListComponentAvailabilityResponse {
 }
 
 export interface ListComponentAvailabilityResponse_PickingOption {
-  sku: Sku | undefined;
-  requiredQuantityPerKit: number;
-  availableLocations: ListComponentAvailabilityResponse_PickingOption_AvailableLocation[];
+  availableQuantity: number;
+  requiredQuantity: number;
+  skus: ListComponentAvailabilityResponse_PickingOption_PickingSku[];
 }
 
-export interface ListComponentAvailabilityResponse_PickingOption_AvailableLocation {
+export interface ListComponentAvailabilityResponse_PickingOption_PickingSku {
+  sku: Sku | undefined;
+  availableQuantity: number;
+  requiredQuantity: number;
+  locations: ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation[];
+}
+
+export interface ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation {
   location: Location | undefined;
   availableQuantity: number;
+}
+
+export interface ListSkuQuantityRequest {
+  requestId: string;
+}
+
+export interface ListSkuQuantityResponse {
+  requestId: string;
+  sku: Sku | undefined;
+  availableQuantity: number;
+  demandQuantity: number;
+  excessQuantity: number;
 }
 
 export interface ListSkuAvailabilityRequest {
@@ -39,7 +58,19 @@ export interface ListSkuAvailabilityResponse {
   requestId: string;
   sku: Sku | undefined;
   location: Location | undefined;
+}
+
+export interface GetSkuDetailsRequest {
+  requestId: string;
+  sku: Sku | undefined;
+}
+
+export interface GetSkuDetailsResponse {
+  requestId: string;
+  sku: Sku | undefined;
   availableQuantity: number;
+  demandQuantity: number;
+  excessQuantity: number;
 }
 
 export interface ListLocationsRequest {
@@ -304,7 +335,8 @@ export const ListComponentAvailabilityResponse = {
 };
 
 const baseListComponentAvailabilityResponse_PickingOption: object = {
-  requiredQuantityPerKit: 0,
+  availableQuantity: 0,
+  requiredQuantity: 0,
 };
 
 export const ListComponentAvailabilityResponse_PickingOption = {
@@ -312,14 +344,14 @@ export const ListComponentAvailabilityResponse_PickingOption = {
     message: ListComponentAvailabilityResponse_PickingOption,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.sku !== undefined) {
-      Sku.encode(message.sku, writer.uint32(10).fork()).ldelim();
+    if (message.availableQuantity !== 0) {
+      writer.uint32(8).int32(message.availableQuantity);
     }
-    if (message.requiredQuantityPerKit !== 0) {
-      writer.uint32(16).int32(message.requiredQuantityPerKit);
+    if (message.requiredQuantity !== 0) {
+      writer.uint32(16).int32(message.requiredQuantity);
     }
-    for (const v of message.availableLocations) {
-      ListComponentAvailabilityResponse_PickingOption_AvailableLocation.encode(
+    for (const v of message.skus) {
+      ListComponentAvailabilityResponse_PickingOption_PickingSku.encode(
         v!,
         writer.uint32(26).fork()
       ).ldelim();
@@ -336,19 +368,19 @@ export const ListComponentAvailabilityResponse_PickingOption = {
     const message = {
       ...baseListComponentAvailabilityResponse_PickingOption,
     } as ListComponentAvailabilityResponse_PickingOption;
-    message.availableLocations = [];
+    message.skus = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sku = Sku.decode(reader, reader.uint32());
+          message.availableQuantity = reader.int32();
           break;
         case 2:
-          message.requiredQuantityPerKit = reader.int32();
+          message.requiredQuantity = reader.int32();
           break;
         case 3:
-          message.availableLocations.push(
-            ListComponentAvailabilityResponse_PickingOption_AvailableLocation.decode(
+          message.skus.push(
+            ListComponentAvailabilityResponse_PickingOption_PickingSku.decode(
               reader,
               reader.uint32()
             )
@@ -366,29 +398,27 @@ export const ListComponentAvailabilityResponse_PickingOption = {
     const message = {
       ...baseListComponentAvailabilityResponse_PickingOption,
     } as ListComponentAvailabilityResponse_PickingOption;
-    message.availableLocations = [];
-    if (object.sku !== undefined && object.sku !== null) {
-      message.sku = Sku.fromJSON(object.sku);
+    message.skus = [];
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = Number(object.availableQuantity);
     } else {
-      message.sku = undefined;
+      message.availableQuantity = 0;
     }
     if (
-      object.requiredQuantityPerKit !== undefined &&
-      object.requiredQuantityPerKit !== null
+      object.requiredQuantity !== undefined &&
+      object.requiredQuantity !== null
     ) {
-      message.requiredQuantityPerKit = Number(object.requiredQuantityPerKit);
+      message.requiredQuantity = Number(object.requiredQuantity);
     } else {
-      message.requiredQuantityPerKit = 0;
+      message.requiredQuantity = 0;
     }
-    if (
-      object.availableLocations !== undefined &&
-      object.availableLocations !== null
-    ) {
-      for (const e of object.availableLocations) {
-        message.availableLocations.push(
-          ListComponentAvailabilityResponse_PickingOption_AvailableLocation.fromJSON(
-            e
-          )
+    if (object.skus !== undefined && object.skus !== null) {
+      for (const e of object.skus) {
+        message.skus.push(
+          ListComponentAvailabilityResponse_PickingOption_PickingSku.fromJSON(e)
         );
       }
     }
@@ -397,20 +427,18 @@ export const ListComponentAvailabilityResponse_PickingOption = {
 
   toJSON(message: ListComponentAvailabilityResponse_PickingOption): unknown {
     const obj: any = {};
-    message.sku !== undefined &&
-      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
-    message.requiredQuantityPerKit !== undefined &&
-      (obj.requiredQuantityPerKit = message.requiredQuantityPerKit);
-    if (message.availableLocations) {
-      obj.availableLocations = message.availableLocations.map((e) =>
+    message.availableQuantity !== undefined &&
+      (obj.availableQuantity = message.availableQuantity);
+    message.requiredQuantity !== undefined &&
+      (obj.requiredQuantity = message.requiredQuantity);
+    if (message.skus) {
+      obj.skus = message.skus.map((e) =>
         e
-          ? ListComponentAvailabilityResponse_PickingOption_AvailableLocation.toJSON(
-              e
-            )
+          ? ListComponentAvailabilityResponse_PickingOption_PickingSku.toJSON(e)
           : undefined
       );
     } else {
-      obj.availableLocations = [];
+      obj.skus = [];
     }
     return obj;
   },
@@ -421,27 +449,27 @@ export const ListComponentAvailabilityResponse_PickingOption = {
     const message = {
       ...baseListComponentAvailabilityResponse_PickingOption,
     } as ListComponentAvailabilityResponse_PickingOption;
-    message.availableLocations = [];
-    if (object.sku !== undefined && object.sku !== null) {
-      message.sku = Sku.fromPartial(object.sku);
+    message.skus = [];
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = object.availableQuantity;
     } else {
-      message.sku = undefined;
+      message.availableQuantity = 0;
     }
     if (
-      object.requiredQuantityPerKit !== undefined &&
-      object.requiredQuantityPerKit !== null
+      object.requiredQuantity !== undefined &&
+      object.requiredQuantity !== null
     ) {
-      message.requiredQuantityPerKit = object.requiredQuantityPerKit;
+      message.requiredQuantity = object.requiredQuantity;
     } else {
-      message.requiredQuantityPerKit = 0;
+      message.requiredQuantity = 0;
     }
-    if (
-      object.availableLocations !== undefined &&
-      object.availableLocations !== null
-    ) {
-      for (const e of object.availableLocations) {
-        message.availableLocations.push(
-          ListComponentAvailabilityResponse_PickingOption_AvailableLocation.fromPartial(
+    if (object.skus !== undefined && object.skus !== null) {
+      for (const e of object.skus) {
+        message.skus.push(
+          ListComponentAvailabilityResponse_PickingOption_PickingSku.fromPartial(
             e
           )
         );
@@ -451,13 +479,184 @@ export const ListComponentAvailabilityResponse_PickingOption = {
   },
 };
 
-const baseListComponentAvailabilityResponse_PickingOption_AvailableLocation: object =
+const baseListComponentAvailabilityResponse_PickingOption_PickingSku: object = {
+  availableQuantity: 0,
+  requiredQuantity: 0,
+};
+
+export const ListComponentAvailabilityResponse_PickingOption_PickingSku = {
+  encode(
+    message: ListComponentAvailabilityResponse_PickingOption_PickingSku,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.availableQuantity !== 0) {
+      writer.uint32(16).int32(message.availableQuantity);
+    }
+    if (message.requiredQuantity !== 0) {
+      writer.uint32(24).int32(message.requiredQuantity);
+    }
+    for (const v of message.locations) {
+      ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation.encode(
+        v!,
+        writer.uint32(34).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): ListComponentAvailabilityResponse_PickingOption_PickingSku {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseListComponentAvailabilityResponse_PickingOption_PickingSku,
+    } as ListComponentAvailabilityResponse_PickingOption_PickingSku;
+    message.locations = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.availableQuantity = reader.int32();
+          break;
+        case 3:
+          message.requiredQuantity = reader.int32();
+          break;
+        case 4:
+          message.locations.push(
+            ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation.decode(
+              reader,
+              reader.uint32()
+            )
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(
+    object: any
+  ): ListComponentAvailabilityResponse_PickingOption_PickingSku {
+    const message = {
+      ...baseListComponentAvailabilityResponse_PickingOption_PickingSku,
+    } as ListComponentAvailabilityResponse_PickingOption_PickingSku;
+    message.locations = [];
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = Number(object.availableQuantity);
+    } else {
+      message.availableQuantity = 0;
+    }
+    if (
+      object.requiredQuantity !== undefined &&
+      object.requiredQuantity !== null
+    ) {
+      message.requiredQuantity = Number(object.requiredQuantity);
+    } else {
+      message.requiredQuantity = 0;
+    }
+    if (object.locations !== undefined && object.locations !== null) {
+      for (const e of object.locations) {
+        message.locations.push(
+          ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation.fromJSON(
+            e
+          )
+        );
+      }
+    }
+    return message;
+  },
+
+  toJSON(
+    message: ListComponentAvailabilityResponse_PickingOption_PickingSku
+  ): unknown {
+    const obj: any = {};
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    message.availableQuantity !== undefined &&
+      (obj.availableQuantity = message.availableQuantity);
+    message.requiredQuantity !== undefined &&
+      (obj.requiredQuantity = message.requiredQuantity);
+    if (message.locations) {
+      obj.locations = message.locations.map((e) =>
+        e
+          ? ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation.toJSON(
+              e
+            )
+          : undefined
+      );
+    } else {
+      obj.locations = [];
+    }
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListComponentAvailabilityResponse_PickingOption_PickingSku>
+  ): ListComponentAvailabilityResponse_PickingOption_PickingSku {
+    const message = {
+      ...baseListComponentAvailabilityResponse_PickingOption_PickingSku,
+    } as ListComponentAvailabilityResponse_PickingOption_PickingSku;
+    message.locations = [];
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = object.availableQuantity;
+    } else {
+      message.availableQuantity = 0;
+    }
+    if (
+      object.requiredQuantity !== undefined &&
+      object.requiredQuantity !== null
+    ) {
+      message.requiredQuantity = object.requiredQuantity;
+    } else {
+      message.requiredQuantity = 0;
+    }
+    if (object.locations !== undefined && object.locations !== null) {
+      for (const e of object.locations) {
+        message.locations.push(
+          ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation.fromPartial(
+            e
+          )
+        );
+      }
+    }
+    return message;
+  },
+};
+
+const baseListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation: object =
   { availableQuantity: 0 };
 
-export const ListComponentAvailabilityResponse_PickingOption_AvailableLocation =
+export const ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation =
   {
     encode(
-      message: ListComponentAvailabilityResponse_PickingOption_AvailableLocation,
+      message: ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation,
       writer: Writer = Writer.create()
     ): Writer {
       if (message.location !== undefined) {
@@ -472,12 +671,12 @@ export const ListComponentAvailabilityResponse_PickingOption_AvailableLocation =
     decode(
       input: Reader | Uint8Array,
       length?: number
-    ): ListComponentAvailabilityResponse_PickingOption_AvailableLocation {
+    ): ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation {
       const reader = input instanceof Reader ? input : new Reader(input);
       let end = length === undefined ? reader.len : reader.pos + length;
       const message = {
-        ...baseListComponentAvailabilityResponse_PickingOption_AvailableLocation,
-      } as ListComponentAvailabilityResponse_PickingOption_AvailableLocation;
+        ...baseListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation,
+      } as ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation;
       while (reader.pos < end) {
         const tag = reader.uint32();
         switch (tag >>> 3) {
@@ -497,10 +696,10 @@ export const ListComponentAvailabilityResponse_PickingOption_AvailableLocation =
 
     fromJSON(
       object: any
-    ): ListComponentAvailabilityResponse_PickingOption_AvailableLocation {
+    ): ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation {
       const message = {
-        ...baseListComponentAvailabilityResponse_PickingOption_AvailableLocation,
-      } as ListComponentAvailabilityResponse_PickingOption_AvailableLocation;
+        ...baseListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation,
+      } as ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation;
       if (object.location !== undefined && object.location !== null) {
         message.location = Location.fromJSON(object.location);
       } else {
@@ -518,7 +717,7 @@ export const ListComponentAvailabilityResponse_PickingOption_AvailableLocation =
     },
 
     toJSON(
-      message: ListComponentAvailabilityResponse_PickingOption_AvailableLocation
+      message: ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation
     ): unknown {
       const obj: any = {};
       message.location !== undefined &&
@@ -531,11 +730,11 @@ export const ListComponentAvailabilityResponse_PickingOption_AvailableLocation =
     },
 
     fromPartial(
-      object: DeepPartial<ListComponentAvailabilityResponse_PickingOption_AvailableLocation>
-    ): ListComponentAvailabilityResponse_PickingOption_AvailableLocation {
+      object: DeepPartial<ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation>
+    ): ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation {
       const message = {
-        ...baseListComponentAvailabilityResponse_PickingOption_AvailableLocation,
-      } as ListComponentAvailabilityResponse_PickingOption_AvailableLocation;
+        ...baseListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation,
+      } as ListComponentAvailabilityResponse_PickingOption_PickingSku_PickingLocation;
       if (object.location !== undefined && object.location !== null) {
         message.location = Location.fromPartial(object.location);
       } else {
@@ -552,6 +751,215 @@ export const ListComponentAvailabilityResponse_PickingOption_AvailableLocation =
       return message;
     },
   };
+
+const baseListSkuQuantityRequest: object = { requestId: "" };
+
+export const ListSkuQuantityRequest = {
+  encode(
+    message: ListSkuQuantityRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): ListSkuQuantityRequest {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseListSkuQuantityRequest } as ListSkuQuantityRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListSkuQuantityRequest {
+    const message = { ...baseListSkuQuantityRequest } as ListSkuQuantityRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    return message;
+  },
+
+  toJSON(message: ListSkuQuantityRequest): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListSkuQuantityRequest>
+  ): ListSkuQuantityRequest {
+    const message = { ...baseListSkuQuantityRequest } as ListSkuQuantityRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    return message;
+  },
+};
+
+const baseListSkuQuantityResponse: object = {
+  requestId: "",
+  availableQuantity: 0,
+  demandQuantity: 0,
+  excessQuantity: 0,
+};
+
+export const ListSkuQuantityResponse = {
+  encode(
+    message: ListSkuQuantityResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.availableQuantity !== 0) {
+      writer.uint32(24).int32(message.availableQuantity);
+    }
+    if (message.demandQuantity !== 0) {
+      writer.uint32(32).int32(message.demandQuantity);
+    }
+    if (message.excessQuantity !== 0) {
+      writer.uint32(40).int32(message.excessQuantity);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): ListSkuQuantityResponse {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseListSkuQuantityResponse,
+    } as ListSkuQuantityResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        case 2:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.availableQuantity = reader.int32();
+          break;
+        case 4:
+          message.demandQuantity = reader.int32();
+          break;
+        case 5:
+          message.excessQuantity = reader.int32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListSkuQuantityResponse {
+    const message = {
+      ...baseListSkuQuantityResponse,
+    } as ListSkuQuantityResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = Number(object.availableQuantity);
+    } else {
+      message.availableQuantity = 0;
+    }
+    if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
+      message.demandQuantity = Number(object.demandQuantity);
+    } else {
+      message.demandQuantity = 0;
+    }
+    if (object.excessQuantity !== undefined && object.excessQuantity !== null) {
+      message.excessQuantity = Number(object.excessQuantity);
+    } else {
+      message.excessQuantity = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: ListSkuQuantityResponse): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    message.availableQuantity !== undefined &&
+      (obj.availableQuantity = message.availableQuantity);
+    message.demandQuantity !== undefined &&
+      (obj.demandQuantity = message.demandQuantity);
+    message.excessQuantity !== undefined &&
+      (obj.excessQuantity = message.excessQuantity);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<ListSkuQuantityResponse>
+  ): ListSkuQuantityResponse {
+    const message = {
+      ...baseListSkuQuantityResponse,
+    } as ListSkuQuantityResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = object.availableQuantity;
+    } else {
+      message.availableQuantity = 0;
+    }
+    if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
+      message.demandQuantity = object.demandQuantity;
+    } else {
+      message.demandQuantity = 0;
+    }
+    if (object.excessQuantity !== undefined && object.excessQuantity !== null) {
+      message.excessQuantity = object.excessQuantity;
+    } else {
+      message.excessQuantity = 0;
+    }
+    return message;
+  },
+};
 
 const baseListSkuAvailabilityRequest: object = { requestId: "" };
 
@@ -640,10 +1048,7 @@ export const ListSkuAvailabilityRequest = {
   },
 };
 
-const baseListSkuAvailabilityResponse: object = {
-  requestId: "",
-  availableQuantity: 0,
-};
+const baseListSkuAvailabilityResponse: object = { requestId: "" };
 
 export const ListSkuAvailabilityResponse = {
   encode(
@@ -658,9 +1063,6 @@ export const ListSkuAvailabilityResponse = {
     }
     if (message.location !== undefined) {
       Location.encode(message.location, writer.uint32(26).fork()).ldelim();
-    }
-    if (message.availableQuantity !== 0) {
-      writer.uint32(32).int32(message.availableQuantity);
     }
     return writer;
   },
@@ -685,9 +1087,6 @@ export const ListSkuAvailabilityResponse = {
           break;
         case 3:
           message.location = Location.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.availableQuantity = reader.int32();
           break;
         default:
           reader.skipType(tag & 7);
@@ -716,14 +1115,6 @@ export const ListSkuAvailabilityResponse = {
     } else {
       message.location = undefined;
     }
-    if (
-      object.availableQuantity !== undefined &&
-      object.availableQuantity !== null
-    ) {
-      message.availableQuantity = Number(object.availableQuantity);
-    } else {
-      message.availableQuantity = 0;
-    }
     return message;
   },
 
@@ -736,8 +1127,6 @@ export const ListSkuAvailabilityResponse = {
       (obj.location = message.location
         ? Location.toJSON(message.location)
         : undefined);
-    message.availableQuantity !== undefined &&
-      (obj.availableQuantity = message.availableQuantity);
     return obj;
   },
 
@@ -762,6 +1151,207 @@ export const ListSkuAvailabilityResponse = {
     } else {
       message.location = undefined;
     }
+    return message;
+  },
+};
+
+const baseGetSkuDetailsRequest: object = { requestId: "" };
+
+export const GetSkuDetailsRequest = {
+  encode(
+    message: GetSkuDetailsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): GetSkuDetailsRequest {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseGetSkuDetailsRequest } as GetSkuDetailsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        case 2:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetSkuDetailsRequest {
+    const message = { ...baseGetSkuDetailsRequest } as GetSkuDetailsRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: GetSkuDetailsRequest): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<GetSkuDetailsRequest>): GetSkuDetailsRequest {
+    const message = { ...baseGetSkuDetailsRequest } as GetSkuDetailsRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    return message;
+  },
+};
+
+const baseGetSkuDetailsResponse: object = {
+  requestId: "",
+  availableQuantity: 0,
+  demandQuantity: 0,
+  excessQuantity: 0,
+};
+
+export const GetSkuDetailsResponse = {
+  encode(
+    message: GetSkuDetailsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.requestId !== "") {
+      writer.uint32(10).string(message.requestId);
+    }
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.availableQuantity !== 0) {
+      writer.uint32(24).int32(message.availableQuantity);
+    }
+    if (message.demandQuantity !== 0) {
+      writer.uint32(32).int32(message.demandQuantity);
+    }
+    if (message.excessQuantity !== 0) {
+      writer.uint32(40).int32(message.excessQuantity);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): GetSkuDetailsResponse {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseGetSkuDetailsResponse } as GetSkuDetailsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = reader.string();
+          break;
+        case 2:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.availableQuantity = reader.int32();
+          break;
+        case 4:
+          message.demandQuantity = reader.int32();
+          break;
+        case 5:
+          message.excessQuantity = reader.int32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetSkuDetailsResponse {
+    const message = { ...baseGetSkuDetailsResponse } as GetSkuDetailsResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = Number(object.availableQuantity);
+    } else {
+      message.availableQuantity = 0;
+    }
+    if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
+      message.demandQuantity = Number(object.demandQuantity);
+    } else {
+      message.demandQuantity = 0;
+    }
+    if (object.excessQuantity !== undefined && object.excessQuantity !== null) {
+      message.excessQuantity = Number(object.excessQuantity);
+    } else {
+      message.excessQuantity = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: GetSkuDetailsResponse): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    message.availableQuantity !== undefined &&
+      (obj.availableQuantity = message.availableQuantity);
+    message.demandQuantity !== undefined &&
+      (obj.demandQuantity = message.demandQuantity);
+    message.excessQuantity !== undefined &&
+      (obj.excessQuantity = message.excessQuantity);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<GetSkuDetailsResponse>
+  ): GetSkuDetailsResponse {
+    const message = { ...baseGetSkuDetailsResponse } as GetSkuDetailsResponse;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "";
+    }
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
+    } else {
+      message.sku = undefined;
+    }
     if (
       object.availableQuantity !== undefined &&
       object.availableQuantity !== null
@@ -769,6 +1359,16 @@ export const ListSkuAvailabilityResponse = {
       message.availableQuantity = object.availableQuantity;
     } else {
       message.availableQuantity = 0;
+    }
+    if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
+      message.demandQuantity = object.demandQuantity;
+    } else {
+      message.demandQuantity = 0;
+    }
+    if (object.excessQuantity !== undefined && object.excessQuantity !== null) {
+      message.excessQuantity = object.excessQuantity;
+    } else {
+      message.excessQuantity = 0;
     }
     return message;
   },

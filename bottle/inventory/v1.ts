@@ -4,10 +4,14 @@ import * as Long from "long";
 import { Observable } from "rxjs";
 import {
   ListComponentAvailabilityResponse,
+  ListSkuQuantityResponse,
   ListSkuAvailabilityResponse,
+  GetSkuDetailsResponse,
   ListLocationsResponse,
   ListComponentAvailabilityRequest,
+  ListSkuQuantityRequest,
   ListSkuAvailabilityRequest,
+  GetSkuDetailsRequest,
   ListLocationsRequest,
 } from "../../bottle/inventory/v1/service";
 
@@ -17,9 +21,13 @@ export interface V1 {
   ListComponentAvailability(
     request: ListComponentAvailabilityRequest
   ): Observable<ListComponentAvailabilityResponse>;
+  ListSkuQuantity(
+    request: ListSkuQuantityRequest
+  ): Observable<ListSkuQuantityResponse>;
   ListSkuAvailability(
     request: ListSkuAvailabilityRequest
   ): Observable<ListSkuAvailabilityResponse>;
+  GetSkuDetails(request: GetSkuDetailsRequest): Promise<GetSkuDetailsResponse>;
   ListLocations(
     request: ListLocationsRequest
   ): Observable<ListLocationsResponse>;
@@ -30,7 +38,9 @@ export class V1ClientImpl implements V1 {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.ListComponentAvailability = this.ListComponentAvailability.bind(this);
+    this.ListSkuQuantity = this.ListSkuQuantity.bind(this);
     this.ListSkuAvailability = this.ListSkuAvailability.bind(this);
+    this.GetSkuDetails = this.GetSkuDetails.bind(this);
     this.ListLocations = this.ListLocations.bind(this);
   }
   ListComponentAvailability(
@@ -47,6 +57,20 @@ export class V1ClientImpl implements V1 {
     );
   }
 
+  ListSkuQuantity(
+    request: ListSkuQuantityRequest
+  ): Promise<ListSkuQuantityResponse> {
+    const data = ListSkuQuantityRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "bottle.inventory.V1",
+      "ListSkuQuantity",
+      data
+    );
+    return promise.then((data) =>
+      ListSkuQuantityResponse.decode(new Reader(data))
+    );
+  }
+
   ListSkuAvailability(
     request: ListSkuAvailabilityRequest
   ): Promise<ListSkuAvailabilityResponse> {
@@ -58,6 +82,18 @@ export class V1ClientImpl implements V1 {
     );
     return promise.then((data) =>
       ListSkuAvailabilityResponse.decode(new Reader(data))
+    );
+  }
+
+  GetSkuDetails(request: GetSkuDetailsRequest): Promise<GetSkuDetailsResponse> {
+    const data = GetSkuDetailsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "bottle.inventory.V1",
+      "GetSkuDetails",
+      data
+    );
+    return promise.then((data) =>
+      GetSkuDetailsResponse.decode(new Reader(data))
     );
   }
 

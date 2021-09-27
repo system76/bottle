@@ -2,6 +2,7 @@
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
 import { Component } from "../../../bottle/inventory/v1/component";
+import { Sku } from "../../../bottle/inventory/v1/sku";
 import { Part } from "../../../bottle/inventory/v1/part";
 
 export const protobufPackage = "bottle.inventory.v1";
@@ -9,6 +10,13 @@ export const protobufPackage = "bottle.inventory.v1";
 export interface ComponentAvailabilityUpdated {
   component: Component | undefined;
   quantity: number;
+}
+
+export interface SkuDetailsUpdated {
+  sku: Sku | undefined;
+  availableQuantity: number;
+  demandQuantity: number;
+  excessQuantity: number;
 }
 
 export interface PartCreated {
@@ -104,6 +112,126 @@ export const ComponentAvailabilityUpdated = {
       message.quantity = object.quantity;
     } else {
       message.quantity = 0;
+    }
+    return message;
+  },
+};
+
+const baseSkuDetailsUpdated: object = {
+  availableQuantity: 0,
+  demandQuantity: 0,
+  excessQuantity: 0,
+};
+
+export const SkuDetailsUpdated = {
+  encode(message: SkuDetailsUpdated, writer: Writer = Writer.create()): Writer {
+    if (message.sku !== undefined) {
+      Sku.encode(message.sku, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.availableQuantity !== 0) {
+      writer.uint32(24).int32(message.availableQuantity);
+    }
+    if (message.demandQuantity !== 0) {
+      writer.uint32(32).int32(message.demandQuantity);
+    }
+    if (message.excessQuantity !== 0) {
+      writer.uint32(40).int32(message.excessQuantity);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): SkuDetailsUpdated {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseSkuDetailsUpdated } as SkuDetailsUpdated;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sku = Sku.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.availableQuantity = reader.int32();
+          break;
+        case 4:
+          message.demandQuantity = reader.int32();
+          break;
+        case 5:
+          message.excessQuantity = reader.int32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): SkuDetailsUpdated {
+    const message = { ...baseSkuDetailsUpdated } as SkuDetailsUpdated;
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromJSON(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = Number(object.availableQuantity);
+    } else {
+      message.availableQuantity = 0;
+    }
+    if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
+      message.demandQuantity = Number(object.demandQuantity);
+    } else {
+      message.demandQuantity = 0;
+    }
+    if (object.excessQuantity !== undefined && object.excessQuantity !== null) {
+      message.excessQuantity = Number(object.excessQuantity);
+    } else {
+      message.excessQuantity = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: SkuDetailsUpdated): unknown {
+    const obj: any = {};
+    message.sku !== undefined &&
+      (obj.sku = message.sku ? Sku.toJSON(message.sku) : undefined);
+    message.availableQuantity !== undefined &&
+      (obj.availableQuantity = message.availableQuantity);
+    message.demandQuantity !== undefined &&
+      (obj.demandQuantity = message.demandQuantity);
+    message.excessQuantity !== undefined &&
+      (obj.excessQuantity = message.excessQuantity);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<SkuDetailsUpdated>): SkuDetailsUpdated {
+    const message = { ...baseSkuDetailsUpdated } as SkuDetailsUpdated;
+    if (object.sku !== undefined && object.sku !== null) {
+      message.sku = Sku.fromPartial(object.sku);
+    } else {
+      message.sku = undefined;
+    }
+    if (
+      object.availableQuantity !== undefined &&
+      object.availableQuantity !== null
+    ) {
+      message.availableQuantity = object.availableQuantity;
+    } else {
+      message.availableQuantity = 0;
+    }
+    if (object.demandQuantity !== undefined && object.demandQuantity !== null) {
+      message.demandQuantity = object.demandQuantity;
+    } else {
+      message.demandQuantity = 0;
+    }
+    if (object.excessQuantity !== undefined && object.excessQuantity !== null) {
+      message.excessQuantity = object.excessQuantity;
+    } else {
+      message.excessQuantity = 0;
     }
     return message;
   },

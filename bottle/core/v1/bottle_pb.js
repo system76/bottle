@@ -61,7 +61,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,28,29,15,25,26,16,17,27]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,28,29,15,30,25,26,16,17,27]];
 
 /**
  * @enum {number}
@@ -88,6 +88,7 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   BUILD_PICKED: 28,
   COMPONENT_DEMAND_UPDATED: 29,
   COMPONENT_AVAILABILITY_UPDATED: 15,
+  SKU_DETAILS_UPDATED: 30,
   PART_CREATED: 25,
   PART_UPDATED: 26,
   QUESTION_CREATED: 16,
@@ -156,6 +157,7 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     buildPicked: (f = msg.getBuildPicked()) && bottle_assembly_v1_events_pb.BuildPicked.toObject(includeInstance, f),
     componentDemandUpdated: (f = msg.getComponentDemandUpdated()) && bottle_assembly_v1_events_pb.ComponentDemandUpdated.toObject(includeInstance, f),
     componentAvailabilityUpdated: (f = msg.getComponentAvailabilityUpdated()) && bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated.toObject(includeInstance, f),
+    skuDetailsUpdated: (f = msg.getSkuDetailsUpdated()) && bottle_inventory_v1_events_pb.SkuDetailsUpdated.toObject(includeInstance, f),
     partCreated: (f = msg.getPartCreated()) && bottle_inventory_v1_events_pb.PartCreated.toObject(includeInstance, f),
     partUpdated: (f = msg.getPartUpdated()) && bottle_inventory_v1_events_pb.PartUpdated.toObject(includeInstance, f),
     questionCreated: (f = msg.getQuestionCreated()) && bottle_support_v1_events_pb.QuestionCreated.toObject(includeInstance, f),
@@ -308,6 +310,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated;
       reader.readMessage(value,bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated.deserializeBinaryFromReader);
       msg.setComponentAvailabilityUpdated(value);
+      break;
+    case 30:
+      var value = new bottle_inventory_v1_events_pb.SkuDetailsUpdated;
+      reader.readMessage(value,bottle_inventory_v1_events_pb.SkuDetailsUpdated.deserializeBinaryFromReader);
+      msg.setSkuDetailsUpdated(value);
       break;
     case 25:
       var value = new bottle_inventory_v1_events_pb.PartCreated;
@@ -542,6 +549,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       15,
       f,
       bottle_inventory_v1_events_pb.ComponentAvailabilityUpdated.serializeBinaryToWriter
+    );
+  }
+  f = message.getSkuDetailsUpdated();
+  if (f != null) {
+    writer.writeMessage(
+      30,
+      f,
+      bottle_inventory_v1_events_pb.SkuDetailsUpdated.serializeBinaryToWriter
     );
   }
   f = message.getPartCreated();
@@ -1378,6 +1393,43 @@ proto.bottle.core.v1.Bottle.prototype.clearComponentAvailabilityUpdated = functi
  */
 proto.bottle.core.v1.Bottle.prototype.hasComponentAvailabilityUpdated = function() {
   return jspb.Message.getField(this, 15) != null;
+};
+
+
+/**
+ * optional bottle.inventory.v1.SkuDetailsUpdated sku_details_updated = 30;
+ * @return {?proto.bottle.inventory.v1.SkuDetailsUpdated}
+ */
+proto.bottle.core.v1.Bottle.prototype.getSkuDetailsUpdated = function() {
+  return /** @type{?proto.bottle.inventory.v1.SkuDetailsUpdated} */ (
+    jspb.Message.getWrapperField(this, bottle_inventory_v1_events_pb.SkuDetailsUpdated, 30));
+};
+
+
+/**
+ * @param {?proto.bottle.inventory.v1.SkuDetailsUpdated|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setSkuDetailsUpdated = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 30, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearSkuDetailsUpdated = function() {
+  return this.setSkuDetailsUpdated(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasSkuDetailsUpdated = function() {
+  return jspb.Message.getField(this, 30) != null;
 };
 
 
