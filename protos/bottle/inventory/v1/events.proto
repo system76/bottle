@@ -10,6 +10,14 @@ message ComponentAvailabilityUpdated {
   int32 quantity = 2;
 }
 
+message SkuDetailsUpdated {
+  bottle.inventory.v1.Sku sku = 1;
+
+  int32 available_quantity = 3;
+  int32 demand_quantity = 4;
+  int32 excess_quantity = 5;
+}
+
 message PartCreated {
   bottle.inventory.v1.Part part = 1;
 }
