@@ -9,9 +9,21 @@ defmodule Bottle.Inventory.V1.Service do
   )
 
   rpc(
+    :ListSkuQuantity,
+    Bottle.Inventory.V1.ListSkuQuantityRequest,
+    stream(Bottle.Inventory.V1.ListSkuQuantityResponse)
+  )
+
+  rpc(
     :ListSkuAvailability,
     Bottle.Inventory.V1.ListSkuAvailabilityRequest,
     stream(Bottle.Inventory.V1.ListSkuAvailabilityResponse)
+  )
+
+  rpc(
+    :GetSkuDetails,
+    Bottle.Inventory.V1.GetSkuDetailsRequest,
+    Bottle.Inventory.V1.GetSkuDetailsResponse
   )
 
   rpc(

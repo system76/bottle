@@ -12,6 +12,24 @@ defmodule Bottle.Inventory.V1.ComponentAvailabilityUpdated do
   field(:quantity, 2, type: :int32)
 end
 
+defmodule Bottle.Inventory.V1.SkuDetailsUpdated do
+  @moduledoc false
+  use Protobuf, syntax: :proto3
+
+  @type t :: %__MODULE__{
+          sku: Bottle.Inventory.V1.Sku.t() | nil,
+          available_quantity: integer,
+          demand_quantity: integer,
+          excess_quantity: integer
+        }
+  defstruct [:sku, :available_quantity, :demand_quantity, :excess_quantity]
+
+  field(:sku, 1, type: Bottle.Inventory.V1.Sku)
+  field(:available_quantity, 3, type: :int32)
+  field(:demand_quantity, 4, type: :int32)
+  field(:excess_quantity, 5, type: :int32)
+end
+
 defmodule Bottle.Inventory.V1.PartCreated do
   @moduledoc false
   use Protobuf, syntax: :proto3
