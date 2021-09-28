@@ -49,10 +49,6 @@ defmodule Bottle.RequestId do
 
     Logger.metadata(request_id: request_id)
 
-    if Code.ensure_loaded?(Appsignal.Transaction) do
-      Appsignal.Transaction.set_sample_data("environment", %{"request_id" => request_id})
-    end
-
     request_id
   end
 
