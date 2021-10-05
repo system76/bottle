@@ -43,6 +43,7 @@ defmodule Bottle.Core.V1.Bottle do
   field(:organization_created, 10, type: Bottle.Account.V1.OrganizationCreated, oneof: 0)
   field(:organization_joined, 11, type: Bottle.Account.V1.OrganizationJoined, oneof: 0)
   field(:organization_left, 12, type: Bottle.Account.V1.OrganizationLeft, oneof: 0)
+  field(:build_cancelled, 31, type: Bottle.Assembly.V1.BuildCancelled, oneof: 0)
   field(:build_created, 13, type: Bottle.Assembly.V1.BuildCreated, oneof: 0)
   field(:build_updated, 14, type: Bottle.Assembly.V1.BuildUpdated, oneof: 0)
   field(:build_picked, 28, type: Bottle.Assembly.V1.BuildPicked, oneof: 0)
