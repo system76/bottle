@@ -6,6 +6,10 @@ import "bottle/inventory/v1/part.proto";
 
 package bottle.assembly.v1;
 
+message BuildCancelled {
+  bottle.assembly.v1.Build build = 1;
+}
+
 message BuildCreated {
   bottle.assembly.v1.Build build = 1;
 }

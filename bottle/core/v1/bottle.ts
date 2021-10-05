@@ -23,6 +23,7 @@ import {
   OrganizationLeft,
 } from "../../../bottle/account/v1/events";
 import {
+  BuildCancelled,
   BuildCreated,
   BuildUpdated,
   BuildPicked,
@@ -61,6 +62,7 @@ export interface Bottle {
   organizationCreated: OrganizationCreated | undefined;
   organizationJoined: OrganizationJoined | undefined;
   organizationLeft: OrganizationLeft | undefined;
+  buildCancelled: BuildCancelled | undefined;
   buildCreated: BuildCreated | undefined;
   buildUpdated: BuildUpdated | undefined;
   buildPicked: BuildPicked | undefined;
@@ -175,6 +177,12 @@ export const Bottle = {
       OrganizationLeft.encode(
         message.organizationLeft,
         writer.uint32(98).fork()
+      ).ldelim();
+    }
+    if (message.buildCancelled !== undefined) {
+      BuildCancelled.encode(
+        message.buildCancelled,
+        writer.uint32(250).fork()
       ).ldelim();
     }
     if (message.buildCreated !== undefined) {
@@ -324,6 +332,12 @@ export const Bottle = {
           break;
         case 12:
           message.organizationLeft = OrganizationLeft.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        case 31:
+          message.buildCancelled = BuildCancelled.decode(
             reader,
             reader.uint32()
           );
@@ -511,6 +525,11 @@ export const Bottle = {
     } else {
       message.organizationLeft = undefined;
     }
+    if (object.buildCancelled !== undefined && object.buildCancelled !== null) {
+      message.buildCancelled = BuildCancelled.fromJSON(object.buildCancelled);
+    } else {
+      message.buildCancelled = undefined;
+    }
     if (object.buildCreated !== undefined && object.buildCreated !== null) {
       message.buildCreated = BuildCreated.fromJSON(object.buildCreated);
     } else {
@@ -654,6 +673,10 @@ export const Bottle = {
     message.organizationLeft !== undefined &&
       (obj.organizationLeft = message.organizationLeft
         ? OrganizationLeft.toJSON(message.organizationLeft)
+        : undefined);
+    message.buildCancelled !== undefined &&
+      (obj.buildCancelled = message.buildCancelled
+        ? BuildCancelled.toJSON(message.buildCancelled)
         : undefined);
     message.buildCreated !== undefined &&
       (obj.buildCreated = message.buildCreated
@@ -835,6 +858,13 @@ export const Bottle = {
       );
     } else {
       message.organizationLeft = undefined;
+    }
+    if (object.buildCancelled !== undefined && object.buildCancelled !== null) {
+      message.buildCancelled = BuildCancelled.fromPartial(
+        object.buildCancelled
+      );
+    } else {
+      message.buildCancelled = undefined;
     }
     if (object.buildCreated !== undefined && object.buildCreated !== null) {
       message.buildCreated = BuildCreated.fromPartial(object.buildCreated);

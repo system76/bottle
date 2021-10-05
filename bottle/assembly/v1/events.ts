@@ -7,6 +7,10 @@ import { Part } from "../../../bottle/inventory/v1/part";
 
 export const protobufPackage = "bottle.assembly.v1";
 
+export interface BuildCancelled {
+  build: Build | undefined;
+}
+
 export interface BuildCreated {
   build: Build | undefined;
 }
@@ -26,6 +30,62 @@ export interface ComponentDemandUpdated {
   componentId: string;
   quantity: number;
 }
+
+const baseBuildCancelled: object = {};
+
+export const BuildCancelled = {
+  encode(message: BuildCancelled, writer: Writer = Writer.create()): Writer {
+    if (message.build !== undefined) {
+      Build.encode(message.build, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): BuildCancelled {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseBuildCancelled } as BuildCancelled;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.build = Build.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BuildCancelled {
+    const message = { ...baseBuildCancelled } as BuildCancelled;
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromJSON(object.build);
+    } else {
+      message.build = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: BuildCancelled): unknown {
+    const obj: any = {};
+    message.build !== undefined &&
+      (obj.build = message.build ? Build.toJSON(message.build) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<BuildCancelled>): BuildCancelled {
+    const message = { ...baseBuildCancelled } as BuildCancelled;
+    if (object.build !== undefined && object.build !== null) {
+      message.build = Build.fromPartial(object.build);
+    } else {
+      message.build = undefined;
+    }
+    return message;
+  },
+};
 
 const baseBuildCreated: object = {};
 

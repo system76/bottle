@@ -61,7 +61,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,13,14,28,29,15,30,25,26,16,17,27]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,31,13,14,28,29,15,30,25,26,16,17,27]];
 
 /**
  * @enum {number}
@@ -83,6 +83,7 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   ORGANIZATION_CREATED: 10,
   ORGANIZATION_JOINED: 11,
   ORGANIZATION_LEFT: 12,
+  BUILD_CANCELLED: 31,
   BUILD_CREATED: 13,
   BUILD_UPDATED: 14,
   BUILD_PICKED: 28,
@@ -152,6 +153,7 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     organizationCreated: (f = msg.getOrganizationCreated()) && bottle_account_v1_events_pb.OrganizationCreated.toObject(includeInstance, f),
     organizationJoined: (f = msg.getOrganizationJoined()) && bottle_account_v1_events_pb.OrganizationJoined.toObject(includeInstance, f),
     organizationLeft: (f = msg.getOrganizationLeft()) && bottle_account_v1_events_pb.OrganizationLeft.toObject(includeInstance, f),
+    buildCancelled: (f = msg.getBuildCancelled()) && bottle_assembly_v1_events_pb.BuildCancelled.toObject(includeInstance, f),
     buildCreated: (f = msg.getBuildCreated()) && bottle_assembly_v1_events_pb.BuildCreated.toObject(includeInstance, f),
     buildUpdated: (f = msg.getBuildUpdated()) && bottle_assembly_v1_events_pb.BuildUpdated.toObject(includeInstance, f),
     buildPicked: (f = msg.getBuildPicked()) && bottle_assembly_v1_events_pb.BuildPicked.toObject(includeInstance, f),
@@ -285,6 +287,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_account_v1_events_pb.OrganizationLeft;
       reader.readMessage(value,bottle_account_v1_events_pb.OrganizationLeft.deserializeBinaryFromReader);
       msg.setOrganizationLeft(value);
+      break;
+    case 31:
+      var value = new bottle_assembly_v1_events_pb.BuildCancelled;
+      reader.readMessage(value,bottle_assembly_v1_events_pb.BuildCancelled.deserializeBinaryFromReader);
+      msg.setBuildCancelled(value);
       break;
     case 13:
       var value = new bottle_assembly_v1_events_pb.BuildCreated;
@@ -509,6 +516,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       12,
       f,
       bottle_account_v1_events_pb.OrganizationLeft.serializeBinaryToWriter
+    );
+  }
+  f = message.getBuildCancelled();
+  if (f != null) {
+    writer.writeMessage(
+      31,
+      f,
+      bottle_assembly_v1_events_pb.BuildCancelled.serializeBinaryToWriter
     );
   }
   f = message.getBuildCreated();
@@ -1208,6 +1223,43 @@ proto.bottle.core.v1.Bottle.prototype.clearOrganizationLeft = function() {
  */
 proto.bottle.core.v1.Bottle.prototype.hasOrganizationLeft = function() {
   return jspb.Message.getField(this, 12) != null;
+};
+
+
+/**
+ * optional bottle.assembly.v1.BuildCancelled build_cancelled = 31;
+ * @return {?proto.bottle.assembly.v1.BuildCancelled}
+ */
+proto.bottle.core.v1.Bottle.prototype.getBuildCancelled = function() {
+  return /** @type{?proto.bottle.assembly.v1.BuildCancelled} */ (
+    jspb.Message.getWrapperField(this, bottle_assembly_v1_events_pb.BuildCancelled, 31));
+};
+
+
+/**
+ * @param {?proto.bottle.assembly.v1.BuildCancelled|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setBuildCancelled = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 31, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearBuildCancelled = function() {
+  return this.setBuildCancelled(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasBuildCancelled = function() {
+  return jspb.Message.getField(this, 31) != null;
 };
 
 
