@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package bottle.inventory.v1;
+
+message Movement {
+  string id = 1;
+  bottle.inventory.v1.Part part = 2;
+  bottle.inventory.v1.Location from_location = 3;
+  bottle.inventory.v1.Location to_location = 4;
+  string created_at = 5;
+}

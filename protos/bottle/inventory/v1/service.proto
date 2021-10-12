@@ -39,9 +39,7 @@ message ListComponentAvailabilityResponse {
   repeated PickingOption picking_options = 4;
 }
 
-message ListSkuQuantityRequest {
-  string request_id = 1;
-}
+message ListSkuQuantityRequest { string request_id = 1; }
 
 message ListSkuQuantityResponse {
   string request_id = 1;
@@ -85,4 +83,14 @@ message ListLocationsRequest {
 message ListLocationsResponse {
   string request_id = 1;
   bottle.inventory.v1.Location location = 2;
+}
+
+message ListSkuMovementsRequest {
+  string request_id = 1;
+  bottle.inventory.v1.Sku sku = 2;
+}
+
+message ListSkuMovementsResponse {
+  string request_id = 1;
+  repeated bottle.inventory.v1.Movement movements = 2;
 }
