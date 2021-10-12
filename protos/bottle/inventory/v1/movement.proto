@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package bottle.inventory.v1;
 
+import "bottle/inventory/v1/location.proto";
+import "bottle/inventory/v1/part.proto";
+
 message Movement {
   string id = 1;
   bottle.inventory.v1.Part part = 2;
