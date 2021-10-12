@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "bottle/inventory/v1/component.proto";
 import "bottle/inventory/v1/location.proto";
+import "bottle/inventory/v1/movement.proto";
 import "bottle/inventory/v1/sku.proto";
 
 package bottle.inventory.v1;
