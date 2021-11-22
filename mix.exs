@@ -14,14 +14,14 @@ defmodule Bottle.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:lager, :logger]
+      extra_applications: [:logger]
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:amqp, "~> 2.0"},
+      {:amqp, "~> 3.0"},
       # 2.9.0 fixes some important bugs, so it's better to use ~> 2.9.0
       {:cowlib, "~> 2.9.0", override: true},
       # Only for files generated from Google's protos.
