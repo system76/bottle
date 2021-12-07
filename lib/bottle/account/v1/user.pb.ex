@@ -41,11 +41,19 @@ defmodule Bottle.Account.V1.User do
   ]
 
   field(:id, 1, type: :string)
-  field(:first_name, 2, type: :string)
-  field(:last_name, 3, type: :string)
-  field(:phone_number, 4, type: :string)
+  field(:first_name, 2, type: :string, json_name: "firstName")
+  field(:last_name, 3, type: :string, json_name: "lastName")
+  field(:phone_number, 4, type: :string, json_name: "phoneNumber")
   field(:email, 5, type: :string)
   field(:newsletter, 6, type: :bool)
-  field(:account_type, 7, type: Bottle.Account.V1.User.AccountType, enum: true)
-  field(:company_name, 8, type: :string)
+
+  field(:account_type, 7,
+    type: Bottle.Account.V1.User.AccountType,
+    enum: true,
+    json_name: "accountType"
+  )
+
+  field(:company_name, 8, type: :string, json_name: "companyName")
+
+  def transform_module(), do: nil
 end

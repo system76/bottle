@@ -25,6 +25,8 @@ defmodule Bottle.Fulfillment.V1.OrderCreated do
   defstruct [:order]
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.OrderUpdated do
@@ -39,6 +41,8 @@ defmodule Bottle.Fulfillment.V1.OrderUpdated do
 
   field(:old, 1, type: Bottle.Fulfillment.V1.Order)
   field(:new, 2, type: Bottle.Fulfillment.V1.Order)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.TribbleFailed do
@@ -53,4 +57,6 @@ defmodule Bottle.Fulfillment.V1.TribbleFailed do
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
   field(:type, 2, type: Bottle.Fulfillment.V1.TribbleFailed.FailureType, enum: true)
+
+  def transform_module(), do: nil
 end

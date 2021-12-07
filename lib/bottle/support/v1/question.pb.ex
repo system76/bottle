@@ -10,6 +10,8 @@ defmodule Bottle.Support.V1.Question.CustomFieldsEntry do
 
   field(:key, 1, type: :string)
   field(:value, 2, type: :string)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Support.V1.Question do
@@ -35,9 +37,12 @@ defmodule Bottle.Support.V1.Question do
   field(:custom_fields, 5,
     repeated: true,
     type: Bottle.Support.V1.Question.CustomFieldsEntry,
+    json_name: "customFields",
     map: true
   )
 
   field(:customer, 6, type: Bottle.Account.V1.User)
   field(:submitter, 7, type: Bottle.Account.V1.User)
+
+  def transform_module(), do: nil
 end

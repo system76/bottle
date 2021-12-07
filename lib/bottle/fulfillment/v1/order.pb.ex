@@ -73,11 +73,27 @@ defmodule Bottle.Fulfillment.V1.Order do
   field(:customer, 2, type: Bottle.Account.V1.User)
   field(:shipping, 3, type: Bottle.Account.V1.Address)
   field(:billing, 4, type: Bottle.Account.V1.Address)
-  field(:line_items, 11, repeated: true, type: Bottle.Fulfillment.V1.LineItem)
-  field(:shipping_method, 5, type: :string)
-  field(:shipping_price, 12, type: :int64)
-  field(:payment_method, 7, type: Bottle.Fulfillment.V1.Order.PaymentMethod, enum: true)
+
+  field(:line_items, 11,
+    repeated: true,
+    type: Bottle.Fulfillment.V1.LineItem,
+    json_name: "lineItems"
+  )
+
+  field(:shipping_method, 5, type: :string, json_name: "shippingMethod")
+  field(:shipping_price, 12, type: :int64, json_name: "shippingPrice")
+
+  field(:payment_method, 7,
+    type: Bottle.Fulfillment.V1.Order.PaymentMethod,
+    enum: true,
+    json_name: "paymentMethod"
+  )
+
   field(:scode, 8, type: :string)
-  field(:tax_lines, 10, repeated: true, type: Bottle.Fulfillment.V1.TaxLine)
+
+  field(:tax_lines, 10, repeated: true, type: Bottle.Fulfillment.V1.TaxLine, json_name: "taxLines")
+
   field(:events, 14, repeated: true, type: Bottle.Fulfillment.V1.Event)
+
+  def transform_module(), do: nil
 end

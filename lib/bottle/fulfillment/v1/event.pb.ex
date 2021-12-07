@@ -19,5 +19,7 @@ defmodule Bottle.Fulfillment.V1.Event do
   defstruct [:event, :occured_at]
 
   field(:event, 1, type: Bottle.Fulfillment.V1.Event.Event, enum: true)
-  field(:occured_at, 2, type: :string)
+  field(:occured_at, 2, type: :string, json_name: "occuredAt")
+
+  def transform_module(), do: nil
 end

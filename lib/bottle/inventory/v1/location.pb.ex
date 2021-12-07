@@ -10,4 +10,6 @@ defmodule Bottle.Inventory.V1.Location do
 
   field(:id, 1, type: :string)
   field(:name, 2, type: :string)
+
+  def transform_module(), do: nil
 end

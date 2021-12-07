@@ -8,6 +8,8 @@ defmodule Bottle.Fulfillment.V1.OrderVerificationRequest do
   defstruct [:order]
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.OrderVerificationResponse do
@@ -22,4 +24,6 @@ defmodule Bottle.Fulfillment.V1.OrderVerificationResponse do
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
   field(:flags, 2, repeated: true, type: :string)
+
+  def transform_module(), do: nil
 end

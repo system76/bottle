@@ -10,4 +10,6 @@ defmodule Bottle.Core.V1.TestEvent do
 
   field(:id, 1, type: :string)
   field(:text, 2, type: :string)
+
+  def transform_module(), do: nil
 end

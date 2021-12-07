@@ -29,6 +29,8 @@ defmodule Bottle.Assembly.V1.Build.BuildComponent do
 
   field(:component, 1, type: Bottle.Inventory.V1.Component)
   field(:quantity, 2, type: :int32)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.Build do
@@ -58,10 +60,23 @@ defmodule Bottle.Assembly.V1.Build do
 
   field(:id, 1, type: :string)
   field(:status, 2, type: Bottle.Assembly.V1.Build.BuildStatus, enum: true)
-  field(:build_components, 3, repeated: true, type: Bottle.Assembly.V1.Build.BuildComponent)
-  field(:missing_components, 8, repeated: true, type: Bottle.Assembly.V1.Build.BuildComponent)
+
+  field(:build_components, 3,
+    repeated: true,
+    type: Bottle.Assembly.V1.Build.BuildComponent,
+    json_name: "buildComponents"
+  )
+
+  field(:missing_components, 8,
+    repeated: true,
+    type: Bottle.Assembly.V1.Build.BuildComponent,
+    json_name: "missingComponents"
+  )
+
   field(:model, 4, type: :string)
   field(:order, 5, type: Bottle.Fulfillment.V1.Order)
-  field(:created_at, 6, type: :string)
-  field(:updated_at, 7, type: :string)
+  field(:created_at, 6, type: :string, json_name: "createdAt")
+  field(:updated_at, 7, type: :string, json_name: "updatedAt")
+
+  def transform_module(), do: nil
 end

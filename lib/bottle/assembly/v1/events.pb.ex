@@ -8,6 +8,8 @@ defmodule Bottle.Assembly.V1.BuildCancelled do
   defstruct [:build]
 
   field(:build, 1, type: Bottle.Assembly.V1.Build)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.BuildCreated do
@@ -20,6 +22,8 @@ defmodule Bottle.Assembly.V1.BuildCreated do
   defstruct [:build]
 
   field(:build, 1, type: Bottle.Assembly.V1.Build)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.BuildUpdated do
@@ -34,6 +38,8 @@ defmodule Bottle.Assembly.V1.BuildUpdated do
 
   field(:old, 1, type: Bottle.Assembly.V1.Build)
   field(:new, 2, type: Bottle.Assembly.V1.Build)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.BuildPicked do
@@ -50,6 +56,8 @@ defmodule Bottle.Assembly.V1.BuildPicked do
   field(:build, 1, type: Bottle.Assembly.V1.Build)
   field(:location, 2, type: Bottle.Inventory.V1.Location)
   field(:parts, 3, repeated: true, type: Bottle.Inventory.V1.Part)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.ComponentDemandUpdated do
@@ -62,6 +70,8 @@ defmodule Bottle.Assembly.V1.ComponentDemandUpdated do
         }
   defstruct [:component_id, :quantity]
 
-  field(:component_id, 1, type: :string)
+  field(:component_id, 1, type: :string, json_name: "componentId")
   field(:quantity, 2, type: :int32)
+
+  def transform_module(), do: nil
 end

@@ -31,4 +31,6 @@ defmodule Bottle.Catalog.V1.Addon do
   defstruct [:category]
 
   field(:category, 1, type: Bottle.Catalog.V1.Addon.AddonCategory, enum: true)
+
+  def transform_module(), do: nil
 end

@@ -23,6 +23,8 @@ defmodule Bottle.Account.V1.UserCreated do
   defstruct [:user]
 
   field(:user, 1, type: Bottle.Account.V1.User)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.UserDeleted do
@@ -35,6 +37,8 @@ defmodule Bottle.Account.V1.UserDeleted do
   defstruct [:user]
 
   field(:user, 1, type: Bottle.Account.V1.User)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.UserUpdated do
@@ -47,6 +51,8 @@ defmodule Bottle.Account.V1.UserUpdated do
   defstruct [:user]
 
   field(:user, 1, type: Bottle.Account.V1.User)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.PasswordChanged do
@@ -59,6 +65,8 @@ defmodule Bottle.Account.V1.PasswordChanged do
   defstruct [:user]
 
   field(:user, 1, type: Bottle.Account.V1.User)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.PasswordReset do
@@ -72,7 +80,9 @@ defmodule Bottle.Account.V1.PasswordReset do
   defstruct [:user, :reset_url]
 
   field(:user, 1, type: Bottle.Account.V1.User)
-  field(:reset_url, 2, type: :string)
+  field(:reset_url, 2, type: :string, json_name: "resetUrl")
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.TwoFactorRequested do
@@ -89,6 +99,8 @@ defmodule Bottle.Account.V1.TwoFactorRequested do
   field(:user, 1, type: Bottle.Account.V1.User)
   field(:token, 2, type: :string)
   field(:method, 3, type: Bottle.Account.V1.TwoFactorRequested.TwoFactorMethod, enum: true)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.TwoFactorRecoveryCodeUsed do
@@ -103,8 +115,10 @@ defmodule Bottle.Account.V1.TwoFactorRecoveryCodeUsed do
   defstruct [:user, :recovery_code, :codes_remaining]
 
   field(:user, 1, type: Bottle.Account.V1.User)
-  field(:recovery_code, 2, type: :string)
-  field(:codes_remaining, 3, type: :int32)
+  field(:recovery_code, 2, type: :string, json_name: "recoveryCode")
+  field(:codes_remaining, 3, type: :int32, json_name: "codesRemaining")
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.OrganizationCreated do
@@ -117,6 +131,8 @@ defmodule Bottle.Account.V1.OrganizationCreated do
   defstruct [:organization]
 
   field(:organization, 1, type: Bottle.Account.V1.Organization)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.OrganizationJoined do
@@ -131,6 +147,8 @@ defmodule Bottle.Account.V1.OrganizationJoined do
 
   field(:organization, 1, type: Bottle.Account.V1.Organization)
   field(:user, 2, type: Bottle.Account.V1.User)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Account.V1.OrganizationLeft do
@@ -145,4 +163,6 @@ defmodule Bottle.Account.V1.OrganizationLeft do
 
   field(:organization, 1, type: Bottle.Account.V1.Organization)
   field(:user, 2, type: Bottle.Account.V1.User)
+
+  def transform_module(), do: nil
 end

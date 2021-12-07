@@ -12,4 +12,6 @@ defmodule Bottle.Fulfillment.V1.TaxLine do
   field(:id, 1, type: :string)
   field(:name, 2, type: :string)
   field(:amount, 3, type: :int64)
+
+  def transform_module(), do: nil
 end

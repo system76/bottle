@@ -12,8 +12,10 @@ defmodule Bottle.Inventory.V1.Part do
   defstruct [:id, :serial_number, :sku, :location, :rma_description]
 
   field(:id, 1, type: :string)
-  field(:serial_number, 2, type: :string)
+  field(:serial_number, 2, type: :string, json_name: "serialNumber")
   field(:sku, 3, type: Bottle.Inventory.V1.Sku)
   field(:location, 4, type: Bottle.Inventory.V1.Location)
-  field(:rma_description, 5, type: :string)
+  field(:rma_description, 5, type: :string, json_name: "rmaDescription")
+
+  def transform_module(), do: nil
 end

@@ -12,4 +12,6 @@ defmodule Bottle.Inventory.V1.Sku do
   field(:id, 1, type: :string)
   field(:name, 2, type: :string)
   field(:description, 3, type: :string)
+
+  def transform_module(), do: nil
 end

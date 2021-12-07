@@ -35,4 +35,6 @@ defmodule Bottle.Catalog.V1.Product do
   field(:id, 1, type: :string)
   field(:model, 2, type: :string)
   field(:category, 4, type: Bottle.Catalog.V1.Product.ProductCategory, enum: true)
+
+  def transform_module(), do: nil
 end

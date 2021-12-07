@@ -8,8 +8,10 @@ defmodule Bottle.Fulfillment.V1.TaxCalculateRequest do
         }
   defstruct [:request_id, :order]
 
-  field(:request_id, 1, type: :string)
+  field(:request_id, 1, type: :string, json_name: "requestId")
   field(:order, 2, type: Bottle.Fulfillment.V1.Order)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.TaxCalculateResponse do
@@ -22,8 +24,10 @@ defmodule Bottle.Fulfillment.V1.TaxCalculateResponse do
         }
   defstruct [:request_id, :order]
 
-  field(:request_id, 1, type: :string)
+  field(:request_id, 1, type: :string, json_name: "requestId")
   field(:order, 2, type: Bottle.Fulfillment.V1.Order)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.TaxService.Service do

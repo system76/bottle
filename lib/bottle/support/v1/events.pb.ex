@@ -8,6 +8,8 @@ defmodule Bottle.Support.V1.QuestionCreated do
   defstruct [:question]
 
   field(:question, 1, type: Bottle.Support.V1.Question)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Support.V1.MacroApplied do
@@ -22,4 +24,6 @@ defmodule Bottle.Support.V1.MacroApplied do
 
   field(:question, 1, type: Bottle.Support.V1.Question)
   field(:macros, 2, repeated: true, type: :string)
+
+  def transform_module(), do: nil
 end

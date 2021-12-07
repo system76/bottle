@@ -8,8 +8,10 @@ defmodule Bottle.Assembly.V1.GetBuildRequest do
         }
   defstruct [:request_id, :build]
 
-  field(:request_id, 1, type: :string)
+  field(:request_id, 1, type: :string, json_name: "requestId")
   field(:build, 2, type: Bottle.Assembly.V1.Build)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.GetBuildResponse do
@@ -22,8 +24,10 @@ defmodule Bottle.Assembly.V1.GetBuildResponse do
         }
   defstruct [:request_id, :build]
 
-  field(:request_id, 1, type: :string)
+  field(:request_id, 1, type: :string, json_name: "requestId")
   field(:build, 2, type: Bottle.Assembly.V1.Build)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.ListPickableBuildsRequest do
@@ -35,7 +39,9 @@ defmodule Bottle.Assembly.V1.ListPickableBuildsRequest do
         }
   defstruct [:request_id]
 
-  field(:request_id, 1, type: :string)
+  field(:request_id, 1, type: :string, json_name: "requestId")
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.ListPickableBuildsResponse do
@@ -48,8 +54,10 @@ defmodule Bottle.Assembly.V1.ListPickableBuildsResponse do
         }
   defstruct [:request_id, :build]
 
-  field(:request_id, 1, type: :string)
+  field(:request_id, 1, type: :string, json_name: "requestId")
   field(:build, 2, type: Bottle.Assembly.V1.Build)
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.ListComponentDemandsRequest do
@@ -61,7 +69,9 @@ defmodule Bottle.Assembly.V1.ListComponentDemandsRequest do
         }
   defstruct [:request_id]
 
-  field(:request_id, 1, type: :string)
+  field(:request_id, 1, type: :string, json_name: "requestId")
+
+  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.ListComponentDemandsResponse do
@@ -75,7 +85,9 @@ defmodule Bottle.Assembly.V1.ListComponentDemandsResponse do
         }
   defstruct [:request_id, :component_id, :demand_quantity]
 
-  field(:request_id, 1, type: :string)
-  field(:component_id, 3, type: :string)
-  field(:demand_quantity, 2, type: :int32)
+  field(:request_id, 1, type: :string, json_name: "requestId")
+  field(:component_id, 3, type: :string, json_name: "componentId")
+  field(:demand_quantity, 2, type: :int32, json_name: "demandQuantity")
+
+  def transform_module(), do: nil
 end

@@ -8,4 +8,6 @@ defmodule Bottle.Inventory.V1.Component do
   defstruct [:id]
 
   field(:id, 1, type: :string)
+
+  def transform_module(), do: nil
 end
