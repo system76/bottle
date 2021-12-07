@@ -28,6 +28,10 @@ export interface PartUpdated {
   new: Part | undefined;
 }
 
+export interface ComponentKitChanged {
+  component: Component | undefined;
+}
+
 const baseComponentAvailabilityUpdated: object = { quantity: 0 };
 
 export const ComponentAvailabilityUpdated = {
@@ -362,6 +366,67 @@ export const PartUpdated = {
       message.new = Part.fromPartial(object.new);
     } else {
       message.new = undefined;
+    }
+    return message;
+  },
+};
+
+const baseComponentKitChanged: object = {};
+
+export const ComponentKitChanged = {
+  encode(
+    message: ComponentKitChanged,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.component !== undefined) {
+      Component.encode(message.component, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): ComponentKitChanged {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseComponentKitChanged } as ComponentKitChanged;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.component = Component.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ComponentKitChanged {
+    const message = { ...baseComponentKitChanged } as ComponentKitChanged;
+    if (object.component !== undefined && object.component !== null) {
+      message.component = Component.fromJSON(object.component);
+    } else {
+      message.component = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: ComponentKitChanged): unknown {
+    const obj: any = {};
+    message.component !== undefined &&
+      (obj.component = message.component
+        ? Component.toJSON(message.component)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ComponentKitChanged>): ComponentKitChanged {
+    const message = { ...baseComponentKitChanged } as ComponentKitChanged;
+    if (object.component !== undefined && object.component !== null) {
+      message.component = Component.fromPartial(object.component);
+    } else {
+      message.component = undefined;
     }
     return message;
   },

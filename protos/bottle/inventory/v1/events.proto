@@ -27,3 +27,7 @@ message PartUpdated {
   bottle.inventory.v1.Part old = 1;
   bottle.inventory.v1.Part new = 2;
 }
+
+message ComponentKitChanged {
+  bottle.inventory.v1.Component component = 1;
+}
