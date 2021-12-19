@@ -43,6 +43,7 @@ message Bottle {
     bottle.inventory.v1.SkuDetailsUpdated sku_details_updated = 30;
     bottle.inventory.v1.PartCreated part_created = 25;
     bottle.inventory.v1.PartUpdated part_updated = 26;
+    bottle.inventory.v1.ComponentKitChanged component_kit_changed =  32;
 
     bottle.support.v1.QuestionCreated question_created = 16;
     bottle.support.v1.MacroApplied macro_applied = 17;

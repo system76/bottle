@@ -34,6 +34,7 @@ import {
   SkuDetailsUpdated,
   PartCreated,
   PartUpdated,
+  ComponentKitChanged,
 } from "../../../bottle/inventory/v1/events";
 import {
   QuestionCreated,
@@ -71,6 +72,7 @@ export interface Bottle {
   skuDetailsUpdated: SkuDetailsUpdated | undefined;
   partCreated: PartCreated | undefined;
   partUpdated: PartUpdated | undefined;
+  componentKitChanged: ComponentKitChanged | undefined;
   questionCreated: QuestionCreated | undefined;
   macroApplied: MacroApplied | undefined;
   testEvent: TestEvent | undefined;
@@ -233,6 +235,12 @@ export const Bottle = {
         writer.uint32(210).fork()
       ).ldelim();
     }
+    if (message.componentKitChanged !== undefined) {
+      ComponentKitChanged.encode(
+        message.componentKitChanged,
+        writer.uint32(258).fork()
+      ).ldelim();
+    }
     if (message.questionCreated !== undefined) {
       QuestionCreated.encode(
         message.questionCreated,
@@ -372,6 +380,12 @@ export const Bottle = {
           break;
         case 26:
           message.partUpdated = PartUpdated.decode(reader, reader.uint32());
+          break;
+        case 32:
+          message.componentKitChanged = ComponentKitChanged.decode(
+            reader,
+            reader.uint32()
+          );
           break;
         case 16:
           message.questionCreated = QuestionCreated.decode(
@@ -587,6 +601,16 @@ export const Bottle = {
       message.partUpdated = undefined;
     }
     if (
+      object.componentKitChanged !== undefined &&
+      object.componentKitChanged !== null
+    ) {
+      message.componentKitChanged = ComponentKitChanged.fromJSON(
+        object.componentKitChanged
+      );
+    } else {
+      message.componentKitChanged = undefined;
+    }
+    if (
       object.questionCreated !== undefined &&
       object.questionCreated !== null
     ) {
@@ -711,6 +735,10 @@ export const Bottle = {
     message.partUpdated !== undefined &&
       (obj.partUpdated = message.partUpdated
         ? PartUpdated.toJSON(message.partUpdated)
+        : undefined);
+    message.componentKitChanged !== undefined &&
+      (obj.componentKitChanged = message.componentKitChanged
+        ? ComponentKitChanged.toJSON(message.componentKitChanged)
         : undefined);
     message.questionCreated !== undefined &&
       (obj.questionCreated = message.questionCreated
@@ -921,6 +949,16 @@ export const Bottle = {
       message.partUpdated = PartUpdated.fromPartial(object.partUpdated);
     } else {
       message.partUpdated = undefined;
+    }
+    if (
+      object.componentKitChanged !== undefined &&
+      object.componentKitChanged !== null
+    ) {
+      message.componentKitChanged = ComponentKitChanged.fromPartial(
+        object.componentKitChanged
+      );
+    } else {
+      message.componentKitChanged = undefined;
     }
     if (
       object.questionCreated !== undefined &&

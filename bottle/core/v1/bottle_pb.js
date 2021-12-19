@@ -61,7 +61,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,31,13,14,28,29,15,30,25,26,16,17,27]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,31,13,14,28,29,15,30,25,26,32,16,17,27]];
 
 /**
  * @enum {number}
@@ -92,6 +92,7 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   SKU_DETAILS_UPDATED: 30,
   PART_CREATED: 25,
   PART_UPDATED: 26,
+  COMPONENT_KIT_CHANGED: 32,
   QUESTION_CREATED: 16,
   MACRO_APPLIED: 17,
   TEST_EVENT: 27
@@ -162,6 +163,7 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     skuDetailsUpdated: (f = msg.getSkuDetailsUpdated()) && bottle_inventory_v1_events_pb.SkuDetailsUpdated.toObject(includeInstance, f),
     partCreated: (f = msg.getPartCreated()) && bottle_inventory_v1_events_pb.PartCreated.toObject(includeInstance, f),
     partUpdated: (f = msg.getPartUpdated()) && bottle_inventory_v1_events_pb.PartUpdated.toObject(includeInstance, f),
+    componentKitChanged: (f = msg.getComponentKitChanged()) && bottle_inventory_v1_events_pb.ComponentKitChanged.toObject(includeInstance, f),
     questionCreated: (f = msg.getQuestionCreated()) && bottle_support_v1_events_pb.QuestionCreated.toObject(includeInstance, f),
     macroApplied: (f = msg.getMacroApplied()) && bottle_support_v1_events_pb.MacroApplied.toObject(includeInstance, f),
     testEvent: (f = msg.getTestEvent()) && bottle_core_v1_testing_pb.TestEvent.toObject(includeInstance, f)
@@ -332,6 +334,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_inventory_v1_events_pb.PartUpdated;
       reader.readMessage(value,bottle_inventory_v1_events_pb.PartUpdated.deserializeBinaryFromReader);
       msg.setPartUpdated(value);
+      break;
+    case 32:
+      var value = new bottle_inventory_v1_events_pb.ComponentKitChanged;
+      reader.readMessage(value,bottle_inventory_v1_events_pb.ComponentKitChanged.deserializeBinaryFromReader);
+      msg.setComponentKitChanged(value);
       break;
     case 16:
       var value = new bottle_support_v1_events_pb.QuestionCreated;
@@ -588,6 +595,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       26,
       f,
       bottle_inventory_v1_events_pb.PartUpdated.serializeBinaryToWriter
+    );
+  }
+  f = message.getComponentKitChanged();
+  if (f != null) {
+    writer.writeMessage(
+      32,
+      f,
+      bottle_inventory_v1_events_pb.ComponentKitChanged.serializeBinaryToWriter
     );
   }
   f = message.getQuestionCreated();
@@ -1556,6 +1571,43 @@ proto.bottle.core.v1.Bottle.prototype.clearPartUpdated = function() {
  */
 proto.bottle.core.v1.Bottle.prototype.hasPartUpdated = function() {
   return jspb.Message.getField(this, 26) != null;
+};
+
+
+/**
+ * optional bottle.inventory.v1.ComponentKitChanged component_kit_changed = 32;
+ * @return {?proto.bottle.inventory.v1.ComponentKitChanged}
+ */
+proto.bottle.core.v1.Bottle.prototype.getComponentKitChanged = function() {
+  return /** @type{?proto.bottle.inventory.v1.ComponentKitChanged} */ (
+    jspb.Message.getWrapperField(this, bottle_inventory_v1_events_pb.ComponentKitChanged, 32));
+};
+
+
+/**
+ * @param {?proto.bottle.inventory.v1.ComponentKitChanged|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setComponentKitChanged = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 32, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearComponentKitChanged = function() {
+  return this.setComponentKitChanged(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasComponentKitChanged = function() {
+  return jspb.Message.getField(this, 32) != null;
 };
 
 
