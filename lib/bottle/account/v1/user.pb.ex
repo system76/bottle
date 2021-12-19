@@ -29,16 +29,15 @@ defmodule Bottle.Account.V1.User do
           account_type: Bottle.Account.V1.User.AccountType.t(),
           company_name: String.t()
         }
-  defstruct [
-    :id,
-    :first_name,
-    :last_name,
-    :phone_number,
-    :email,
-    :newsletter,
-    :account_type,
-    :company_name
-  ]
+
+  defstruct id: "",
+            first_name: "",
+            last_name: "",
+            phone_number: "",
+            email: "",
+            newsletter: false,
+            account_type: :ACCOUNT_TYPE_UNSPECIFIED,
+            company_name: ""
 
   field(:id, 1, type: :string)
   field(:first_name, 2, type: :string, json_name: "firstName")
@@ -49,11 +48,9 @@ defmodule Bottle.Account.V1.User do
 
   field(:account_type, 7,
     type: Bottle.Account.V1.User.AccountType,
-    enum: true,
-    json_name: "accountType"
+    json_name: "accountType",
+    enum: true
   )
 
   field(:company_name, 8, type: :string, json_name: "companyName")
-
-  def transform_module(), do: nil
 end

@@ -28,9 +28,8 @@ defmodule Bottle.Catalog.V1.Addon do
   @type t :: %__MODULE__{
           category: Bottle.Catalog.V1.Addon.AddonCategory.t()
         }
-  defstruct [:category]
+
+  defstruct category: :ADDON_CATEGORY_UNSPECIFIED
 
   field(:category, 1, type: Bottle.Catalog.V1.Addon.AddonCategory, enum: true)
-
-  def transform_module(), do: nil
 end

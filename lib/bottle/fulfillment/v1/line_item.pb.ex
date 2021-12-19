@@ -10,7 +10,11 @@ defmodule Bottle.Fulfillment.V1.LineItem do
           quantity: integer,
           individual_price: integer
         }
-  defstruct [:item, :id, :quantity, :individual_price]
+
+  defstruct item: nil,
+            id: "",
+            quantity: 0,
+            individual_price: 0
 
   oneof(:item, 0)
 
@@ -25,6 +29,4 @@ defmodule Bottle.Fulfillment.V1.LineItem do
 
   field(:catalog_addon, 6, type: Bottle.Catalog.V1.Addon, json_name: "catalogAddon", oneof: 0)
   field(:individual_price, 4, type: :int64, json_name: "individualPrice")
-
-  def transform_module(), do: nil
 end

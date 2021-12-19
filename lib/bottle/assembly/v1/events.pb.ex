@@ -5,11 +5,10 @@ defmodule Bottle.Assembly.V1.BuildCancelled do
   @type t :: %__MODULE__{
           build: Bottle.Assembly.V1.Build.t() | nil
         }
-  defstruct [:build]
+
+  defstruct build: nil
 
   field(:build, 1, type: Bottle.Assembly.V1.Build)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.BuildCreated do
@@ -19,11 +18,10 @@ defmodule Bottle.Assembly.V1.BuildCreated do
   @type t :: %__MODULE__{
           build: Bottle.Assembly.V1.Build.t() | nil
         }
-  defstruct [:build]
+
+  defstruct build: nil
 
   field(:build, 1, type: Bottle.Assembly.V1.Build)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.BuildUpdated do
@@ -34,12 +32,12 @@ defmodule Bottle.Assembly.V1.BuildUpdated do
           old: Bottle.Assembly.V1.Build.t() | nil,
           new: Bottle.Assembly.V1.Build.t() | nil
         }
-  defstruct [:old, :new]
+
+  defstruct old: nil,
+            new: nil
 
   field(:old, 1, type: Bottle.Assembly.V1.Build)
   field(:new, 2, type: Bottle.Assembly.V1.Build)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.BuildPicked do
@@ -51,13 +49,14 @@ defmodule Bottle.Assembly.V1.BuildPicked do
           location: Bottle.Inventory.V1.Location.t() | nil,
           parts: [Bottle.Inventory.V1.Part.t()]
         }
-  defstruct [:build, :location, :parts]
+
+  defstruct build: nil,
+            location: nil,
+            parts: []
 
   field(:build, 1, type: Bottle.Assembly.V1.Build)
   field(:location, 2, type: Bottle.Inventory.V1.Location)
   field(:parts, 3, repeated: true, type: Bottle.Inventory.V1.Part)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.ComponentDemandUpdated do
@@ -68,10 +67,10 @@ defmodule Bottle.Assembly.V1.ComponentDemandUpdated do
           component_id: String.t(),
           quantity: integer
         }
-  defstruct [:component_id, :quantity]
+
+  defstruct component_id: "",
+            quantity: 0
 
   field(:component_id, 1, type: :string, json_name: "componentId")
   field(:quantity, 2, type: :int32)
-
-  def transform_module(), do: nil
 end

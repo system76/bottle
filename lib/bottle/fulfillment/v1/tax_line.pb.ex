@@ -7,11 +7,12 @@ defmodule Bottle.Fulfillment.V1.TaxLine do
           name: String.t(),
           amount: integer
         }
-  defstruct [:id, :name, :amount]
+
+  defstruct id: "",
+            name: "",
+            amount: 0
 
   field(:id, 1, type: :string)
   field(:name, 2, type: :string)
   field(:amount, 3, type: :int64)
-
-  def transform_module(), do: nil
 end

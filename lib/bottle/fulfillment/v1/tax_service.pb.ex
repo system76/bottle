@@ -6,12 +6,12 @@ defmodule Bottle.Fulfillment.V1.TaxCalculateRequest do
           request_id: String.t(),
           order: Bottle.Fulfillment.V1.Order.t() | nil
         }
-  defstruct [:request_id, :order]
+
+  defstruct request_id: "",
+            order: nil
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:order, 2, type: Bottle.Fulfillment.V1.Order)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.TaxCalculateResponse do
@@ -22,12 +22,12 @@ defmodule Bottle.Fulfillment.V1.TaxCalculateResponse do
           request_id: String.t(),
           order: Bottle.Fulfillment.V1.Order.t() | nil
         }
-  defstruct [:request_id, :order]
+
+  defstruct request_id: "",
+            order: nil
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:order, 2, type: Bottle.Fulfillment.V1.Order)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.TaxService.Service do

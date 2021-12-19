@@ -22,11 +22,10 @@ defmodule Bottle.Fulfillment.V1.OrderCreated do
   @type t :: %__MODULE__{
           order: Bottle.Fulfillment.V1.Order.t() | nil
         }
-  defstruct [:order]
+
+  defstruct order: nil
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.OrderUpdated do
@@ -37,12 +36,12 @@ defmodule Bottle.Fulfillment.V1.OrderUpdated do
           old: Bottle.Fulfillment.V1.Order.t() | nil,
           new: Bottle.Fulfillment.V1.Order.t() | nil
         }
-  defstruct [:old, :new]
+
+  defstruct old: nil,
+            new: nil
 
   field(:old, 1, type: Bottle.Fulfillment.V1.Order)
   field(:new, 2, type: Bottle.Fulfillment.V1.Order)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Fulfillment.V1.TribbleFailed do
@@ -53,10 +52,10 @@ defmodule Bottle.Fulfillment.V1.TribbleFailed do
           order: Bottle.Fulfillment.V1.Order.t() | nil,
           type: Bottle.Fulfillment.V1.TribbleFailed.FailureType.t()
         }
-  defstruct [:order, :type]
+
+  defstruct order: nil,
+            type: :FAILURE_TYPE_UNSPECIFIED
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
   field(:type, 2, type: Bottle.Fulfillment.V1.TribbleFailed.FailureType, enum: true)
-
-  def transform_module(), do: nil
 end

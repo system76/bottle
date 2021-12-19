@@ -13,7 +13,16 @@ defmodule Bottle.Account.V1.Address do
           postal_code: String.t(),
           country: String.t()
         }
-  defstruct [:id, :name, :company, :address1, :address2, :city, :state, :postal_code, :country]
+
+  defstruct id: "",
+            name: "",
+            company: "",
+            address1: "",
+            address2: "",
+            city: "",
+            state: "",
+            postal_code: "",
+            country: ""
 
   field(:id, 1, type: :string)
   field(:name, 2, type: :string)
@@ -24,6 +33,4 @@ defmodule Bottle.Account.V1.Address do
   field(:state, 7, type: :string)
   field(:postal_code, 8, type: :string, json_name: "postalCode")
   field(:country, 9, type: :string)
-
-  def transform_module(), do: nil
 end

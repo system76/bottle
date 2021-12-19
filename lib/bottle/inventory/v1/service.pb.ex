@@ -6,12 +6,12 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityRequest do
           request_id: String.t(),
           components: [Bottle.Inventory.V1.Component.t()]
         }
-  defstruct [:request_id, :components]
+
+  defstruct request_id: "",
+            components: []
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:components, 2, repeated: true, type: Bottle.Inventory.V1.Component)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.PickingSku.PickingLocation do
@@ -22,12 +22,12 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.Pi
           location: Bottle.Inventory.V1.Location.t() | nil,
           available_quantity: integer
         }
-  defstruct [:location, :available_quantity]
+
+  defstruct location: nil,
+            available_quantity: 0
 
   field(:location, 1, type: Bottle.Inventory.V1.Location)
   field(:available_quantity, 2, type: :int32, json_name: "availableQuantity")
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.PickingSku do
@@ -42,7 +42,11 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.Pi
             Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.PickingSku.PickingLocation.t()
           ]
         }
-  defstruct [:sku, :available_quantity, :required_quantity, :locations]
+
+  defstruct sku: nil,
+            available_quantity: 0,
+            required_quantity: 0,
+            locations: []
 
   field(:sku, 1, type: Bottle.Inventory.V1.Sku)
   field(:available_quantity, 2, type: :int32, json_name: "availableQuantity")
@@ -53,8 +57,6 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.Pi
     type:
       Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.PickingSku.PickingLocation
   )
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption do
@@ -68,7 +70,10 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption do
             Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.PickingSku.t()
           ]
         }
-  defstruct [:available_quantity, :required_quantity, :skus]
+
+  defstruct available_quantity: 0,
+            required_quantity: 0,
+            skus: []
 
   field(:available_quantity, 1, type: :int32, json_name: "availableQuantity")
   field(:required_quantity, 2, type: :int32, json_name: "requiredQuantity")
@@ -77,8 +82,6 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption do
     repeated: true,
     type: Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.PickingSku
   )
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse do
@@ -93,7 +96,11 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse do
             Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption.t()
           ]
         }
-  defstruct [:request_id, :component, :total_available_quantity, :picking_options]
+
+  defstruct request_id: "",
+            component: nil,
+            total_available_quantity: 0,
+            picking_options: []
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:component, 2, type: Bottle.Inventory.V1.Component)
@@ -104,8 +111,6 @@ defmodule Bottle.Inventory.V1.ListComponentAvailabilityResponse do
     type: Bottle.Inventory.V1.ListComponentAvailabilityResponse.PickingOption,
     json_name: "pickingOptions"
   )
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListSkuQuantityRequest do
@@ -115,11 +120,10 @@ defmodule Bottle.Inventory.V1.ListSkuQuantityRequest do
   @type t :: %__MODULE__{
           request_id: String.t()
         }
-  defstruct [:request_id]
+
+  defstruct request_id: ""
 
   field(:request_id, 1, type: :string, json_name: "requestId")
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListSkuQuantityResponse do
@@ -133,15 +137,18 @@ defmodule Bottle.Inventory.V1.ListSkuQuantityResponse do
           demand_quantity: integer,
           excess_quantity: integer
         }
-  defstruct [:request_id, :sku, :available_quantity, :demand_quantity, :excess_quantity]
+
+  defstruct request_id: "",
+            sku: nil,
+            available_quantity: 0,
+            demand_quantity: 0,
+            excess_quantity: 0
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:sku, 2, type: Bottle.Inventory.V1.Sku)
   field(:available_quantity, 3, type: :int32, json_name: "availableQuantity")
   field(:demand_quantity, 4, type: :int32, json_name: "demandQuantity")
   field(:excess_quantity, 5, type: :int32, json_name: "excessQuantity")
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListSkuAvailabilityRequest do
@@ -152,12 +159,12 @@ defmodule Bottle.Inventory.V1.ListSkuAvailabilityRequest do
           request_id: String.t(),
           sku: Bottle.Inventory.V1.Sku.t() | nil
         }
-  defstruct [:request_id, :sku]
+
+  defstruct request_id: "",
+            sku: nil
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:sku, 2, type: Bottle.Inventory.V1.Sku)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListSkuAvailabilityResponse do
@@ -169,13 +176,14 @@ defmodule Bottle.Inventory.V1.ListSkuAvailabilityResponse do
           sku: Bottle.Inventory.V1.Sku.t() | nil,
           location: Bottle.Inventory.V1.Location.t() | nil
         }
-  defstruct [:request_id, :sku, :location]
+
+  defstruct request_id: "",
+            sku: nil,
+            location: nil
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:sku, 2, type: Bottle.Inventory.V1.Sku)
   field(:location, 3, type: Bottle.Inventory.V1.Location)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.GetSkuDetailsRequest do
@@ -186,12 +194,12 @@ defmodule Bottle.Inventory.V1.GetSkuDetailsRequest do
           request_id: String.t(),
           sku: Bottle.Inventory.V1.Sku.t() | nil
         }
-  defstruct [:request_id, :sku]
+
+  defstruct request_id: "",
+            sku: nil
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:sku, 2, type: Bottle.Inventory.V1.Sku)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.GetSkuDetailsResponse do
@@ -205,15 +213,18 @@ defmodule Bottle.Inventory.V1.GetSkuDetailsResponse do
           demand_quantity: integer,
           excess_quantity: integer
         }
-  defstruct [:request_id, :sku, :available_quantity, :demand_quantity, :excess_quantity]
+
+  defstruct request_id: "",
+            sku: nil,
+            available_quantity: 0,
+            demand_quantity: 0,
+            excess_quantity: 0
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:sku, 2, type: Bottle.Inventory.V1.Sku)
   field(:available_quantity, 3, type: :int32, json_name: "availableQuantity")
   field(:demand_quantity, 4, type: :int32, json_name: "demandQuantity")
   field(:excess_quantity, 5, type: :int32, json_name: "excessQuantity")
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListLocationsRequest do
@@ -224,12 +235,12 @@ defmodule Bottle.Inventory.V1.ListLocationsRequest do
           request_id: String.t(),
           locations: [Bottle.Inventory.V1.Location.t()]
         }
-  defstruct [:request_id, :locations]
+
+  defstruct request_id: "",
+            locations: []
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:locations, 2, repeated: true, type: Bottle.Inventory.V1.Location)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Inventory.V1.ListLocationsResponse do
@@ -240,10 +251,10 @@ defmodule Bottle.Inventory.V1.ListLocationsResponse do
           request_id: String.t(),
           location: Bottle.Inventory.V1.Location.t() | nil
         }
-  defstruct [:request_id, :location]
+
+  defstruct request_id: "",
+            location: nil
 
   field(:request_id, 1, type: :string, json_name: "requestId")
   field(:location, 2, type: Bottle.Inventory.V1.Location)
-
-  def transform_module(), do: nil
 end

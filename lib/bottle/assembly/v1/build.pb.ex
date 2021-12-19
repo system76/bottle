@@ -25,12 +25,12 @@ defmodule Bottle.Assembly.V1.Build.BuildComponent do
           component: Bottle.Inventory.V1.Component.t() | nil,
           quantity: integer
         }
-  defstruct [:component, :quantity]
+
+  defstruct component: nil,
+            quantity: 0
 
   field(:component, 1, type: Bottle.Inventory.V1.Component)
   field(:quantity, 2, type: :int32)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Assembly.V1.Build do
@@ -47,16 +47,15 @@ defmodule Bottle.Assembly.V1.Build do
           created_at: String.t(),
           updated_at: String.t()
         }
-  defstruct [
-    :id,
-    :status,
-    :build_components,
-    :missing_components,
-    :model,
-    :order,
-    :created_at,
-    :updated_at
-  ]
+
+  defstruct id: "",
+            status: :BUILD_STATUS_UNSPECIFIED,
+            build_components: [],
+            missing_components: [],
+            model: "",
+            order: nil,
+            created_at: "",
+            updated_at: ""
 
   field(:id, 1, type: :string)
   field(:status, 2, type: Bottle.Assembly.V1.Build.BuildStatus, enum: true)
@@ -77,6 +76,4 @@ defmodule Bottle.Assembly.V1.Build do
   field(:order, 5, type: Bottle.Fulfillment.V1.Order)
   field(:created_at, 6, type: :string, json_name: "createdAt")
   field(:updated_at, 7, type: :string, json_name: "updatedAt")
-
-  def transform_module(), do: nil
 end

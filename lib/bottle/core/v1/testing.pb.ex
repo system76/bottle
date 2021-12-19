@@ -6,10 +6,10 @@ defmodule Bottle.Core.V1.TestEvent do
           id: String.t(),
           text: String.t()
         }
-  defstruct [:id, :text]
+
+  defstruct id: "",
+            text: ""
 
   field(:id, 1, type: :string)
   field(:text, 2, type: :string)
-
-  def transform_module(), do: nil
 end

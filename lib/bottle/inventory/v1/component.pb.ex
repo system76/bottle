@@ -5,9 +5,8 @@ defmodule Bottle.Inventory.V1.Component do
   @type t :: %__MODULE__{
           id: String.t()
         }
-  defstruct [:id]
+
+  defstruct id: ""
 
   field(:id, 1, type: :string)
-
-  def transform_module(), do: nil
 end

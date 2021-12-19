@@ -6,12 +6,12 @@ defmodule Bottle.Support.V1.Question.CustomFieldsEntry do
           key: String.t(),
           value: String.t()
         }
-  defstruct [:key, :value]
+
+  defstruct key: "",
+            value: ""
 
   field(:key, 1, type: :string)
   field(:value, 2, type: :string)
-
-  def transform_module(), do: nil
 end
 
 defmodule Bottle.Support.V1.Question do
@@ -27,7 +27,14 @@ defmodule Bottle.Support.V1.Question do
           customer: Bottle.Account.V1.User.t() | nil,
           submitter: Bottle.Account.V1.User.t() | nil
         }
-  defstruct [:id, :subject, :message, :tags, :custom_fields, :customer, :submitter]
+
+  defstruct id: "",
+            subject: "",
+            message: "",
+            tags: [],
+            custom_fields: %{},
+            customer: nil,
+            submitter: nil
 
   field(:id, 1, type: :string)
   field(:subject, 2, type: :string)
@@ -43,6 +50,4 @@ defmodule Bottle.Support.V1.Question do
 
   field(:customer, 6, type: Bottle.Account.V1.User)
   field(:submitter, 7, type: Bottle.Account.V1.User)
-
-  def transform_module(), do: nil
 end

@@ -53,20 +53,19 @@ defmodule Bottle.Fulfillment.V1.Order do
           tax_lines: [Bottle.Fulfillment.V1.TaxLine.t()],
           events: [Bottle.Fulfillment.V1.Event.t()]
         }
-  defstruct [
-    :id,
-    :status,
-    :customer,
-    :shipping,
-    :billing,
-    :line_items,
-    :shipping_method,
-    :shipping_price,
-    :payment_method,
-    :scode,
-    :tax_lines,
-    :events
-  ]
+
+  defstruct id: "",
+            status: :STATUS_UNSPECIFIED,
+            customer: nil,
+            shipping: nil,
+            billing: nil,
+            line_items: [],
+            shipping_method: "",
+            shipping_price: 0,
+            payment_method: :PAYMENT_METHOD_UNSPECIFIED,
+            scode: "",
+            tax_lines: [],
+            events: []
 
   field(:id, 1, type: :string)
   field(:status, 13, type: Bottle.Fulfillment.V1.Order.Status, enum: true)
@@ -85,8 +84,8 @@ defmodule Bottle.Fulfillment.V1.Order do
 
   field(:payment_method, 7,
     type: Bottle.Fulfillment.V1.Order.PaymentMethod,
-    enum: true,
-    json_name: "paymentMethod"
+    json_name: "paymentMethod",
+    enum: true
   )
 
   field(:scode, 8, type: :string)
@@ -94,6 +93,4 @@ defmodule Bottle.Fulfillment.V1.Order do
   field(:tax_lines, 10, repeated: true, type: Bottle.Fulfillment.V1.TaxLine, json_name: "taxLines")
 
   field(:events, 14, repeated: true, type: Bottle.Fulfillment.V1.Event)
-
-  def transform_module(), do: nil
 end

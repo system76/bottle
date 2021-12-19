@@ -32,6 +32,7 @@ defmodule Bottle.Core.V1.Bottle do
             | {:sku_details_updated, Bottle.Inventory.V1.SkuDetailsUpdated.t() | nil}
             | {:part_created, Bottle.Inventory.V1.PartCreated.t() | nil}
             | {:part_updated, Bottle.Inventory.V1.PartUpdated.t() | nil}
+            | {:component_kit_changed, Bottle.Inventory.V1.ComponentKitChanged.t() | nil}
             | {:question_created, Bottle.Support.V1.QuestionCreated.t() | nil}
             | {:macro_applied, Bottle.Support.V1.MacroApplied.t() | nil}
             | {:test_event, Bottle.Core.V1.TestEvent.t() | nil},
@@ -39,7 +40,11 @@ defmodule Bottle.Core.V1.Bottle do
           request_id: String.t(),
           source: String.t()
         }
-  defstruct [:resource, :timestamp, :request_id, :source]
+
+  defstruct resource: nil,
+            timestamp: 0,
+            request_id: "",
+            source: ""
 
   oneof(:resource, 0)
 
@@ -179,6 +184,12 @@ defmodule Bottle.Core.V1.Bottle do
     oneof: 0
   )
 
+  field(:component_kit_changed, 32,
+    type: Bottle.Inventory.V1.ComponentKitChanged,
+    json_name: "componentKitChanged",
+    oneof: 0
+  )
+
   field(:question_created, 16,
     type: Bottle.Support.V1.QuestionCreated,
     json_name: "questionCreated",
@@ -192,6 +203,4 @@ defmodule Bottle.Core.V1.Bottle do
   )
 
   field(:test_event, 27, type: Bottle.Core.V1.TestEvent, json_name: "testEvent", oneof: 0)
-
-  def transform_module(), do: nil
 end
