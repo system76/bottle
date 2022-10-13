@@ -1,6 +1,6 @@
 defmodule Bottle.Inventory.V1.Service do
   @moduledoc false
-  use GRPC.Service, name: "bottle.inventory.V1"
+  use GRPC.Service, name: "bottle.inventory.V1", protoc_gen_elixir_version: "0.11.0"
 
   rpc(
     :ListComponentAvailability,

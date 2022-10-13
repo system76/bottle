@@ -1,13 +1,6 @@
 defmodule Bottle.Account.V1.User.AccountType do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-
-  @type t ::
-          integer
-          | :ACCOUNT_TYPE_UNSPECIFIED
-          | :ACCOUNT_TYPE_INDIVIDUAL
-          | :ACCOUNT_TYPE_BUSINESS
-          | :ACCOUNT_TYPE_RESELLER
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:ACCOUNT_TYPE_UNSPECIFIED, 0)
   field(:ACCOUNT_TYPE_INDIVIDUAL, 1)
@@ -17,27 +10,7 @@ end
 
 defmodule Bottle.Account.V1.User do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          id: String.t(),
-          first_name: String.t(),
-          last_name: String.t(),
-          phone_number: String.t(),
-          email: String.t(),
-          newsletter: boolean,
-          account_type: Bottle.Account.V1.User.AccountType.t(),
-          company_name: String.t()
-        }
-
-  defstruct id: "",
-            first_name: "",
-            last_name: "",
-            phone_number: "",
-            email: "",
-            newsletter: false,
-            account_type: :ACCOUNT_TYPE_UNSPECIFIED,
-            company_name: ""
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:id, 1, type: :string)
   field(:first_name, 2, type: :string, json_name: "firstName")

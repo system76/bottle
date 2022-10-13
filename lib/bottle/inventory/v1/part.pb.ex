@@ -1,20 +1,6 @@
 defmodule Bottle.Inventory.V1.Part do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          id: String.t(),
-          serial_number: String.t(),
-          sku: Bottle.Inventory.V1.Sku.t() | nil,
-          location: Bottle.Inventory.V1.Location.t() | nil,
-          rma_description: String.t()
-        }
-
-  defstruct id: "",
-            serial_number: "",
-            sku: nil,
-            location: nil,
-            rma_description: ""
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:id, 1, type: :string)
   field(:serial_number, 2, type: :string, json_name: "serialNumber")

@@ -1,6 +1,6 @@
 defmodule Bottle.Assembly.V1.Service do
   @moduledoc false
-  use GRPC.Service, name: "bottle.assembly.V1"
+  use GRPC.Service, name: "bottle.assembly.V1", protoc_gen_elixir_version: "0.11.0"
 
   rpc(:GetBuild, Bottle.Assembly.V1.GetBuildRequest, Bottle.Assembly.V1.GetBuildResponse)
 

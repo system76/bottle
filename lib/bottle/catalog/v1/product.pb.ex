@@ -1,16 +1,6 @@
 defmodule Bottle.Catalog.V1.Product.ProductCategory do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-
-  @type t ::
-          integer
-          | :PRODUCT_CATEGORY_UNSPECIFIED
-          | :PRODUCT_CATEGORY_DESKTOP
-          | :PRODUCT_CATEGORY_LAPTOP
-          | :PRODUCT_CATEGORY_SERVER
-          | :PRODUCT_CATEGORY_APPAREL
-          | :PRODUCT_CATEGORY_BAG
-          | :PRODUCT_CATEGORY_ACCESSORY
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:PRODUCT_CATEGORY_UNSPECIFIED, 0)
   field(:PRODUCT_CATEGORY_DESKTOP, 1)
@@ -23,17 +13,7 @@ end
 
 defmodule Bottle.Catalog.V1.Product do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          id: String.t(),
-          model: String.t(),
-          category: Bottle.Catalog.V1.Product.ProductCategory.t()
-        }
-
-  defstruct id: "",
-            model: "",
-            category: :PRODUCT_CATEGORY_UNSPECIFIED
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:id, 1, type: :string)
   field(:model, 2, type: :string)

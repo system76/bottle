@@ -1,28 +1,6 @@
 defmodule Bottle.Account.V1.Address do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          id: String.t(),
-          name: String.t(),
-          company: String.t(),
-          address1: String.t(),
-          address2: String.t(),
-          city: String.t(),
-          state: String.t(),
-          postal_code: String.t(),
-          country: String.t()
-        }
-
-  defstruct id: "",
-            name: "",
-            company: "",
-            address1: "",
-            address2: "",
-            city: "",
-            state: "",
-            postal_code: "",
-            country: ""
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:id, 1, type: :string)
   field(:name, 2, type: :string)

@@ -1,50 +1,6 @@
 defmodule Bottle.Core.V1.Bottle do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          resource:
-            {:order_created, Bottle.Fulfillment.V1.OrderCreated.t() | nil}
-            | {:order_updated, Bottle.Fulfillment.V1.OrderUpdated.t() | nil}
-            | {:order_verification_request,
-               Bottle.Fulfillment.V1.OrderVerificationRequest.t() | nil}
-            | {:order_verification_response,
-               Bottle.Fulfillment.V1.OrderVerificationResponse.t() | nil}
-            | {:tribble_failed, Bottle.Fulfillment.V1.TribbleFailed.t() | nil}
-            | {:user_created, Bottle.Account.V1.UserCreated.t() | nil}
-            | {:user_deleted, Bottle.Account.V1.UserDeleted.t() | nil}
-            | {:user_updated, Bottle.Account.V1.UserUpdated.t() | nil}
-            | {:password_changed, Bottle.Account.V1.PasswordChanged.t() | nil}
-            | {:password_reset, Bottle.Account.V1.PasswordReset.t() | nil}
-            | {:two_factor_requested, Bottle.Account.V1.TwoFactorRequested.t() | nil}
-            | {:two_factor_recovery_code_used,
-               Bottle.Account.V1.TwoFactorRecoveryCodeUsed.t() | nil}
-            | {:organization_created, Bottle.Account.V1.OrganizationCreated.t() | nil}
-            | {:organization_joined, Bottle.Account.V1.OrganizationJoined.t() | nil}
-            | {:organization_left, Bottle.Account.V1.OrganizationLeft.t() | nil}
-            | {:build_cancelled, Bottle.Assembly.V1.BuildCancelled.t() | nil}
-            | {:build_created, Bottle.Assembly.V1.BuildCreated.t() | nil}
-            | {:build_updated, Bottle.Assembly.V1.BuildUpdated.t() | nil}
-            | {:build_picked, Bottle.Assembly.V1.BuildPicked.t() | nil}
-            | {:component_demand_updated, Bottle.Assembly.V1.ComponentDemandUpdated.t() | nil}
-            | {:component_availability_updated,
-               Bottle.Inventory.V1.ComponentAvailabilityUpdated.t() | nil}
-            | {:sku_details_updated, Bottle.Inventory.V1.SkuDetailsUpdated.t() | nil}
-            | {:part_created, Bottle.Inventory.V1.PartCreated.t() | nil}
-            | {:part_updated, Bottle.Inventory.V1.PartUpdated.t() | nil}
-            | {:component_kit_changed, Bottle.Inventory.V1.ComponentKitChanged.t() | nil}
-            | {:question_created, Bottle.Support.V1.QuestionCreated.t() | nil}
-            | {:macro_applied, Bottle.Support.V1.MacroApplied.t() | nil}
-            | {:test_event, Bottle.Core.V1.TestEvent.t() | nil},
-          timestamp: integer,
-          request_id: String.t(),
-          source: String.t()
-        }
-
-  defstruct resource: nil,
-            timestamp: 0,
-            request_id: "",
-            source: ""
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   oneof(:resource, 0)
 
@@ -199,6 +155,12 @@ defmodule Bottle.Core.V1.Bottle do
   field(:macro_applied, 17,
     type: Bottle.Support.V1.MacroApplied,
     json_name: "macroApplied",
+    oneof: 0
+  )
+
+  field(:templated_email, 33,
+    type: Bottle.Templates.V1.TemplatedEmail,
+    json_name: "templatedEmail",
     oneof: 0
   )
 

@@ -1,8 +1,6 @@
 defmodule Bottle.Fulfillment.V1.Order.Status do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-
-  @type t :: integer | :STATUS_UNSPECIFIED | :STATUS_COMPLETE
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:STATUS_UNSPECIFIED, 0)
   field(:STATUS_COMPLETE, 1)
@@ -10,19 +8,7 @@ end
 
 defmodule Bottle.Fulfillment.V1.Order.PaymentMethod do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-
-  @type t ::
-          integer
-          | :PAYMENT_METHOD_UNSPECIFIED
-          | :PAYMENT_METHOD_CHECK
-          | :PAYMENT_METHOD_WIRE_TRANSFER
-          | :PAYMENT_METHOD_MONEY_ORDER
-          | :PAYMENT_METHOD_PURCHASE_ORDER
-          | :PAYMENT_METHOD_WARRANTY
-          | :PAYMENT_METHOD_ADVANCED_REPLACEMENT
-          | :PAYMENT_METHOD_STRIPE_CC
-          | :PAYMENT_METHOD_STRIPE_KLARNA
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:PAYMENT_METHOD_UNSPECIFIED, 0)
   field(:PAYMENT_METHOD_CHECK, 1)
@@ -37,35 +23,7 @@ end
 
 defmodule Bottle.Fulfillment.V1.Order do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          id: String.t(),
-          status: Bottle.Fulfillment.V1.Order.Status.t(),
-          customer: Bottle.Account.V1.User.t() | nil,
-          shipping: Bottle.Account.V1.Address.t() | nil,
-          billing: Bottle.Account.V1.Address.t() | nil,
-          line_items: [Bottle.Fulfillment.V1.LineItem.t()],
-          shipping_method: String.t(),
-          shipping_price: integer,
-          payment_method: Bottle.Fulfillment.V1.Order.PaymentMethod.t(),
-          scode: String.t(),
-          tax_lines: [Bottle.Fulfillment.V1.TaxLine.t()],
-          events: [Bottle.Fulfillment.V1.Event.t()]
-        }
-
-  defstruct id: "",
-            status: :STATUS_UNSPECIFIED,
-            customer: nil,
-            shipping: nil,
-            billing: nil,
-            line_items: [],
-            shipping_method: "",
-            shipping_price: 0,
-            payment_method: :PAYMENT_METHOD_UNSPECIFIED,
-            scode: "",
-            tax_lines: [],
-            events: []
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:id, 1, type: :string)
   field(:status, 13, type: Bottle.Fulfillment.V1.Order.Status, enum: true)

@@ -1,13 +1,6 @@
 defmodule Bottle.Fulfillment.V1.TribbleFailed.FailureType do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-
-  @type t ::
-          integer
-          | :FAILURE_TYPE_UNSPECIFIED
-          | :FAILURE_TYPE_INVALID_ADDRESS
-          | :FAILURE_TYPE_ALREADY_SHIPPED
-          | :FAILURE_TYPE_TRIBBLE_ERROR
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:FAILURE_TYPE_UNSPECIFIED, 0)
   field(:FAILURE_TYPE_INVALID_ADDRESS, 1)
@@ -17,28 +10,14 @@ end
 
 defmodule Bottle.Fulfillment.V1.OrderCreated do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          order: Bottle.Fulfillment.V1.Order.t() | nil
-        }
-
-  defstruct order: nil
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
 end
 
 defmodule Bottle.Fulfillment.V1.OrderUpdated do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          old: Bottle.Fulfillment.V1.Order.t() | nil,
-          new: Bottle.Fulfillment.V1.Order.t() | nil
-        }
-
-  defstruct old: nil,
-            new: nil
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:old, 1, type: Bottle.Fulfillment.V1.Order)
   field(:new, 2, type: Bottle.Fulfillment.V1.Order)
@@ -46,15 +25,7 @@ end
 
 defmodule Bottle.Fulfillment.V1.TribbleFailed do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          order: Bottle.Fulfillment.V1.Order.t() | nil,
-          type: Bottle.Fulfillment.V1.TribbleFailed.FailureType.t()
-        }
-
-  defstruct order: nil,
-            type: :FAILURE_TYPE_UNSPECIFIED
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:order, 1, type: Bottle.Fulfillment.V1.Order)
   field(:type, 2, type: Bottle.Fulfillment.V1.TribbleFailed.FailureType, enum: true)

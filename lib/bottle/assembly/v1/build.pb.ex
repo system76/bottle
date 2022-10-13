@@ -1,14 +1,6 @@
 defmodule Bottle.Assembly.V1.Build.BuildStatus do
   @moduledoc false
-  use Protobuf, enum: true, syntax: :proto3
-
-  @type t ::
-          integer
-          | :BUILD_STATUS_UNSPECIFIED
-          | :BUILD_STATUS_INCOMPLETE
-          | :BUILD_STATUS_READY
-          | :BUILD_STATUS_BUILT
-          | :BUILD_STATUS_INPROGRESS
+  use Protobuf, enum: true, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:BUILD_STATUS_UNSPECIFIED, 0)
   field(:BUILD_STATUS_INCOMPLETE, 1)
@@ -19,15 +11,7 @@ end
 
 defmodule Bottle.Assembly.V1.Build.BuildComponent do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          component: Bottle.Inventory.V1.Component.t() | nil,
-          quantity: integer
-        }
-
-  defstruct component: nil,
-            quantity: 0
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:component, 1, type: Bottle.Inventory.V1.Component)
   field(:quantity, 2, type: :int32)
@@ -35,27 +19,7 @@ end
 
 defmodule Bottle.Assembly.V1.Build do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          id: String.t(),
-          status: Bottle.Assembly.V1.Build.BuildStatus.t(),
-          build_components: [Bottle.Assembly.V1.Build.BuildComponent.t()],
-          missing_components: [Bottle.Assembly.V1.Build.BuildComponent.t()],
-          model: String.t(),
-          order: Bottle.Fulfillment.V1.Order.t() | nil,
-          created_at: String.t(),
-          updated_at: String.t()
-        }
-
-  defstruct id: "",
-            status: :BUILD_STATUS_UNSPECIFIED,
-            build_components: [],
-            missing_components: [],
-            model: "",
-            order: nil,
-            created_at: "",
-            updated_at: ""
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   field(:id, 1, type: :string)
   field(:status, 2, type: Bottle.Assembly.V1.Build.BuildStatus, enum: true)

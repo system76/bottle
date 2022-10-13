@@ -1,20 +1,6 @@
 defmodule Bottle.Fulfillment.V1.LineItem do
   @moduledoc false
-  use Protobuf, syntax: :proto3
-
-  @type t :: %__MODULE__{
-          item:
-            {:catalog_product, Bottle.Catalog.V1.Product.t() | nil}
-            | {:catalog_addon, Bottle.Catalog.V1.Addon.t() | nil},
-          id: String.t(),
-          quantity: integer,
-          individual_price: integer
-        }
-
-  defstruct item: nil,
-            id: "",
-            quantity: 0,
-            individual_price: 0
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
 
   oneof(:item, 0)
 
