@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { Question } from "../../../bottle/support/v1/question";
+import { Question } from "./question";
 
 export const protobufPackage = "bottle.support.v1";
 

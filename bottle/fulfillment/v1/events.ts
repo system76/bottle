@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { Order } from "../../../bottle/fulfillment/v1/order";
+import { Order } from "./order";
 
 export const protobufPackage = "bottle.fulfillment.v1";
 

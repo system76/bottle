@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { Product } from "../../../bottle/catalog/v1/product";
-import { Addon } from "../../../bottle/catalog/v1/addon";
+import { Product } from "../../catalog/v1/product";
+import { Addon } from "../../catalog/v1/addon";
 
 export const protobufPackage = "bottle.fulfillment.v1";
 

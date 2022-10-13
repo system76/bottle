@@ -1,11 +1,11 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { User } from "../../../bottle/account/v1/user";
-import { Address } from "../../../bottle/account/v1/address";
-import { LineItem } from "../../../bottle/fulfillment/v1/line_item";
-import { TaxLine } from "../../../bottle/fulfillment/v1/tax_line";
-import { Event } from "../../../bottle/fulfillment/v1/event";
+import { User } from "../../account/v1/user";
+import { Address } from "../../account/v1/address";
+import { LineItem } from "./line_item";
+import { TaxLine } from "./tax_line";
+import { Event } from "./event";
 
 export const protobufPackage = "bottle.fulfillment.v1";
 

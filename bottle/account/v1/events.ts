@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { User } from "../../../bottle/account/v1/user";
-import { Organization } from "../../../bottle/account/v1/organization";
+import { User } from "./user";
+import { Organization } from "./organization";
 
 export const protobufPackage = "bottle.account.v1";
 

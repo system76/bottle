@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { Sku } from "../../../bottle/inventory/v1/sku";
-import { Location } from "../../../bottle/inventory/v1/location";
+import { Sku } from "./sku";
+import { Location } from "./location";
 
 export const protobufPackage = "bottle.inventory.v1";
 

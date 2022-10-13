@@ -5,11 +5,11 @@ import {
   OrderCreated,
   OrderUpdated,
   TribbleFailed,
-} from "../../../bottle/fulfillment/v1/events";
+} from "../../fulfillment/v1/events";
 import {
   OrderVerificationRequest,
   OrderVerificationResponse,
-} from "../../../bottle/fulfillment/v1/order_verification_service";
+} from "../../fulfillment/v1/order_verification_service";
 import {
   UserCreated,
   UserDeleted,
@@ -21,26 +21,24 @@ import {
   OrganizationCreated,
   OrganizationJoined,
   OrganizationLeft,
-} from "../../../bottle/account/v1/events";
+} from "../../account/v1/events";
 import {
   BuildCancelled,
   BuildCreated,
   BuildUpdated,
   BuildPicked,
   ComponentDemandUpdated,
-} from "../../../bottle/assembly/v1/events";
+} from "../../assembly/v1/events";
 import {
   ComponentAvailabilityUpdated,
   SkuDetailsUpdated,
   PartCreated,
   PartUpdated,
   ComponentKitChanged,
-} from "../../../bottle/inventory/v1/events";
-import {
-  QuestionCreated,
-  MacroApplied,
-} from "../../../bottle/support/v1/events";
-import { TestEvent } from "../../../bottle/core/v1/testing";
+} from "../../inventory/v1/events";
+import { QuestionCreated, MacroApplied } from "../../support/v1/events";
+import { TemplatedEmail } from "../../templates/v1/events";
+import { TestEvent } from "./testing";
 
 export const protobufPackage = "bottle.core.v1";
 
@@ -75,6 +73,7 @@ export interface Bottle {
   componentKitChanged: ComponentKitChanged | undefined;
   questionCreated: QuestionCreated | undefined;
   macroApplied: MacroApplied | undefined;
+  templatedEmail: TemplatedEmail | undefined;
   testEvent: TestEvent | undefined;
 }
 
@@ -253,6 +252,12 @@ export const Bottle = {
         writer.uint32(138).fork()
       ).ldelim();
     }
+    if (message.templatedEmail !== undefined) {
+      TemplatedEmail.encode(
+        message.templatedEmail,
+        writer.uint32(266).fork()
+      ).ldelim();
+    }
     if (message.testEvent !== undefined) {
       TestEvent.encode(message.testEvent, writer.uint32(218).fork()).ldelim();
     }
@@ -395,6 +400,12 @@ export const Bottle = {
           break;
         case 17:
           message.macroApplied = MacroApplied.decode(reader, reader.uint32());
+          break;
+        case 33:
+          message.templatedEmail = TemplatedEmail.decode(
+            reader,
+            reader.uint32()
+          );
           break;
         case 27:
           message.testEvent = TestEvent.decode(reader, reader.uint32());
@@ -625,6 +636,11 @@ export const Bottle = {
     } else {
       message.macroApplied = undefined;
     }
+    if (object.templatedEmail !== undefined && object.templatedEmail !== null) {
+      message.templatedEmail = TemplatedEmail.fromJSON(object.templatedEmail);
+    } else {
+      message.templatedEmail = undefined;
+    }
     if (object.testEvent !== undefined && object.testEvent !== null) {
       message.testEvent = TestEvent.fromJSON(object.testEvent);
     } else {
@@ -747,6 +763,10 @@ export const Bottle = {
     message.macroApplied !== undefined &&
       (obj.macroApplied = message.macroApplied
         ? MacroApplied.toJSON(message.macroApplied)
+        : undefined);
+    message.templatedEmail !== undefined &&
+      (obj.templatedEmail = message.templatedEmail
+        ? TemplatedEmail.toJSON(message.templatedEmail)
         : undefined);
     message.testEvent !== undefined &&
       (obj.testEvent = message.testEvent
@@ -974,6 +994,13 @@ export const Bottle = {
       message.macroApplied = MacroApplied.fromPartial(object.macroApplied);
     } else {
       message.macroApplied = undefined;
+    }
+    if (object.templatedEmail !== undefined && object.templatedEmail !== null) {
+      message.templatedEmail = TemplatedEmail.fromPartial(
+        object.templatedEmail
+      );
+    } else {
+      message.templatedEmail = undefined;
     }
     if (object.testEvent !== undefined && object.testEvent !== null) {
       message.testEvent = TestEvent.fromPartial(object.testEvent);

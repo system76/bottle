@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { Build } from "../../../bottle/assembly/v1/build";
+import { Build } from "./build";
 
 export const protobufPackage = "bottle.assembly.v1";
 

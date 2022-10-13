@@ -29,6 +29,8 @@ var bottle_inventory_v1_events_pb = require('../../../bottle/inventory/v1/events
 goog.object.extend(proto, bottle_inventory_v1_events_pb);
 var bottle_support_v1_events_pb = require('../../../bottle/support/v1/events_pb.js');
 goog.object.extend(proto, bottle_support_v1_events_pb);
+var bottle_templates_v1_events_pb = require('../../../bottle/templates/v1/events_pb.js');
+goog.object.extend(proto, bottle_templates_v1_events_pb);
 goog.exportSymbol('proto.bottle.core.v1.Bottle', null, global);
 goog.exportSymbol('proto.bottle.core.v1.Bottle.ResourceCase', null, global);
 /**
@@ -61,7 +63,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,31,13,14,28,29,15,30,25,26,32,16,17,27]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,31,13,14,28,29,15,30,25,26,32,16,17,33,27]];
 
 /**
  * @enum {number}
@@ -95,6 +97,7 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   COMPONENT_KIT_CHANGED: 32,
   QUESTION_CREATED: 16,
   MACRO_APPLIED: 17,
+  TEMPLATED_EMAIL: 33,
   TEST_EVENT: 27
 };
 
@@ -166,6 +169,7 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     componentKitChanged: (f = msg.getComponentKitChanged()) && bottle_inventory_v1_events_pb.ComponentKitChanged.toObject(includeInstance, f),
     questionCreated: (f = msg.getQuestionCreated()) && bottle_support_v1_events_pb.QuestionCreated.toObject(includeInstance, f),
     macroApplied: (f = msg.getMacroApplied()) && bottle_support_v1_events_pb.MacroApplied.toObject(includeInstance, f),
+    templatedEmail: (f = msg.getTemplatedEmail()) && bottle_templates_v1_events_pb.TemplatedEmail.toObject(includeInstance, f),
     testEvent: (f = msg.getTestEvent()) && bottle_core_v1_testing_pb.TestEvent.toObject(includeInstance, f)
   };
 
@@ -349,6 +353,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_support_v1_events_pb.MacroApplied;
       reader.readMessage(value,bottle_support_v1_events_pb.MacroApplied.deserializeBinaryFromReader);
       msg.setMacroApplied(value);
+      break;
+    case 33:
+      var value = new bottle_templates_v1_events_pb.TemplatedEmail;
+      reader.readMessage(value,bottle_templates_v1_events_pb.TemplatedEmail.deserializeBinaryFromReader);
+      msg.setTemplatedEmail(value);
       break;
     case 27:
       var value = new bottle_core_v1_testing_pb.TestEvent;
@@ -619,6 +628,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       17,
       f,
       bottle_support_v1_events_pb.MacroApplied.serializeBinaryToWriter
+    );
+  }
+  f = message.getTemplatedEmail();
+  if (f != null) {
+    writer.writeMessage(
+      33,
+      f,
+      bottle_templates_v1_events_pb.TemplatedEmail.serializeBinaryToWriter
     );
   }
   f = message.getTestEvent();
@@ -1682,6 +1699,43 @@ proto.bottle.core.v1.Bottle.prototype.clearMacroApplied = function() {
  */
 proto.bottle.core.v1.Bottle.prototype.hasMacroApplied = function() {
   return jspb.Message.getField(this, 17) != null;
+};
+
+
+/**
+ * optional bottle.templates.v1.TemplatedEmail templated_email = 33;
+ * @return {?proto.bottle.templates.v1.TemplatedEmail}
+ */
+proto.bottle.core.v1.Bottle.prototype.getTemplatedEmail = function() {
+  return /** @type{?proto.bottle.templates.v1.TemplatedEmail} */ (
+    jspb.Message.getWrapperField(this, bottle_templates_v1_events_pb.TemplatedEmail, 33));
+};
+
+
+/**
+ * @param {?proto.bottle.templates.v1.TemplatedEmail|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setTemplatedEmail = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 33, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearTemplatedEmail = function() {
+  return this.setTemplatedEmail(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasTemplatedEmail = function() {
+  return jspb.Message.getField(this, 33) != null;
 };
 
 

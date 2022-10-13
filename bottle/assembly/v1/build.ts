@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
-import { Order } from "../../../bottle/fulfillment/v1/order";
-import { Component } from "../../../bottle/inventory/v1/component";
+import { Order } from "../../fulfillment/v1/order";
+import { Component } from "../../inventory/v1/component";
 
 export const protobufPackage = "bottle.assembly.v1";
 

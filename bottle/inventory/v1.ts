@@ -13,7 +13,7 @@ import {
   ListSkuAvailabilityRequest,
   GetSkuDetailsRequest,
   ListLocationsRequest,
-} from "../../bottle/inventory/v1/service";
+} from "./v1/service";
 
 export const protobufPackage = "bottle.inventory";
 
