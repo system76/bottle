@@ -9,6 +9,7 @@ import "bottle/fulfillment/v1/events.proto";
 import "bottle/fulfillment/v1/order_verification_service.proto";
 import "bottle/inventory/v1/events.proto";
 import "bottle/support/v1/events.proto";
+import "bottle/templates/v1/events.proto";
 
 message Bottle {
   int64 timestamp = 1;
@@ -47,6 +48,8 @@ message Bottle {
 
     bottle.support.v1.QuestionCreated question_created = 16;
     bottle.support.v1.MacroApplied macro_applied = 17;
+
+    bottle.templates.v1.TemplatedEmail templated_email = 33;
 
     bottle.core.v1.TestEvent test_event = 27;
   }
