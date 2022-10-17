@@ -49,7 +49,7 @@ jobs:
           cd ./elixir
           mix deps.get
           mix compile
-          mix escript.install --force hex protobuf
+          mix escript.install --force hex protobuf 0.11.0
 
           sudo cp /home/runner/.mix/escripts/protoc-gen-elixir /usr/local/bin/
           sudo chmod +x /usr/local/bin/protoc-gen-elixir
