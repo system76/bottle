@@ -30,7 +30,7 @@ defmodule Bottle.MixProject do
       {:google_protos, "~> 0.1"},
       {:grpc, github: "elixir-grpc/grpc"},
       {:plug_cowboy, "~> 2.0", optional: true},
-      {:protobuf, "~> 0.8.0"}
+      {:protobuf, "~> 0.11.0"}
     ]
   end
 end
