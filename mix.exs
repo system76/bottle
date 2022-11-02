@@ -28,7 +28,7 @@ defmodule Bottle.MixProject do
       # Can be ignored if you don't use Google's protos.
       # Or you can generate the code by yourself.
       {:google_protos, "~> 0.1"},
-      {:grpc, github: "elixir-grpc/grpc"},
+      {:grpc, "~> 0.5.0", github: "elixir-grpc/grpc"},
       {:plug_cowboy, "~> 2.0", optional: true},
       {:protobuf, "~> 0.11.0"}
     ]
