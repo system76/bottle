@@ -3,8 +3,11 @@ defmodule Bottle do
   A collection of helper functions used by all consuming and producer services
   """
 
+  @behaviour Bottle.Behaviour
+
   @callback publish(struct(), keyword()) :: :ok | {:error, reason :: :blocked | :closing}
 
+  @impl Bottle.Behaviour
   @spec publish(struct(), keyword()) :: :ok | {:error, reason :: :blocked | :closing}
   def publish(message, opts \\ []) do
     {exchange, routing_key} = exchange_and_routing_key(message)
