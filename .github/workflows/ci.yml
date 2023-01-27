@@ -12,7 +12,7 @@ on:
 jobs:
   Lint_Format:
     name: Lint (Format)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
@@ -28,7 +28,7 @@ jobs:
 
   Lint_Breaking:
     name: Lint (Breaking)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout (current)
@@ -52,7 +52,7 @@ jobs:
           buf breaking --against ./master/protos ./current/protos
 
   Elixir:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout (current)
@@ -108,7 +108,7 @@ jobs:
           mix format
 
   Node:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout (master)
