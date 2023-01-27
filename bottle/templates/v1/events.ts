@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import * as Long from "long";
+import { TypedAttachment } from "./typed_attachment";
 
 export const protobufPackage = "bottle.templates.v1";
 
@@ -10,6 +11,7 @@ export interface TemplatedEmail {
   emailFrom: string;
   emailTo: string;
   subject: string;
+  attachments: TypedAttachment[];
 }
 
 export interface TemplatedEmail_FormVariablesEntry {
@@ -44,6 +46,9 @@ export const TemplatedEmail = {
     if (message.subject !== "") {
       writer.uint32(42).string(message.subject);
     }
+    for (const v of message.attachments) {
+      TypedAttachment.encode(v!, writer.uint32(50).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -52,6 +57,7 @@ export const TemplatedEmail = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseTemplatedEmail } as TemplatedEmail;
     message.formVariables = {};
+    message.attachments = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -76,6 +82,11 @@ export const TemplatedEmail = {
         case 5:
           message.subject = reader.string();
           break;
+        case 6:
+          message.attachments.push(
+            TypedAttachment.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -87,6 +98,7 @@ export const TemplatedEmail = {
   fromJSON(object: any): TemplatedEmail {
     const message = { ...baseTemplatedEmail } as TemplatedEmail;
     message.formVariables = {};
+    message.attachments = [];
     if (object.templateName !== undefined && object.templateName !== null) {
       message.templateName = String(object.templateName);
     } else {
@@ -112,6 +124,11 @@ export const TemplatedEmail = {
     } else {
       message.subject = "";
     }
+    if (object.attachments !== undefined && object.attachments !== null) {
+      for (const e of object.attachments) {
+        message.attachments.push(TypedAttachment.fromJSON(e));
+      }
+    }
     return message;
   },
 
@@ -128,12 +145,20 @@ export const TemplatedEmail = {
     message.emailFrom !== undefined && (obj.emailFrom = message.emailFrom);
     message.emailTo !== undefined && (obj.emailTo = message.emailTo);
     message.subject !== undefined && (obj.subject = message.subject);
+    if (message.attachments) {
+      obj.attachments = message.attachments.map((e) =>
+        e ? TypedAttachment.toJSON(e) : undefined
+      );
+    } else {
+      obj.attachments = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<TemplatedEmail>): TemplatedEmail {
     const message = { ...baseTemplatedEmail } as TemplatedEmail;
     message.formVariables = {};
+    message.attachments = [];
     if (object.templateName !== undefined && object.templateName !== null) {
       message.templateName = object.templateName;
     } else {
@@ -160,6 +185,11 @@ export const TemplatedEmail = {
       message.subject = object.subject;
     } else {
       message.subject = "";
+    }
+    if (object.attachments !== undefined && object.attachments !== null) {
+      for (const e of object.attachments) {
+        message.attachments.push(TypedAttachment.fromPartial(e));
+      }
     }
     return message;
   },
