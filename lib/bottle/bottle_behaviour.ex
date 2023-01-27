@@ -4,5 +4,4 @@ defmodule Bottle.Behaviour do
   """
 
   @callback publish(struct(), keyword()) :: :ok | {:error, reason :: :blocked | :closing}
-
 end
