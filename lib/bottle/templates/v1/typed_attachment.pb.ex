@@ -4,4 +4,5 @@ defmodule Bottle.Templates.V1.TypedAttachment do
 
   field(:type, 1, type: :string)
   field(:source, 2, type: :string)
+  field(:file_name, 3, type: :string, json_name: "fileName")
 end
