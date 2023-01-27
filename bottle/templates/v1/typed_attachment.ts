@@ -7,9 +7,10 @@ export const protobufPackage = "bottle.templates.v1";
 export interface TypedAttachment {
   type: string;
   source: string;
+  fileName: string;
 }
 
-const baseTypedAttachment: object = { type: "", source: "" };
+const baseTypedAttachment: object = { type: "", source: "", fileName: "" };
 
 export const TypedAttachment = {
   encode(message: TypedAttachment, writer: Writer = Writer.create()): Writer {
@@ -18,6 +19,9 @@ export const TypedAttachment = {
     }
     if (message.source !== "") {
       writer.uint32(18).string(message.source);
+    }
+    if (message.fileName !== "") {
+      writer.uint32(26).string(message.fileName);
     }
     return writer;
   },
@@ -34,6 +38,9 @@ export const TypedAttachment = {
           break;
         case 2:
           message.source = reader.string();
+          break;
+        case 3:
+          message.fileName = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -55,6 +62,11 @@ export const TypedAttachment = {
     } else {
       message.source = "";
     }
+    if (object.fileName !== undefined && object.fileName !== null) {
+      message.fileName = String(object.fileName);
+    } else {
+      message.fileName = "";
+    }
     return message;
   },
 
@@ -62,6 +74,7 @@ export const TypedAttachment = {
     const obj: any = {};
     message.type !== undefined && (obj.type = message.type);
     message.source !== undefined && (obj.source = message.source);
+    message.fileName !== undefined && (obj.fileName = message.fileName);
     return obj;
   },
 
@@ -76,6 +89,11 @@ export const TypedAttachment = {
       message.source = object.source;
     } else {
       message.source = "";
+    }
+    if (object.fileName !== undefined && object.fileName !== null) {
+      message.fileName = object.fileName;
+    } else {
+      message.fileName = "";
     }
     return message;
   },

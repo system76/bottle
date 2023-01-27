@@ -70,7 +70,8 @@ proto.bottle.templates.v1.TypedAttachment.prototype.toObject = function(opt_incl
 proto.bottle.templates.v1.TypedAttachment.toObject = function(includeInstance, msg) {
   var f, obj = {
     type: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    source: jspb.Message.getFieldWithDefault(msg, 2, "")
+    source: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    fileName: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -115,6 +116,10 @@ proto.bottle.templates.v1.TypedAttachment.deserializeBinaryFromReader = function
       var value = /** @type {string} */ (reader.readString());
       msg.setSource(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFileName(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -158,6 +163,13 @@ proto.bottle.templates.v1.TypedAttachment.serializeBinaryToWriter = function(mes
       f
     );
   }
+  f = message.getFileName();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -194,6 +206,24 @@ proto.bottle.templates.v1.TypedAttachment.prototype.getSource = function() {
  */
 proto.bottle.templates.v1.TypedAttachment.prototype.setSource = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string file_name = 3;
+ * @return {string}
+ */
+proto.bottle.templates.v1.TypedAttachment.prototype.getFileName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.bottle.templates.v1.TypedAttachment} returns this
+ */
+proto.bottle.templates.v1.TypedAttachment.prototype.setFileName = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
