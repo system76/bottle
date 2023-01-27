@@ -5,4 +5,5 @@ package bottle.templates.v1;
 message TypedAttachment {
   string type = 1;
   string source = 2;
+  string file_name = 3;
 }
