@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package bottle.templates.v2;
-
-message TypedAttachment {
-  string type = 1;
-  string source = 2;
-  string file_name = 3;
-}
