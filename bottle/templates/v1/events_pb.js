@@ -79,7 +79,7 @@ proto.bottle.templates.v1.TemplatedEmail.prototype.toObject = function(opt_inclu
 proto.bottle.templates.v1.TemplatedEmail.toObject = function(includeInstance, msg) {
   var f, obj = {
     templateName: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    formVariablesMap: (f = msg.getFormVariablesMap()) ? f.toObject(includeInstance, undefined) : [],
+    formVariables: jspb.Message.getFieldWithDefault(msg, 2, ""),
     emailFrom: jspb.Message.getFieldWithDefault(msg, 3, ""),
     emailTo: jspb.Message.getFieldWithDefault(msg, 4, ""),
     subject: jspb.Message.getFieldWithDefault(msg, 5, ""),
@@ -126,10 +126,8 @@ proto.bottle.templates.v1.TemplatedEmail.deserializeBinaryFromReader = function(
       msg.setTemplateName(value);
       break;
     case 2:
-      var value = msg.getFormVariablesMap();
-      reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readString, null, "", "");
-         });
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFormVariables(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
@@ -184,9 +182,12 @@ proto.bottle.templates.v1.TemplatedEmail.serializeBinaryToWriter = function(mess
       f
     );
   }
-  f = message.getFormVariablesMap(true);
-  if (f && f.getLength() > 0) {
-    f.serializeBinary(2, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeString);
+  f = message.getFormVariables();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
   }
   f = message.getEmailFrom();
   if (f.length > 0) {
@@ -239,25 +240,21 @@ proto.bottle.templates.v1.TemplatedEmail.prototype.setTemplateName = function(va
 
 
 /**
- * map<string, string> form_variables = 2;
- * @param {boolean=} opt_noLazyCreate Do not create the map if
- * empty, instead returning `undefined`
- * @return {!jspb.Map<string,string>}
+ * optional string form_variables = 2;
+ * @return {string}
  */
-proto.bottle.templates.v1.TemplatedEmail.prototype.getFormVariablesMap = function(opt_noLazyCreate) {
-  return /** @type {!jspb.Map<string,string>} */ (
-      jspb.Message.getMapField(this, 2, opt_noLazyCreate,
-      null));
+proto.bottle.templates.v1.TemplatedEmail.prototype.getFormVariables = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
- * Clears values from the map. The map will be non-null.
+ * @param {string} value
  * @return {!proto.bottle.templates.v1.TemplatedEmail} returns this
  */
-proto.bottle.templates.v1.TemplatedEmail.prototype.clearFormVariablesMap = function() {
-  this.getFormVariablesMap().clear();
-  return this;};
+proto.bottle.templates.v1.TemplatedEmail.prototype.setFormVariables = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
 
 
 /**
