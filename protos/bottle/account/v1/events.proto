@@ -58,3 +58,8 @@ message OrganizationLeft {
   bottle.account.v1.Organization organization = 1;
   bottle.account.v1.User user = 2;
 }
+
+message Verification {
+  bottle.account.v1.User user = 1;
+  string verification_url = 2;
+}
