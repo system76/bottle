@@ -83,3 +83,11 @@ defmodule Bottle.Account.V1.OrganizationLeft do
   field(:organization, 1, type: Bottle.Account.V1.Organization)
   field(:user, 2, type: Bottle.Account.V1.User)
 end
+
+defmodule Bottle.Account.V1.Verification do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.11.0", syntax: :proto3
+
+  field(:user, 1, type: Bottle.Account.V1.User)
+  field(:verification_url, 2, type: :string, json_name: "verificationUrl")
+end

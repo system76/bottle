@@ -86,6 +86,8 @@ defmodule Bottle.Core.V1.Bottle do
     oneof: 0
   )
 
+  field(:verification, 34, type: Bottle.Account.V1.Verification, oneof: 0)
+
   field(:build_cancelled, 31,
     type: Bottle.Assembly.V1.BuildCancelled,
     json_name: "buildCancelled",
