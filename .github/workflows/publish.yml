@@ -13,7 +13,7 @@ on:
 
 jobs:
   Elixir:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout (master)
@@ -38,11 +38,10 @@ jobs:
           version: 0.44.0
 
       - name: Setup (elixir)
-        uses: actions/setup-elixir@v1
+        uses: erlef/setup-beam@v1
         with:
           elixir-version: "1.14.1"
           otp-version: "25.1.1"
-          experimental-otp: true
 
       - name: Dependencies
         run: |
