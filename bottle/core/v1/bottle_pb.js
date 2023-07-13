@@ -63,7 +63,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,31,13,14,28,29,15,30,25,26,32,16,17,33,27]];
+proto.bottle.core.v1.Bottle.oneofGroups_ = [[4,22,23,24,6,7,20,21,8,9,18,19,10,11,12,34,31,13,14,28,29,15,30,25,26,32,16,17,33,27]];
 
 /**
  * @enum {number}
@@ -85,6 +85,7 @@ proto.bottle.core.v1.Bottle.ResourceCase = {
   ORGANIZATION_CREATED: 10,
   ORGANIZATION_JOINED: 11,
   ORGANIZATION_LEFT: 12,
+  VERIFICATION: 34,
   BUILD_CANCELLED: 31,
   BUILD_CREATED: 13,
   BUILD_UPDATED: 14,
@@ -157,6 +158,7 @@ proto.bottle.core.v1.Bottle.toObject = function(includeInstance, msg) {
     organizationCreated: (f = msg.getOrganizationCreated()) && bottle_account_v1_events_pb.OrganizationCreated.toObject(includeInstance, f),
     organizationJoined: (f = msg.getOrganizationJoined()) && bottle_account_v1_events_pb.OrganizationJoined.toObject(includeInstance, f),
     organizationLeft: (f = msg.getOrganizationLeft()) && bottle_account_v1_events_pb.OrganizationLeft.toObject(includeInstance, f),
+    verification: (f = msg.getVerification()) && bottle_account_v1_events_pb.Verification.toObject(includeInstance, f),
     buildCancelled: (f = msg.getBuildCancelled()) && bottle_assembly_v1_events_pb.BuildCancelled.toObject(includeInstance, f),
     buildCreated: (f = msg.getBuildCreated()) && bottle_assembly_v1_events_pb.BuildCreated.toObject(includeInstance, f),
     buildUpdated: (f = msg.getBuildUpdated()) && bottle_assembly_v1_events_pb.BuildUpdated.toObject(includeInstance, f),
@@ -293,6 +295,11 @@ proto.bottle.core.v1.Bottle.deserializeBinaryFromReader = function(msg, reader) 
       var value = new bottle_account_v1_events_pb.OrganizationLeft;
       reader.readMessage(value,bottle_account_v1_events_pb.OrganizationLeft.deserializeBinaryFromReader);
       msg.setOrganizationLeft(value);
+      break;
+    case 34:
+      var value = new bottle_account_v1_events_pb.Verification;
+      reader.readMessage(value,bottle_account_v1_events_pb.Verification.deserializeBinaryFromReader);
+      msg.setVerification(value);
       break;
     case 31:
       var value = new bottle_assembly_v1_events_pb.BuildCancelled;
@@ -532,6 +539,14 @@ proto.bottle.core.v1.Bottle.serializeBinaryToWriter = function(message, writer) 
       12,
       f,
       bottle_account_v1_events_pb.OrganizationLeft.serializeBinaryToWriter
+    );
+  }
+  f = message.getVerification();
+  if (f != null) {
+    writer.writeMessage(
+      34,
+      f,
+      bottle_account_v1_events_pb.Verification.serializeBinaryToWriter
     );
   }
   f = message.getBuildCancelled();
@@ -1255,6 +1270,43 @@ proto.bottle.core.v1.Bottle.prototype.clearOrganizationLeft = function() {
  */
 proto.bottle.core.v1.Bottle.prototype.hasOrganizationLeft = function() {
   return jspb.Message.getField(this, 12) != null;
+};
+
+
+/**
+ * optional bottle.account.v1.Verification verification = 34;
+ * @return {?proto.bottle.account.v1.Verification}
+ */
+proto.bottle.core.v1.Bottle.prototype.getVerification = function() {
+  return /** @type{?proto.bottle.account.v1.Verification} */ (
+    jspb.Message.getWrapperField(this, bottle_account_v1_events_pb.Verification, 34));
+};
+
+
+/**
+ * @param {?proto.bottle.account.v1.Verification|undefined} value
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+*/
+proto.bottle.core.v1.Bottle.prototype.setVerification = function(value) {
+  return jspb.Message.setOneofWrapperField(this, 34, proto.bottle.core.v1.Bottle.oneofGroups_[0], value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.bottle.core.v1.Bottle} returns this
+ */
+proto.bottle.core.v1.Bottle.prototype.clearVerification = function() {
+  return this.setVerification(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.bottle.core.v1.Bottle.prototype.hasVerification = function() {
+  return jspb.Message.getField(this, 34) != null;
 };
 
 

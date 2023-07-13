@@ -21,6 +21,7 @@ import {
   OrganizationCreated,
   OrganizationJoined,
   OrganizationLeft,
+  Verification,
 } from "../../account/v1/events";
 import {
   BuildCancelled,
@@ -61,6 +62,7 @@ export interface Bottle {
   organizationCreated: OrganizationCreated | undefined;
   organizationJoined: OrganizationJoined | undefined;
   organizationLeft: OrganizationLeft | undefined;
+  verification: Verification | undefined;
   buildCancelled: BuildCancelled | undefined;
   buildCreated: BuildCreated | undefined;
   buildUpdated: BuildUpdated | undefined;
@@ -178,6 +180,12 @@ export const Bottle = {
       OrganizationLeft.encode(
         message.organizationLeft,
         writer.uint32(98).fork()
+      ).ldelim();
+    }
+    if (message.verification !== undefined) {
+      Verification.encode(
+        message.verification,
+        writer.uint32(274).fork()
       ).ldelim();
     }
     if (message.buildCancelled !== undefined) {
@@ -348,6 +356,9 @@ export const Bottle = {
             reader,
             reader.uint32()
           );
+          break;
+        case 34:
+          message.verification = Verification.decode(reader, reader.uint32());
           break;
         case 31:
           message.buildCancelled = BuildCancelled.decode(
@@ -550,6 +561,11 @@ export const Bottle = {
     } else {
       message.organizationLeft = undefined;
     }
+    if (object.verification !== undefined && object.verification !== null) {
+      message.verification = Verification.fromJSON(object.verification);
+    } else {
+      message.verification = undefined;
+    }
     if (object.buildCancelled !== undefined && object.buildCancelled !== null) {
       message.buildCancelled = BuildCancelled.fromJSON(object.buildCancelled);
     } else {
@@ -713,6 +729,10 @@ export const Bottle = {
     message.organizationLeft !== undefined &&
       (obj.organizationLeft = message.organizationLeft
         ? OrganizationLeft.toJSON(message.organizationLeft)
+        : undefined);
+    message.verification !== undefined &&
+      (obj.verification = message.verification
+        ? Verification.toJSON(message.verification)
         : undefined);
     message.buildCancelled !== undefined &&
       (obj.buildCancelled = message.buildCancelled
@@ -906,6 +926,11 @@ export const Bottle = {
       );
     } else {
       message.organizationLeft = undefined;
+    }
+    if (object.verification !== undefined && object.verification !== null) {
+      message.verification = Verification.fromPartial(object.verification);
+    } else {
+      message.verification = undefined;
     }
     if (object.buildCancelled !== undefined && object.buildCancelled !== null) {
       message.buildCancelled = BuildCancelled.fromPartial(

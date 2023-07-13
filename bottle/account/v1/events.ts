@@ -95,6 +95,11 @@ export interface OrganizationLeft {
   user: User | undefined;
 }
 
+export interface Verification {
+  user: User | undefined;
+  verificationUrl: string;
+}
+
 const baseUserCreated: object = {};
 
 export const UserCreated = {
@@ -817,6 +822,86 @@ export const OrganizationLeft = {
       message.user = User.fromPartial(object.user);
     } else {
       message.user = undefined;
+    }
+    return message;
+  },
+};
+
+const baseVerification: object = { verificationUrl: "" };
+
+export const Verification = {
+  encode(message: Verification, writer: Writer = Writer.create()): Writer {
+    if (message.user !== undefined) {
+      User.encode(message.user, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.verificationUrl !== "") {
+      writer.uint32(18).string(message.verificationUrl);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): Verification {
+    const reader = input instanceof Reader ? input : new Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseVerification } as Verification;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.user = User.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.verificationUrl = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Verification {
+    const message = { ...baseVerification } as Verification;
+    if (object.user !== undefined && object.user !== null) {
+      message.user = User.fromJSON(object.user);
+    } else {
+      message.user = undefined;
+    }
+    if (
+      object.verificationUrl !== undefined &&
+      object.verificationUrl !== null
+    ) {
+      message.verificationUrl = String(object.verificationUrl);
+    } else {
+      message.verificationUrl = "";
+    }
+    return message;
+  },
+
+  toJSON(message: Verification): unknown {
+    const obj: any = {};
+    message.user !== undefined &&
+      (obj.user = message.user ? User.toJSON(message.user) : undefined);
+    message.verificationUrl !== undefined &&
+      (obj.verificationUrl = message.verificationUrl);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<Verification>): Verification {
+    const message = { ...baseVerification } as Verification;
+    if (object.user !== undefined && object.user !== null) {
+      message.user = User.fromPartial(object.user);
+    } else {
+      message.user = undefined;
+    }
+    if (
+      object.verificationUrl !== undefined &&
+      object.verificationUrl !== null
+    ) {
+      message.verificationUrl = object.verificationUrl;
+    } else {
+      message.verificationUrl = "";
     }
     return message;
   },
