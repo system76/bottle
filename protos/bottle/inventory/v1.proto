@@ -1,4 +1,4 @@
-syntax = "proto3";
+ syntax = "proto3";
 
 import "bottle/inventory/v1/service.proto";
 
@@ -10,6 +10,7 @@ service V1 {
   rpc ListSkuQuantity(bottle.inventory.v1.ListSkuQuantityRequest) returns (stream bottle.inventory.v1.ListSkuQuantityResponse);
   rpc ListSkuAvailability(bottle.inventory.v1.ListSkuAvailabilityRequest) returns (stream bottle.inventory.v1.ListSkuAvailabilityResponse);
   rpc GetSkuDetails(bottle.inventory.v1.GetSkuDetailsRequest) returns (bottle.inventory.v1.GetSkuDetailsResponse);
+  rpc ListSkuMovements(bottle.inventory.v1.ListSkuMovementsRequest) returns (stream bottle.inventory.v1.ListSkuMovementsResponse);
 
   rpc ListLocations(bottle.inventory.v1.ListLocationsRequest) returns (stream bottle.inventory.v1.ListLocationsResponse);
 }

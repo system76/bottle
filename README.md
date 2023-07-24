@@ -25,7 +25,7 @@ end
 for an order, we would use `order: %Order{id: "1234"}` instead of `order_id: "1234"`.
 
 - Date & Time - We use string fields to represent ISO 8601 formatted date and time fields. This is built into most
-languages by default, and if you are using elixir, you can simply use `DateTime.to_iso8601/1`.
+languages by default, and if you are using Elixir, you can simply use `DateTime.to_iso8601/1`.
 
 ### Deploying
 
