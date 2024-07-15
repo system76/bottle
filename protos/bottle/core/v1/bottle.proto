@@ -12,7 +12,7 @@ import "bottle/support/v1/events.proto";
 import "bottle/templates/v1/events.proto";
 
 message Bottle {
-  int64 timestamp = 1;
+  string created_at = 1;
   string request_id = 2;
   string source = 3;
 
