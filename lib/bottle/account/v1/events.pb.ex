@@ -5,6 +5,7 @@ defmodule Bottle.Account.V1.TwoFactorRequested.TwoFactorMethod do
   field(:TWO_FACTOR_METHOD_UNSPECIFIED, 0)
   field(:TWO_FACTOR_METHOD_SMS, 1)
   field(:TWO_FACTOR_METHOD_VOICE, 2)
+  field(:TWO_FACTOR_METHOD_EMAIL, 3)
 end
 
 defmodule Bottle.Account.V1.UserCreated do
