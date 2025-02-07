@@ -21,8 +21,7 @@ defmodule Bottle.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:amqp, "~> 4.0.0"},
-      {:ranch, "~>2.1.0", override: true},
+      {:amqp, "~> 3.0.0"},
       # 2.9.0 fixes some important bugs, so it's better to use ~> 2.9.0
       {:cowlib, "~> 2.9.0", override: true},
       # Only for files generated from Google's protos.
