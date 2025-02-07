@@ -27,6 +27,7 @@ defmodule Bottle.MixProject do
       # Only for files generated from Google's protos.
       # Can be ignored if you don't use Google's protos.
       # Or you can generate the code by yourself.
+      {:ranch, "~> 2.1", override: true},  # ranch 2.1 
       {:google_protos, "~> 0.1"},
       {:grpc, "~> 0.5.0"},
       {:plug_cowboy, "~> 2.0", optional: true},
