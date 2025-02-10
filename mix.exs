@@ -32,7 +32,7 @@ defmodule Bottle.MixProject do
       {:google_protos, "~> 0.4.0"},
       {:grpc, "~> 0.9.0"},
       {:plug_cowboy, "~> 2.7.2", optional: true},
-      {:protobuf, "~> 0.14.0"}
+      {:protobuf, "~> 0.11.0"}
     ]
   end
 end
