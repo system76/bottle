@@ -29,9 +29,7 @@ defmodule Bottle.RequestId do
   If you need to make subsequent requests, you can use `write/1` like this:
 
     def encode() do
-      Bottle.Core.V1.Bottle.new([
-        request_id: Bottle.RequestId.write(:queue)
-      ])
+      %Bottle.Core.V1.Bottle{request_id: Bottle.RequestId.write(:queue)}
     end
 
   """

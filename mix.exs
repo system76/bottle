@@ -21,16 +21,17 @@ defmodule Bottle.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:amqp, "~> 3.0"},
-      # 2.9.0 fixes some important bugs, so it's better to use ~> 2.9.0
-      {:cowlib, "~> 2.9.0", override: true},
+      # Needs OTP 26+
+      {:amqp, "~> 4.0"},
       # Only for files generated from Google's protos.
       # Can be ignored if you don't use Google's protos.
       # Or you can generate the code by yourself.
-      {:google_protos, "~> 0.1"},
-      {:grpc, "~> 0.5.0"},
-      {:plug_cowboy, "~> 2.0", optional: true},
-      {:protobuf, "~> 0.11.0"}
+      {:google_protos, "~> 0.4.0"},
+      # Fixes critical RCE CVE-2026-48853
+      {:grpc, "~> 1.0"},
+      # Needed so Plug compiles before bottle, for RequestIdPlug's Code.ensure_loaded? check
+      {:plug, ">= 0.0.0", optional: true},
+      {:protobuf, "~> 0.17"}
     ]
   end
 end
