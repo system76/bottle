@@ -32,7 +32,7 @@ defmodule Bottle do
       |> String.downcase()
       |> String.to_atom()
 
-    Bottle.Core.V1.Bottle.new(
+    struct!(Bottle.Core.V1.Bottle,
       request_id: Keyword.get(opts, :request_id, Bottle.RequestId.write(:queue)),
       resource: {message_type, message},
       source: Keyword.fetch!(opts, :source),
