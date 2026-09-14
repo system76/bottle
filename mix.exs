@@ -21,10 +21,8 @@ defmodule Bottle.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:amqp, "~> 3.0"},
-      # OTP 27 support; rabbit_types:maybe/1 clashes with the `maybe` keyword otherwise
-      {:rabbit_common, "~> 3.13.7", override: true},
-      {:ranch, "~> 2.1", override: true},
+      # Needs OTP 26+
+      {:amqp, "~> 4.0"},
       # Only for files generated from Google's protos.
       # Can be ignored if you don't use Google's protos.
       # Or you can generate the code by yourself.
