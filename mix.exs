@@ -29,6 +29,8 @@ defmodule Bottle.MixProject do
       {:google_protos, "~> 0.4.0"},
       # Fixes critical RCE CVE-2026-48853
       {:grpc, "~> 1.0"},
+      # Needed so Plug compiles before bottle, for RequestIdPlug's Code.ensure_loaded? check
+      {:plug, ">= 0.0.0", optional: true},
       {:protobuf, "~> 0.17"}
     ]
   end
