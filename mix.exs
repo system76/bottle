@@ -23,10 +23,6 @@ defmodule Bottle.MixProject do
     [
       # Needs OTP 26+
       {:amqp, "~> 4.0"},
-      # Only for files generated from Google's protos.
-      # Can be ignored if you don't use Google's protos.
-      # Or you can generate the code by yourself.
-      {:google_protos, "~> 0.4.0"},
       # Fixes critical RCE CVE-2026-48853
       {:grpc, "~> 1.0"},
       # Needed so Plug compiles before bottle, for RequestIdPlug's Code.ensure_loaded? check
